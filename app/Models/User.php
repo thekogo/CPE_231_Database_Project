@@ -58,5 +58,11 @@ class User extends Authenticatable
      */
     protected $appends = [
         'profileImgUrl',
+        'fullName',
     ];
+
+    public function getFullNameAttribute()
+    {
+        return $this->attributes['firstName'] . "  " . $this->attributes['lastName'];
+    }
 }
