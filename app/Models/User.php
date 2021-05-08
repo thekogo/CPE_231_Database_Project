@@ -65,4 +65,14 @@ class User extends Authenticatable
     {
         return $this->attributes['firstName'] . "  " . $this->attributes['lastName'];
     }
+
+    public function getProfileImgUrlAttribute()
+    {
+        return $this->getProfilePhotoUrlAttribute();
+    }
+
+    protected function defaultProfilePhotoUrl()
+    {
+        return 'https://ui-avatars.com/api/?name=' . urlencode($this->fullName) . '&color=7F9CF5&background=EBF4FF';
+    }
 }

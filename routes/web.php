@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Student;
 use App\Http\Controllers\Tutor;
+use App\Http\Controllers\Admin;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -39,5 +40,11 @@ Route::middleware(['auth:sanctum'])->group(function () {
 Route::middleware(['auth:sanctum'])->group(function () {
     Route::middleware(['role:tutor'])->prefix('tutors')->group(function () {
         Route::get('/', [Tutor\HomeController::class, 'index']);
+    });
+});
+
+Route::middleware(['auth:sanctum'])->group(function () {
+    Route::middleware(['role:admin'])->prefix('admins')->group(function () {
+        Route::get('/', [Admin\HomeController::class, 'index']);
     });
 });
