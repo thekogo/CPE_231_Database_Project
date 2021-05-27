@@ -44,7 +44,8 @@ Route::middleware(['auth:sanctum'])->group(function () {
 });
 
 Route::middleware(['auth:sanctum'])->group(function () {
-    Route::middleware(['role:admin'])->prefix('admins')->group(function () {
-        Route::get('/', [Admin\HomeController::class, 'index']);
+    Route::middleware(['role:admin'])->prefix('admins')->name('admin.')->group(function () {
+        Route::get('/', [Admin\HomeController::class, 'index'])->name('home');
+        Route::resource('/categories', Admin\CategoryController::class);
     });
 });

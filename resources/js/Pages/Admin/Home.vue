@@ -40,7 +40,6 @@
 
 <script>
 import AppLayout from "@/Layouts/AppLayout";
-import CardCourse from "@/Components/CardCourse";
 import JetNavLink from "@/Jetstream/NavLink";
 import SideMenu from "@/Components/Student/SideMenu.vue";
 import PaymentRecord from "@/Components/Admin/PaymentRecord.vue";
@@ -48,7 +47,6 @@ import PaymentRecord from "@/Components/Admin/PaymentRecord.vue";
 export default {
   components: {
     AppLayout,
-    CardCourse,
     JetNavLink,
     SideMenu,
     PaymentRecord,
