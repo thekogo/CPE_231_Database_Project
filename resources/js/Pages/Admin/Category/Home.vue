@@ -47,8 +47,16 @@
                         "
                         >View</jet-button
                       >
-                      <jet-button color="warning">Edit</jet-button>
-                      <jet-button color="danger">Delete</jet-button>
+                      <jet-button
+                        color="warning"
+                        :href="
+                          route('admin.categories.edit', { id: category.id })
+                        "
+                        >Edit</jet-button
+                      >
+                      <jet-button color="danger" @click="openDelete(category)"
+                        >Delete</jet-button
+                      >
                     </td>
                   </tr>
                 </tbody>
@@ -66,6 +74,7 @@ import AppLayout from "@/Layouts/AppLayout";
 import JetNavLink from "@/Jetstream/NavLink";
 import SideMenu from "@/Components/Student/SideMenu.vue";
 import JetButton from "@/Jetstream/Button.vue";
+import Swal from "sweetalert2";
 
 export default {
   components: {
@@ -75,5 +84,47 @@ export default {
     JetButton,
   },
   props: ["categories"],
+
+  methods: {
+    openDelete({ id, category_name }) {
+      Swal.fire({
+        title: "Are you sure?",
+        text: "You won't be able to revert this!",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Yes, delete it!",
+        showLoaderOnConfirm: true,
+        preConfirm: () => {
+          return this.$inertia.delete(
+            route(
+              "admin.categories.destroy",
+              { category: id },
+              {
+                onSuccess: () => {
+                  return;
+                },
+                onError: () => {
+                  Swal.showValidationMessage(`Request failed: ${error}`);
+                },
+              }
+            )
+          );
+        },
+        allowOutsideClick: () => !Swal.isLoading(),
+      }).then((result) => {
+        if (result.isConfirmed) {
+          Swal.fire({
+            title: "Suscess",
+            html: `ลบ ${category_name} เรียบร้อย`,
+            icon: "success",
+            timer: 2000,
+            timerProgressBar: true,
+          });
+        }
+      });
+    },
+  },
 };
 </script>

@@ -6,6 +6,7 @@ use App\Models\Category;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
 use Inertia\Inertia;
 
 class CategoryController extends Controller
@@ -47,7 +48,7 @@ class CategoryController extends Controller
 
         Category::create($request->all());
 
-        return redirect(route('admin.categories.create'));
+        return redirect()->back();
     }
 
     /**
@@ -73,7 +74,11 @@ class CategoryController extends Controller
      */
     public function edit($id)
     {
-        //
+        $category = Category::findOrFail($id);
+        // dd($category);
+        return Inertia::render('Admin/Category/Edit', [
+            "category" => $category,
+        ]);
     }
 
     /**
@@ -85,7 +90,15 @@ class CategoryController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        Validator::make($request->all(), [
+            'category_name' => ['required', 'string', 'max:50', Rule::unique('categories')->ignore($id)],
+            'category_display' => ['required', 'string', 'max:50'],
+        ])->validate();
+
+        $category = Category::findOrFail($id);
+        $category->update($request->all());
+
+        return redirect()->back();
     }
 
     /**
@@ -96,6 +109,8 @@ class CategoryController extends Controller
      */
     public function destroy($id)
     {
-        //
+        Category::findOrFail($id)->delete();
+
+        return redirect()->back();
     }
 }
