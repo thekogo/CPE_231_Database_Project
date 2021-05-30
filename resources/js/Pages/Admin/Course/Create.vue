@@ -14,7 +14,7 @@
           </div>
           <div class="col-span-9">
             <div class="flex justify-between mb-2">
-              <h1 class="text-2xl font-semibold mb-3">สร้างหมวดหมู่</h1>
+              <h1 class="text-2xl font-semibold mb-3">สร้างคอร์สเรียน</h1>
               <jet-button :href="route('admin.courses.index')"
                 >รายการคอร์ส</jet-button
               >
@@ -23,25 +23,72 @@
               <jet-validation-errors class="mb-4" />
               <form @submit.prevent="submit">
                 <div class="grid grid-cols-5 mb-2">
-                  <label-grid for="category_name" value="Category Name" />
+                  <label-grid for="course_name" value="ชื่อคอร์ส" />
                   <jet-input
-                    id="category_name"
+                    id="course_name"
                     type="text"
                     class="mt-1 block w-full col-span-3"
                     required
                     autofocus
-                    autocomplete="category_name"
-                    v-model="form.category_name"
+                    autocomplete="course_name"
+                    v-model="form.course_name"
                   />
                 </div>
                 <div class="grid grid-cols-5 mb-2">
-                  <label-grid for="category_display" value="Category Display" />
-                  <jet-select
-                    :options="options"
-                    v-model="form.category_display"
+                  <label-grid for="course_description" value="รายละเอียดคอร์ส" />
+                  <jet-text-area
+                    class="mt-1 block w-full col-span-3"
+                    v-model="form.course_description"
                     required
                   />
                 </div>
+                <div class="grid grid-cols-5 mb-2">
+                  <label-grid for="price" value="ราคาคอร์ส" />
+                  <jet-input
+                    id="price"
+                    type="number"
+                    class="mt-1 block w-full col-span-1"
+                    required
+                    autofocus
+                    autocomplete="price"
+                    v-model="form.price"
+                  />
+                  <label-grid for="price" class="ml-4" value="บาท" />
+                </div>
+                <div class="grid grid-cols-5 mb-2">
+                  <label-grid for="hour_left" value="จำนวนชั่วโมง" />
+                  <jet-input
+                    id="hour_left"
+                    type="number"
+                    class="mt-1 block w-4/5 col-span-1"
+                    required
+                    autofocus
+                    autocomplete="hour_left"
+                    v-model="form.hour_left"
+                  />
+                  <label-grid for="price" value="ชั่วโมง" />
+                </div>
+                <div class="grid grid-cols-5 mb-2">
+                  <label-grid for="course_status" value="สถานะ" />
+                  <jet-select
+                    :options="options"
+                    v-model="form.course_status"
+                    required
+                  />
+                </div>
+
+                <div class="grid grid-cols-5 mb-2">
+                  <label-grid for="course_expire_date" value="วันหมดอายุ" />
+                  <jet-input
+                    id="birthday"
+                    type="date"
+                    class="mt-1 block w-full"
+                    v-model="form.course_create_date"
+                    required
+                  />
+                </div>
+
+
                 <div class="flex justify-end">
                   <jet-button>บันทึก</jet-button>
                 </div>
@@ -60,6 +107,7 @@ import JetNavLink from "@/Jetstream/NavLink";
 import SideMenu from "@/Components/Admin/SideMenu.vue";
 import JetButton from "@/Jetstream/Button.vue";
 import JetInput from "@/Jetstream/Input.vue";
+import JetTextArea from "@/Jetstream/TextArea.vue";
 import LabelGrid from "@/Components/Common/LabelGrid.vue";
 import JetSelect from "@/Jetstream/Select.vue";
 import JetValidationErrors from "@/Jetstream/ValidationErrors";
@@ -75,14 +123,19 @@ export default {
     LabelGrid,
     JetSelect,
     JetValidationErrors,
+    JetTextArea,
   },
   data() {
     return {
       form: this.$inertia.form({
-        category_name: "",
-        category_display: 0,
+        course_name: "",
+        course_description: "",
+        price : null ,
+        course_status : "",
+        course_expire_date : "",
+        hour_left : null ,
       }),
-      options: ["Active", "Draft"],
+      options: ["เผยแพร่", "ปิดการมองเห็น"],
     };
   },
 

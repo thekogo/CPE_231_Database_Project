@@ -14,21 +14,21 @@
           </div>
           <div class="col-span-9">
             <div class="flex justify-between mb-2">
-              <h1 class="text-2xl font-semibold mb-3">รายการหมวดหมู่</h1>
-              <jet-button :href="route('admin.categories.create')"
-                >สร้างหมวดหมู่</jet-button
+              <h1 class="text-2xl font-semibold mb-3">คอร์สเรียนทั้งหมด</h1>
+              <jet-button :href="route('admin.courses.create')"
+                >สร้างคอร์สเรียน</jet-button
               >
             </div>
             <div class="bg-white shadow-lg rounded-md p-5 flex flex-col gap-4">
               <table class="table-auto">
                 <thead>
                   <tr>
-                    <th>Course ID</th>
-                    <th>Course Category</th>
-                    <th>Course Status</th>
-                    <th>Price</th>
-                    <th>Course Owner</th>
-                    <th>Action</th>
+                    <th>รหัสคอร์ส</th>
+                    <th>หมวดหมู่</th>
+                    <th>สถานะ</th>
+                    <th>ราคา</th>
+                    <th>ผู้สอน</th>
+                    <th>แก้ไข</th>
                   </tr>
                 </thead>
                 <tbody>
