@@ -57,7 +57,7 @@
 <script>
 import AppLayout from "@/Layouts/AppLayout";
 import JetNavLink from "@/Jetstream/NavLink";
-import SideMenu from "@/Components/Student/SideMenu.vue";
+import SideMenu from "@/Components/Admin/SideMenu.vue";
 import JetButton from "@/Jetstream/Button.vue";
 import JetInput from "@/Jetstream/Input.vue";
 import LabelGrid from "@/Components/Common/LabelGrid.vue";
@@ -98,11 +98,21 @@ export default {
           onSuccess: () => {
             Swal.fire({
               title: "Suscess",
-              html: `แก้ไข ${this.form.category_name} เรียบร้อย`,
+              html: `แก้ ${this.form.category_name} เรียบร้อย`,
               icon: "success",
-              timer: 2000,
+              timer: 3000,
               timerProgressBar: true,
+              showCancelButton: true,
+              confirmButtonColor: "#3085d6",
+              confirmButtonText: "กลับไปหน้าจัดการทั้งหมด",
+              cancelButtonColor: "#d33",
+              cancelButtonText: "ปิด",
+            }).then((result) => {
+              if (result.isConfirmed) {
+                this.$inertia.get(route("admin.categories.index"));
+              }
             });
+            this.form.reset();
           },
         }
       );

@@ -17,6 +17,7 @@ class CreateCoursesTable extends Migration
             $table->id();
             $table->string('course_name');
             $table->string('course_description');
+            $table->string('course_img')->nullable();
             $table->unsignedInteger('price');
             $table->tinyInteger('course_status');
             $table->date('create_date');

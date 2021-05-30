@@ -23,10 +23,11 @@
               <table class="table-auto">
                 <thead>
                   <tr>
-                    <th>Category ID</th>
-                    <th>Category Name</th>
-                    <th>Category Status</th>
-                    <th>Course Count</th>
+                    <th>Course ID</th>
+                    <th>Course Category</th>
+                    <th>Course Status</th>
+                    <th>Price</th>
+                    <th>Course Owner</th>
                     <th>Action</th>
                   </tr>
                 </thead>

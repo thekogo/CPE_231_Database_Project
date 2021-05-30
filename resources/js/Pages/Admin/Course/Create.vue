@@ -15,8 +15,8 @@
           <div class="col-span-9">
             <div class="flex justify-between mb-2">
               <h1 class="text-2xl font-semibold mb-3">สร้างหมวดหมู่</h1>
-              <jet-button :href="route('admin.categories.index')"
-                >รายการหมวดหมู่</jet-button
+              <jet-button :href="route('admin.courses.index')"
+                >รายการคอร์ส</jet-button
               >
             </div>
             <div class="bg-white shadow-lg rounded-md p-5 flex flex-col gap-4">
@@ -31,34 +31,19 @@
                     required
                     autofocus
                     autocomplete="category_name"
-                    v-model="category.category_name"
-                    disabled
+                    v-model="form.category_name"
                   />
                 </div>
                 <div class="grid grid-cols-5 mb-2">
                   <label-grid for="category_display" value="Category Display" />
                   <jet-select
                     :options="options"
-                    v-model="category.category_display"
+                    v-model="form.category_display"
                     required
-                    disabled
                   />
                 </div>
-                <div class="grid grid-cols-5 mb-2">
-                  <label-grid
-                    for="course_categories_count"
-                    value="Course Count"
-                  />
-                  <jet-input
-                    id="course_categories_count"
-                    type="text"
-                    class="mt-1 block w-full col-span-3"
-                    required
-                    autofocus
-                    autocomplete="course_categories_count"
-                    v-model="category.course_categories_count"
-                    disabled
-                  />
+                <div class="flex justify-end">
+                  <jet-button>บันทึก</jet-button>
                 </div>
               </form>
             </div>
@@ -78,6 +63,7 @@ import JetInput from "@/Jetstream/Input.vue";
 import LabelGrid from "@/Components/Common/LabelGrid.vue";
 import JetSelect from "@/Jetstream/Select.vue";
 import JetValidationErrors from "@/Jetstream/ValidationErrors";
+import Swal from "sweetalert2";
 
 export default {
   components: {
@@ -90,13 +76,41 @@ export default {
     JetSelect,
     JetValidationErrors,
   },
-
-  props: ["category"],
-
   data() {
     return {
+      form: this.$inertia.form({
+        category_name: "",
+        category_display: 0,
+      }),
       options: ["Active", "Draft"],
     };
+  },
+
+  methods: {
+    submit() {
+      // console.log(this.form);
+      this.form.post(this.route("admin.courses.store"), {
+        onSuccess: () => {
+          Swal.fire({
+            title: "Suscess",
+            html: `เพิ่ม ${this.form.category_name} เรียบร้อย`,
+            icon: "success",
+            timer: 3000,
+            timerProgressBar: true,
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            confirmButtonText: "กลับไปหน้าจัดการทั้งหมด",
+            cancelButtonColor: "#d33",
+            cancelButtonText: "ปิด",
+          }).then((result) => {
+            if (result.isConfirmed) {
+              this.$inertia.get(route("admin.courses.index"));
+            }
+          });
+          this.form.reset();
+        },
+      });
+    },
   },
 };
 </script>
