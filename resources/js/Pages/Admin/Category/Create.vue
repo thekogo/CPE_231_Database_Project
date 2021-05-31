@@ -36,11 +36,11 @@
                 </div>
                 <div class="grid grid-cols-5 mb-2">
                   <label-grid for="category_display" value="Category Display" />
-                  <jet-select
-                    :options="options"
-                    v-model="form.category_display"
-                    required
-                  />
+                  <jet-select v-model="form.category_display" required>
+                    <option v-for="option in options" :key="option">
+                      {{ option }}
+                    </option>
+                  </jet-select>
                 </div>
                 <div class="flex justify-end">
                   <jet-button>บันทึก</jet-button>

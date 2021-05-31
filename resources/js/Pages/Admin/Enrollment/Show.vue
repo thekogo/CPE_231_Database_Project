@@ -38,14 +38,11 @@
                 <div class="grid grid-cols-5 mb-2">
                   <label-grid for="category_display" value="Category Display" />
                   <jet-select
+                    :options="options"
                     v-model="category.category_display"
                     required
                     disabled
-                  >
-                    <option v-for="option in options" :key="option">
-                      {{ option }}
-                    </option>
-                  </jet-select>
+                  />
                 </div>
                 <div class="grid grid-cols-5 mb-2">
                   <label-grid
