@@ -51,13 +51,12 @@ class CourseController extends Controller
             'course_description' => ['required', 'string'],
             'price' => ['required', 'integer'],
             'course_status' => ['required', 'string'],
-            'course_expire_date' => ['required', 'date'],
-            'hour_left' => ['required', 'integer'],
+            'expire_date' => ['required', 'date'],
+            'hours_left' => ['required', 'integer'],
             'user_id' => ['required', 'integer']
         ])->validate();
-        dd($request->all());
         Course::create(array_merge($request->all(), [
-            'course_create_date' =>
+            'create_date' => date("Y-m-d")
         ]));
 
         return redirect()->back();
