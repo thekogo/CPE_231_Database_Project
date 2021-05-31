@@ -4,8 +4,10 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Course;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
+use Illuminate\Support\Facades\Validator;
 
 class CourseController extends Controller
 {
@@ -29,7 +31,11 @@ class CourseController extends Controller
      */
     public function create()
     {
-        return Inertia::render('Admin/Course/Create');
+        $tutors = User::where('role', 'tutor')->get();
+        // dd($tutors);
+        return Inertia::render('Admin/Course/Create', [
+            "tutors" => $tutors
+        ]);
     }
 
     /**
@@ -40,7 +46,21 @@ class CourseController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        Validator::make($request->all(), [
+            'course_name' => ['required', 'string', 'unique:courses'],
+            'course_description' => ['required', 'string'],
+            'price' => ['required', 'integer'],
+            'course_status' => ['required', 'string'],
+            'course_expire_date' => ['required', 'date'],
+            'hour_left' => ['required', 'integer'],
+            'user_id' => ['required', 'integer']
+        ])->validate();
+        dd($request->all());
+        Course::create(array_merge($request->all(), [
+            'course_create_date' =>
+        ]));
+
+        return redirect()->back();
     }
 
     /**

@@ -35,7 +35,22 @@
                   />
                 </div>
                 <div class="grid grid-cols-5 mb-2">
-                  <label-grid for="course_description" value="รายละเอียดคอร์ส" />
+                  <label-grid for="user_id" value="ผู้สอน" />
+                  <jet-select v-model="form.user_id" required id="user_id">
+                    <option
+                      v-for="tutor in tutors"
+                      :key="tutor.id"
+                      :value="tutor.id"
+                    >
+                      {{ tutor.fullName }}
+                    </option>
+                  </jet-select>
+                </div>
+                <div class="grid grid-cols-5 mb-2">
+                  <label-grid
+                    for="course_description"
+                    value="รายละเอียดคอร์ส"
+                  />
                   <jet-text-area
                     class="mt-1 block w-full col-span-3"
                     v-model="form.course_description"
@@ -70,11 +85,11 @@
                 </div>
                 <div class="grid grid-cols-5 mb-2">
                   <label-grid for="course_status" value="สถานะ" />
-                  <jet-select
-                    :options="options"
-                    v-model="form.course_status"
-                    required
-                  />
+                  <jet-select v-model="form.course_status" required>
+                    <option v-for="option in options" :key="option">
+                      {{ option }}
+                    </option>
+                  </jet-select>
                 </div>
 
                 <div class="grid grid-cols-5 mb-2">
@@ -87,7 +102,6 @@
                     required
                   />
                 </div>
-
 
                 <div class="flex justify-end">
                   <jet-button>บันทึก</jet-button>
@@ -125,15 +139,17 @@ export default {
     JetValidationErrors,
     JetTextArea,
   },
+  props: ["tutors"],
   data() {
     return {
       form: this.$inertia.form({
         course_name: "",
         course_description: "",
-        price : null ,
-        course_status : "",
-        course_expire_date : "",
-        hour_left : null ,
+        price: null,
+        course_status: "",
+        course_expire_date: "",
+        hour_left: null,
+        user_id: null,
       }),
       options: ["เผยแพร่", "ปิดการมองเห็น"],
     };
@@ -141,7 +157,6 @@ export default {
 
   methods: {
     submit() {
-      // console.log(this.form);
       this.form.post(this.route("admin.courses.store"), {
         onSuccess: () => {
           Swal.fire({
