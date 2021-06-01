@@ -71,15 +71,15 @@
                   <label-grid for="price" class="ml-4" value="บาท" />
                 </div>
                 <div class="grid grid-cols-5 mb-2">
-                  <label-grid for="hour_left" value="จำนวนชั่วโมง" />
+                  <label-grid for="hours_left" value="จำนวนชั่วโมง" />
                   <jet-input
-                    id="hour_left"
+                    id="hours_left"
                     type="number"
                     class="mt-1 block w-4/5 col-span-1"
                     required
                     autofocus
-                    autocomplete="hour_left"
-                    v-model="form.hour_left"
+                    autocomplete="hours_left"
+                    v-model="form.hours_left"
                   />
                   <label-grid for="price" value="ชั่วโมง" />
                 </div>
@@ -93,12 +93,12 @@
                 </div>
 
                 <div class="grid grid-cols-5 mb-2">
-                  <label-grid for="course_expire_date" value="วันหมดอายุ" />
+                  <label-grid for="expire_date" value="วันหมดอายุ" />
                   <jet-input
                     id="birthday"
                     type="date"
                     class="mt-1 block w-full"
-                    v-model="form.course_create_date"
+                    v-model="form.expire_date"
                     required
                   />
                 </div>
@@ -147,8 +147,8 @@ export default {
         course_description: "",
         price: null,
         course_status: "",
-        course_expire_date: "",
-        hour_left: null,
+        expire_date: "",
+        hours_left: null,
         user_id: null,
       }),
       options: ["เผยแพร่", "ปิดการมองเห็น"],

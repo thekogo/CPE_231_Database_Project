@@ -1,8 +1,14 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
+use App\Http\Controllers\Controller;
+use App\Models\Course;
+use App\Models\Enrollment;
+use App\Models\User;
 use Illuminate\Http\Request;
+use Inertia\Inertia;
+use Illuminate\Support\Facades\Validator;
 
 class EnrollmentController extends Controller
 {
@@ -13,7 +19,10 @@ class EnrollmentController extends Controller
      */
     public function index()
     {
-        //
+        $enrollments = Enrollment::all();
+        return Inertia::render('Admin/Enrollment/Home', [
+            "enrollments" => $enrollments
+        ]);
     }
 
     /**
@@ -23,7 +32,12 @@ class EnrollmentController extends Controller
      */
     public function create()
     {
-        //
+        $students = User::where('role', 'student')->get();
+        $courses = Course::all();
+        return Inertia::render('Admin/Enrollment/Create', [
+            "students" => $students,
+            "courses" => $courses,
+        ]);
     }
 
     /**
@@ -34,7 +48,18 @@ class EnrollmentController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        Validator::make($request->all(), [
+            'user_id' => ['required', 'integer'],
+            'course_id' => ['required', 'integer'],
+            'payment_method' => ['required', 'string'],
+            'payment_date' => ['required', 'date'],
+            'payment_status' => ['required', 'string'],
+        ])->validate();
+        Enrollment::create(array_merge($request->all(), [
+            'enroll_date' => date("Y-m-d")
+        ]));
+
+        return redirect()->back();
     }
 
     /**
@@ -79,6 +104,8 @@ class EnrollmentController extends Controller
      */
     public function destroy($id)
     {
-        //
+        Enrollment::findOrFail($id)->delete();
+
+        return redirect()->back();
     }
 }

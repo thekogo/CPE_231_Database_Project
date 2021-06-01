@@ -2,7 +2,7 @@
   <app-layout>
     <template #header>
       <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-        จัดการหมวดหมู่asd
+        จัดการหมวดหมู่
       </h2>
     </template>
 
@@ -36,11 +36,11 @@
                 </div>
                 <div class="grid grid-cols-5 mb-2">
                   <label-grid for="category_display" value="Category Display" />
-                  <jet-select v-model="form.category_display" required>
-                    <option v-for="option in options" :key="option">
-                      {{ option }}
-                    </option>
-                  </jet-select>
+                  <jet-select
+                    :options="options"
+                    v-model="form.category_display"
+                    required
+                  />
                 </div>
                 <div class="flex justify-end">
                   <jet-button>บันทึก</jet-button>
@@ -76,40 +76,46 @@ export default {
     JetSelect,
     JetValidationErrors,
   },
+
+  props: ["category"],
+
   data() {
     return {
-      form: this.$inertia.form({
-        category_name: "",
-        category_display: 0,
-      }),
       options: ["Active", "Draft"],
+      form: this.$inertia.form({
+        category_name: this.category.category_name,
+        category_display: this.category.category_display,
+      }),
     };
   },
 
   methods: {
     submit() {
       // console.log(this.form);
-      this.form.post(this.route("admin.categories.store"), {
-        onSuccess: () => {
-          Swal.fire({
-            title: "Suscess",
-            html: `เพิ่ม ${this.form.category_name} เรียบร้อย`,
-            icon: "success",
-            timer: 3000,
-            timerProgressBar: true,
-            showCancelButton: true,
-            confirmButtonColor: "#3085d6",
-            confirmButtonText: "กลับไปหน้าจัดการทั้งหมด",
-            cancelButtonColor: "#d33",
-            cancelButtonText: "ปิด",
-          }).then((result) => {
-            if (result.isConfirmed) {
-              this.$inertia.get(route("admin.categories.index"));
-            }
-          });
-          this.form.reset();
-        },
-      });
+      this.form.put(
+        this.route("admin.categories.update", { category: this.category.id }),
+        {
+          onSuccess: () => {
+            Swal.fire({
+              title: "Suscess",
+              html: `แก้ ${this.form.category_name} เรียบร้อย`,
+              icon: "success",
+              timer: 3000,
+              timerProgressBar: true,
+              showCancelButton: true,
+              confirmButtonColor: "#3085d6",
+              confirmButtonText: "กลับไปหน้าจัดการทั้งหมด",
+              cancelButtonColor: "#d33",
+              cancelButtonText: "ปิด",
+            }).then((result) => {
+              if (result.isConfirmed) {
+                this.$inertia.get(route("admin.categories.index"));
+              }
+            });
+            this.form.reset();
+          },
+        }
+      );
     },
   },
 };
