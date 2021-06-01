@@ -3,14 +3,14 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Models\Course;
-use App\Models\Enrollment;
-use App\Models\User;
+use App\Models\Lesson;
 use Illuminate\Http\Request;
+use App\Models\Course;
 use Inertia\Inertia;
 use Illuminate\Support\Facades\Validator;
 
-class EnrollmentController extends Controller
+
+class LessonController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -19,9 +19,9 @@ class EnrollmentController extends Controller
      */
     public function index()
     {
-        $enrollments = Enrollment::all();
-        return Inertia::render('Admin/Enrollment/Home', [
-            "enrollments" => $enrollments
+        $lessons = Lesson::all();
+        return Inertia::render('Admin/Lesson/Home', [
+            "lessons" => $lessons
         ]);
     }
 
@@ -32,10 +32,8 @@ class EnrollmentController extends Controller
      */
     public function create()
     {
-        $students = User::where('role', 'student')->get();
         $courses = Course::all();
-        return Inertia::render('Admin/Enrollment/Create', [
-            "students" => $students,
+        return Inertia::render('Admin/Lesson/Create', [
             "courses" => $courses,
         ]);
     }
@@ -49,15 +47,14 @@ class EnrollmentController extends Controller
     public function store(Request $request)
     {
         Validator::make($request->all(), [
-            'user_id' => ['required', 'integer'],
+            'lesson_name' => ['required', 'string'],
+            'lesson_order' => ['required', 'integer'],
+            'lesson_vdo' => ['', ''],
+            'lesson_desciption' => ['', ''],
             'course_id' => ['required', 'integer'],
-            'payment_method' => ['required', 'string'],
-            'payment_date' => ['required', 'date'],
-            'payment_status' => ['required', 'string'],
         ])->validate();
-        Enrollment::create(array_merge($request->all(), [
-            'enroll_date' => date("Y-m-d")
-        ]));
+
+        Lesson::create($request->all());
 
         return redirect()->back();
     }
@@ -70,13 +67,9 @@ class EnrollmentController extends Controller
      */
     public function show($id)
     {
-        $enrollment = Enrollment::findOrFail($id);
-        $students = User::where('role', 'student')->get();
-        $courses = Course::all();
-        return Inertia::render('Admin/Enrollment/Show', [
-            "enrollment" => $enrollment,
-            "students" => $students,
-            "courses" => $courses,
+        $lesson = Lesson::findOrFail($id);
+        return Inertia::render('Admin/Lesson/Show', [
+            "lesson" => $lesson,
         ]);
     }
 
@@ -88,12 +81,10 @@ class EnrollmentController extends Controller
      */
     public function edit($id)
     {
-        $enrollment = Enrollment::findOrFail($id);
-        $students = User::where('role', 'student')->get();
+        $lesson = Lesson::findOrFail($id);
         $courses = Course::all();
-        return Inertia::render('Admin/Enrollment/Edit', [
-            "enrollment" => $enrollment,
-            "students" => $students,
+        return Inertia::render('Admin/Lesson/Edit', [
+            "lesson" => $lesson,
             "courses" => $courses,
         ]);
     }
@@ -108,16 +99,15 @@ class EnrollmentController extends Controller
     public function update(Request $request, $id)
     {
         Validator::make($request->all(), [
-            'user_id' => ['required', 'integer'],
+            'lesson_name' => ['required', 'string'],
+            'lesson_order' => ['required', 'integer'],
+            'lesson_vdo' => ['', ''],
+            'lesson_desciption' => ['', ''],
             'course_id' => ['required', 'integer'],
-            'payment_method' => ['required', 'string'],
-            'payment_date' => ['required', 'date'],
-            'payment_status' => ['required', 'string'],
         ])->validate();
 
-        $enrollment = Enrollment::findOrFail($id);
-        $enrollment->update($request->all());
-
+        $lesson = Lesson::findOrFail($id);
+        $lesson->update($request->all());
         return redirect()->back();
     }
 
@@ -129,7 +119,7 @@ class EnrollmentController extends Controller
      */
     public function destroy($id)
     {
-        Enrollment::findOrFail($id)->delete();
+        Lesson::findOrFail($id)->delete();
 
         return redirect()->back();
     }

@@ -23,6 +23,13 @@
     </jet-nav-link>
     <jet-nav-link
       class="text-xl h-10"
+      :href="route('admin.enrollments.index')"
+      :active="route().current('admin.enrollments.*')"
+    >
+      จัดการการลงทะเบียนเรียน
+    </jet-nav-link>
+    <jet-nav-link
+      class="text-xl h-10"
       :href="route('dashboard')"
       :active="route().current('dashboard')"
     >

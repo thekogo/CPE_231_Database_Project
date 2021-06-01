@@ -2,7 +2,7 @@
   <app-layout>
     <template #header>
       <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-        จัดการหมวดหมู่
+        จัดการบทเรียน
       </h2>
     </template>
 
@@ -14,51 +14,43 @@
           </div>
           <div class="col-span-9">
             <div class="flex justify-between mb-2">
-              <h1 class="text-2xl font-semibold mb-3">รายการการลงทะเบียนเรียน</h1>
+              <h1 class="text-2xl font-semibold mb-3">รายการบทเรียน</h1>
               <jet-button :href="route('admin.enrollments.create')"
-                >สร้างการลงทะเบียนเรียน</jet-button
+                >เพิ่มบทเรียน</jet-button
               >
             </div>
             <div class="bg-white shadow-lg rounded-md p-5 flex flex-col gap-4">
               <table class="table-auto">
                 <thead>
                   <tr>
-                    <th>ID</th>
-                    <th>ชื่อ-นามสกุล</th>
-                    <th>คอร์ส</th>
-                    <th>ช่องทางการชำระเงิน</th>
-                    <th>วันที่ชำระเงิน</th>          
-                    <th>สถานะการจ่ายเงิน</th>
+                    <th>ลำดับที่</th>
+                    <th>ชื่อบทเรียน</th>
                     <th>จัดการ</th>
                   </tr>
                 </thead>
                 <tbody>
                   <tr
                     class="text-center"
-                    v-for="enrollment in enrollments"
-                    :key="enrollment.id"
+                    v-for="lesson in lessons"
+                    :key="lesson.id"
                   >
-                    <td>#{{ enrollment.id }}</td>
-                    <td>{{ enrollment.user_id }}</td>
-                    <td>{{ enrollment.course_id }}</td>
-                    <td>{{ enrollment.payment_method }}</td>
-                    <td>{{ enrollment.payment_date }}</td>
-                    <td>{{ enrollment.payment_status }}</td>
+                    <td>{{ lesson.lesson_order }}</td>
+                    <td>{{ lesson.lesson_name }}</td>
                     <td class="flex gap-2 justify-center">
                       <jet-button
                         :href="
-                          route('admin.enrollments.show', { id: enrollment.id })
+                          route('admin.lessons.show', { id: lesson.id })
                         "
                         >View</jet-button
                       >
                       <jet-button
                         color="warning"
                         :href="
-                          route('admin.enrollments.edit', { id: enrollment.id })
+                          route('admin.lessons.edit', { id: lesson.id })
                         "
                         >Edit</jet-button
                       >
-                      <jet-button color="danger" @click="openDelete(enrollment)"
+                      <jet-button color="danger" @click="openDelete(lesson)"
                         >Delete</jet-button
                       >
                     </td>
@@ -87,7 +79,7 @@ export default {
     SideMenu,
     JetButton,
   },
-  props: ["enrollments"],
+  props: ["lessons"],
 
   methods: {
     openDelete({ id }) {
@@ -103,8 +95,8 @@ export default {
         preConfirm: () => {
           return this.$inertia.delete(
             route(
-              "admin.enrollments.destroy",
-              { enroll: id },
+              "admin.lessons.destroy",
+              { lesson: id },
               {
                 onSuccess: () => {
                   return;
@@ -121,7 +113,7 @@ export default {
         if (result.isConfirmed) {
           Swal.fire({
             title: "Suscess",
-            html: `ลบ ${enrollment_name} เรียบร้อย`,
+            html: `ลบ ${lesson_name} เรียบร้อย`,
             icon: "success",
             timer: 2000,
             timerProgressBar: true,
