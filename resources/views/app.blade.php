@@ -20,9 +20,32 @@
     @routes
     <script src="{{ mix('js/app.js') }}" defer></script>
     <style>
+        @font-face {
+            font-family: Lamoon;
+            src: url('/fonts/FC Lamoon/FC Lamoon Regular ver 1.00.ttf');
+            font-weight: normal;
+        }
+
+        @font-face {
+            font-family: Lamoon;
+            src: url('/fonts/FC Lamoon/FC Lamoon Bold ver 1.00.ttf');
+            font-weight: bold;
+        }
+
+        @font-face {
+            font-family: Lamoon;
+            src: url('/fonts/FC Lamoon/FC Lamoon Light ver 1.00.ttf');
+            font-weight: 300;
+        }
+
         html,
         body {
             height: 100%;
+        }
+
+        * {
+            font-family: Lamoon;
+            font-size: 20px;
         }
 
         #id {

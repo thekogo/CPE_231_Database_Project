@@ -15,7 +15,7 @@
           <div class="col-span-9">
             <div class="flex justify-between mb-2">
               <h1 class="text-2xl font-semibold mb-3">รายการบทเรียน</h1>
-              <jet-button :href="route('admin.enrollments.create')"
+              <jet-button :href="route('admin.lessons.create')"
                 >เพิ่มบทเรียน</jet-button
               >
             </div>

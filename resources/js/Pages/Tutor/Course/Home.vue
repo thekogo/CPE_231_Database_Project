@@ -2,7 +2,7 @@
   <app-layout>
     <template #header>
       <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-        จัดการหมวดหมู่
+        จัดการคอร์สเรียน
       </h2>
     </template>
 
@@ -15,7 +15,7 @@
           <div class="col-span-9">
             <div class="flex justify-between mb-2">
               <h1 class="text-2xl font-semibold mb-3">คอร์สเรียนทั้งหมด</h1>
-              <jet-button :href="route('admin.courses.create')"
+              <jet-button :href="route('tutor.courses.create')"
                 >สร้างคอร์สเรียน</jet-button
               >
             </div>
@@ -44,12 +44,12 @@
                     <td>{{ course.user.fullName }}</td>
                     <td class="flex gap-2 justify-center">
                       <jet-button
-                        :href="route('admin.courses.show', { id: course.id })"
+                        :href="route('tutor.courses.show', { id: course.id })"
                         >View</jet-button
                       >
                       <jet-button
                         color="warning"
-                        :href="route('admin.courses.edit', { id: course.id })"
+                        :href="route('tutor.courses.edit', { id: course.id })"
                         >Edit</jet-button
                       >
                       <jet-button color="danger" @click="openDelete(course)"
@@ -70,7 +70,7 @@
 <script>
 import AppLayout from "@/Layouts/AppLayout";
 import JetNavLink from "@/Jetstream/NavLink";
-import SideMenu from "@/Components/Admin/SideMenu.vue";
+import SideMenu from "@/Components/Tutor/SideMenu.vue";
 import JetButton from "@/Jetstream/Button.vue";
 import Swal from "sweetalert2";
 
@@ -97,7 +97,7 @@ export default {
         preConfirm: () => {
           return this.$inertia.delete(
             route(
-              "admin.courses.destroy",
+              "tutor.courses.destroy",
               { course: id },
               {
                 onSuccess: () => {

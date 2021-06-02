@@ -28,11 +28,13 @@ class Course extends Model
     private $mapTextToInt = [
         "ปิดการมองเห็น" => 0,
         "เผยแพร่" => 1,
+        "รอการอนุมัติ" => 2,
     ];
 
     private $mapIntToText = [
         "ปิดการมองเห็น",
-        "เผยแพร่"
+        "เผยแพร่",
+        "รอการอนุมัติ"
     ];
 
     public function setCourseStatusAttribute($value)
