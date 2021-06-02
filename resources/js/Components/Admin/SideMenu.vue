@@ -22,7 +22,7 @@
       จัดการหมวดหมู่
     </jet-nav-link>
     <jet-nav-link
-        class="text-xl h-10"
+      class="text-xl h-10"
       :href="route('dashboard')"
       :active="route().current('dashboard')"
     >

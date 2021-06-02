@@ -13,28 +13,11 @@
             <side-menu />
           </div>
           <div class="col-span-9">
-            <div class="flex justify-between mb-2">
-              <h1 class="text-2xl font-semibold mb-3">คอร์สที่เรียนล่าสุด</h1>
-            </div>
-            <div class="bg-white shadow-lg rounded-md">
-              <div class="grid grid-cols-3 p-5 gap-20">
-                <div class="col-span-1">
-                  <div class="bg-red-900 h-60 rounded-lg"></div>
-                </div>
-                <div class="col-span-2">
-                  <h1 class="text-xl">ชื่อคอร์ส</h1>
-                  <p class="mb-5">รายละเอียดคอร์ส</p>
-                  <jet-button>continues</jet-button>
-                </div>
-              </div>
-            </div>
             <h1 class="text-2xl font-semibold mt-10 mb-3">
               คอร์สที่กำลังเรียน
             </h1>
             <div class="bg-white shadow-lg rounded-md">
-              <div class="grid grid-cols-3 p-5 gap-12">
-                <course-col1 title="test" />
-                <course-col1 title="test" />
+              <div class="grid grid-cols-3 p-5 gap-x-12 gap-y-10">
                 <course-col1 title="test" />
               </div>
             </div>
@@ -53,7 +36,7 @@ import JetNavLink from "@/Jetstream/NavLink";
 import SideMenu from "@/Components/Student/SideMenu.vue";
 import JetButton from "@/Jetstream/Button.vue";
 import Copyright from "@/Components/Common/Copyright.vue";
-import CourseCol1 from "@/Components/Common/CourseCol1";
+import CourseCol1 from "@/Components/Common/CourseCol1.vue";
 
 export default {
   components: {

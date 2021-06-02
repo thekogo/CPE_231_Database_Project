@@ -20,6 +20,11 @@ module.exports = {
                 'pinkn': '#fd808a',
                 'blueln': '#c6e5f4',
                 'purplen': '#4b365f',
+                'lightpurple':'#9b59ea',
+                'sky': '#1f86c7',
+                'skyn':'#40a9eb',
+                'pinkk':'#fc8e87'
+
             }
         },
     },
