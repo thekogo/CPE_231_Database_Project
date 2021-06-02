@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Storage;
 use Laravel\Fortify\TwoFactorAuthenticatable;
 use Laravel\Jetstream\HasProfilePhoto;
 use Laravel\Sanctum\HasApiTokens;
+use Illuminate\Http\UploadedFile;
 
 class User extends Authenticatable
 {
@@ -79,8 +80,29 @@ class User extends Authenticatable
             : $this->defaultProfilePhotoUrl();
     }
 
+    public function updateProfilePhoto(UploadedFile $photo)
+    {
+        tap($this->profileImgUrl, function ($previous) use ($photo) {
+            $this->forceFill([
+                'profileImgUrl' => $photo->storePublicly(
+                    'profile-photos',
+                    ['disk' => $this->profilePhotoDisk()]
+                ),
+            ])->save();
+
+            if ($previous) {
+                Storage::disk($this->profilePhotoDisk())->delete($previous);
+            }
+        });
+    }
+
     protected function defaultProfilePhotoUrl()
     {
         return 'https://ui-avatars.com/api/?name=' . urlencode($this->fullName) . '&color=7F9CF5&background=EBF4FF';
+    }
+
+    public function courses()
+    {
+        return $this->hasMany(Course::class);
     }
 }

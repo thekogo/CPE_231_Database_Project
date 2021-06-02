@@ -3,13 +3,14 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Models\Course;
-use App\Models\User;
+use App\Models\Lesson;
 use Illuminate\Http\Request;
+use App\Models\Course;
 use Inertia\Inertia;
 use Illuminate\Support\Facades\Validator;
 
-class CourseController extends Controller
+
+class LessonController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -18,9 +19,9 @@ class CourseController extends Controller
      */
     public function index()
     {
-        $courses = Course::with('user')->get();
-        return Inertia::render('Admin/Course/Home', [
-            "courses" => $courses
+        $lessons = Lesson::all();
+        return Inertia::render('Admin/Lesson/Home', [
+            "lessons" => $lessons
         ]);
     }
 
@@ -31,10 +32,9 @@ class CourseController extends Controller
      */
     public function create()
     {
-        $tutors = User::where('role', 'tutor')->get();
-        // dd($tutors);
-        return Inertia::render('Admin/Course/Create', [
-            "tutors" => $tutors
+        $courses = Course::all();
+        return Inertia::render('Admin/Lesson/Create', [
+            "courses" => $courses,
         ]);
     }
 
@@ -47,30 +47,14 @@ class CourseController extends Controller
     public function store(Request $request)
     {
         Validator::make($request->all(), [
-            'course_name' => ['required', 'string', 'unique:courses'],
-            'course_description' => ['required', 'string'],
-            'price' => ['required', 'integer'],
-            'course_status' => ['required', 'string'],
-            'expire_date' => ['required', 'date'],
-            'hours_left' => ['required', 'integer'],
-            'user_id' => ['required', 'integer'],
-            'course_img' => ['image'],
+            'lesson_name' => ['required', 'string'],
+            'lesson_order' => ['required', 'integer'],
+            'lesson_vdo' => ['', ''],
+            'lesson_desciption' => ['', ''],
+            'course_id' => ['required', 'integer'],
         ])->validate();
 
-        $path = null;
-        if (isset($request["course_img"])) {
-            $path = Course::createCourseImg($request["course_img"]);
-        }
-
-        $request->merge([
-            'create_date' => date("Y-m-d"),
-            'course_img' => $path,
-        ]);
-
-        $input = $request->all();
-        $input["course_img"] = $path;
-
-        Course::create($input);
+        Lesson::create($request->all());
 
         return redirect()->back();
     }
@@ -83,10 +67,9 @@ class CourseController extends Controller
      */
     public function show($id)
     {
-        $course = Course::with('user')->findOrFail($id);
-        // dd($course);
-        return Inertia::render('Admin/Course/Show', [
-            "course" => $course,
+        $lesson = Lesson::findOrFail($id);
+        return Inertia::render('Admin/Lesson/Show', [
+            "lesson" => $lesson,
         ]);
     }
 
@@ -98,7 +81,12 @@ class CourseController extends Controller
      */
     public function edit($id)
     {
-        //
+        $lesson = Lesson::findOrFail($id);
+        $courses = Course::all();
+        return Inertia::render('Admin/Lesson/Edit', [
+            "lesson" => $lesson,
+            "courses" => $courses,
+        ]);
     }
 
     /**
@@ -110,7 +98,17 @@ class CourseController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        Validator::make($request->all(), [
+            'lesson_name' => ['required', 'string'],
+            'lesson_order' => ['required', 'integer'],
+            'lesson_vdo' => ['', ''],
+            'lesson_desciption' => ['', ''],
+            'course_id' => ['required', 'integer'],
+        ])->validate();
+
+        $lesson = Lesson::findOrFail($id);
+        $lesson->update($request->all());
+        return redirect()->back();
     }
 
     /**
@@ -121,7 +119,7 @@ class CourseController extends Controller
      */
     public function destroy($id)
     {
-        Course::findOrFail($id)->delete();
+        Lesson::findOrFail($id)->delete();
 
         return redirect()->back();
     }

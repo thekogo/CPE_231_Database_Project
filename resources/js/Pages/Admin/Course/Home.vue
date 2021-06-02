@@ -24,7 +24,7 @@
                 <thead>
                   <tr>
                     <th>รหัสคอร์ส</th>
-                    <th>หมวดหมู่</th>
+                    <th>ชื่อคอร์ส</th>
                     <th>สถานะ</th>
                     <th>ราคา</th>
                     <th>ผู้สอน</th>
@@ -34,28 +34,25 @@
                 <tbody>
                   <tr
                     class="text-center"
-                    v-for="category in categories"
-                    :key="category.category_name"
+                    v-for="course in courses"
+                    :key="course.course_name"
                   >
-                    <td>{{ category.id }}</td>
-                    <td>{{ category.category_name }}</td>
-                    <td>{{ category.category_display }}</td>
-                    <td>{{ category.course_categories_count }}</td>
+                    <td>{{ course.id }}</td>
+                    <td>{{ course.course_name }}</td>
+                    <td>{{ course.course_status }}</td>
+                    <td>{{ course.price }}</td>
+                    <td>{{ course.user.fullName }}</td>
                     <td class="flex gap-2 justify-center">
                       <jet-button
-                        :href="
-                          route('admin.categories.show', { id: category.id })
-                        "
+                        :href="route('admin.courses.show', { id: course.id })"
                         >View</jet-button
                       >
                       <jet-button
                         color="warning"
-                        :href="
-                          route('admin.categories.edit', { id: category.id })
-                        "
+                        :href="route('admin.courses.edit', { id: course.id })"
                         >Edit</jet-button
                       >
-                      <jet-button color="danger" @click="openDelete(category)"
+                      <jet-button color="danger" @click="openDelete(course)"
                         >Delete</jet-button
                       >
                     </td>
@@ -84,10 +81,10 @@ export default {
     SideMenu,
     JetButton,
   },
-  props: ["categories"],
+  props: ["courses"],
 
   methods: {
-    openDelete({ id, category_name }) {
+    openDelete({ id, course_name }) {
       Swal.fire({
         title: "Are you sure?",
         text: "You won't be able to revert this!",
@@ -100,8 +97,8 @@ export default {
         preConfirm: () => {
           return this.$inertia.delete(
             route(
-              "admin.categories.destroy",
-              { category: id },
+              "admin.courses.destroy",
+              { course: id },
               {
                 onSuccess: () => {
                   return;
@@ -118,7 +115,7 @@ export default {
         if (result.isConfirmed) {
           Swal.fire({
             title: "Suscess",
-            html: `ลบ ${category_name} เรียบร้อย`,
+            html: `ลบคอร์ส  ${course_name}  เรียบร้อย`,
             icon: "success",
             timer: 2000,
             timerProgressBar: true,

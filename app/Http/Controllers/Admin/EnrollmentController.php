@@ -70,7 +70,14 @@ class EnrollmentController extends Controller
      */
     public function show($id)
     {
-        //
+        $enrollment = Enrollment::findOrFail($id);
+        $students = User::where('role', 'student')->get();
+        $courses = Course::all();
+        return Inertia::render('Admin/Enrollment/Show', [
+            "enrollment" => $enrollment,
+            "students" => $students,
+            "courses" => $courses,
+        ]);
     }
 
     /**
@@ -81,7 +88,14 @@ class EnrollmentController extends Controller
      */
     public function edit($id)
     {
-        //
+        $enrollment = Enrollment::findOrFail($id);
+        $students = User::where('role', 'student')->get();
+        $courses = Course::all();
+        return Inertia::render('Admin/Enrollment/Edit', [
+            "enrollment" => $enrollment,
+            "students" => $students,
+            "courses" => $courses,
+        ]);
     }
 
     /**
@@ -93,7 +107,18 @@ class EnrollmentController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        Validator::make($request->all(), [
+            'user_id' => ['required', 'integer'],
+            'course_id' => ['required', 'integer'],
+            'payment_method' => ['required', 'string'],
+            'payment_date' => ['required', 'date'],
+            'payment_status' => ['required', 'string'],
+        ])->validate();
+
+        $enrollment = Enrollment::findOrFail($id);
+        $enrollment->update($request->all());
+
+        return redirect()->back();
     }
 
     /**

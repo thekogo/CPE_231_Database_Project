@@ -2,7 +2,7 @@
   <app-layout>
     <template #header>
       <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-        จัดการหมวดหมู่
+        จัดการการลงทะเบียนเรียน
       </h2>
     </template>
 
@@ -14,49 +14,92 @@
           </div>
           <div class="col-span-9">
             <div class="flex justify-between mb-2">
-              <h1 class="text-2xl font-semibold mb-3">สร้างหมวดหมู่</h1>
-              <jet-button :href="route('admin.categories.index')"
-                >รายการหมวดหมู่</jet-button
+              <h1 class="text-2xl font-semibold mb-3">
+                สร้างการลงทะเบียนเรียน
+              </h1>
+              <jet-button :href="route('admin.enrollments.index')"
+                >รายการการลงทะเบียนเรียน</jet-button
               >
             </div>
             <div class="bg-white shadow-lg rounded-md p-5 flex flex-col gap-4">
               <jet-validation-errors class="mb-4" />
               <form @submit.prevent="submit">
                 <div class="grid grid-cols-5 mb-2">
-                  <label-grid for="category_name" value="Category Name" />
-                  <jet-input
-                    id="category_name"
+                  <label-grid for="id" value="ID: " />
+                  <!-- <jet-input
+                    id="id"
                     type="text"
-                    class="mt-1 block w-full col-span-3"
+                    class="mt-1 block w-full col-span-1"
                     required
-                    autofocus
-                    autocomplete="category_name"
-                    v-model="category.category_name"
+                    v-model="enrollment.id"
                     disabled
-                  />
+                  /> -->
+                  <span>#{{ enrollment.id }}</span>
                 </div>
                 <div class="grid grid-cols-5 mb-2">
-                  <label-grid for="category_display" value="Category Display" />
+                  <label-grid for="user_id" value="ผู้เรียน" />
                   <jet-select
-                    :options="options"
-                    v-model="category.category_display"
+                    v-model="enrollment.user_id"
+                    required
+                    id="user_id"
+                    disabled
+                  >
+                    <option
+                      v-for="student in students"
+                      :key="student.id"
+                      :value="student.id"
+                    >
+                      {{ student.fullName }}
+                    </option>
+                  </jet-select>
+                </div>
+                <div class="grid grid-cols-5 mb-2">
+                  <label-grid for="course_id" value="คอร์สเรียน" />
+                  <jet-select
+                    v-model="enrollment.course_id"
+                    required
+                    id="course_id"
+                    disabled
+                  >
+                    <option
+                      v-for="course in courses"
+                      :key="course.id"
+                      :value="course.id"
+                    >
+                      {{ course.course_name }}
+                    </option>
+                  </jet-select>
+                </div>
+                <div class="grid grid-cols-5 mb-2">
+                  <label-grid for="payment_method" value="ช่องทางการชำระเงิน" />
+                  <jet-input
+                    id="payment_method"
+                    type="text"
+                    class="mt-1 block w-full"
+                    v-model="enrollment.payment_method"
+                    required
+                    disabled
+                  />                  
+                </div>
+                <div class="grid grid-cols-5 mb-2">
+                  <label-grid for="payment_date" value="วันที่ชำระเงิน" />
+                  <jet-input
+                    id="payment_date"
+                    type="date"
+                    class="mt-1 block w-full"
+                    v-model="enrollment.payment_date"
                     required
                     disabled
                   />
                 </div>
                 <div class="grid grid-cols-5 mb-2">
-                  <label-grid
-                    for="course_categories_count"
-                    value="Course Count"
-                  />
+                  <label-grid for="payment_status" value="สถานะการชำระเงิน" />
                   <jet-input
-                    id="course_categories_count"
+                    id="payment_status"
                     type="text"
-                    class="mt-1 block w-full col-span-3"
+                    class="mt-1 block w-full"
+                    v-model="enrollment.payment_status"
                     required
-                    autofocus
-                    autocomplete="course_categories_count"
-                    v-model="category.course_categories_count"
                     disabled
                   />
                 </div>
@@ -91,11 +134,12 @@ export default {
     JetValidationErrors,
   },
 
-  props: ["category"],
+  props: ["enrollment","students", 'courses'],
 
   data() {
     return {
-      options: ["Active", "Draft"],
+      method_options: ["เงินสด", "ช่องทางออนไลน์"],
+      status_options: ["ชำระเงินเรียบร้อย", "รอดำเนินการ", "ขอคืนเงิน"],
     };
   },
 };

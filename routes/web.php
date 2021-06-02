@@ -44,6 +44,7 @@ Route::middleware(['auth:sanctum'])->group(function () {
         Route::get('/', [Admin\HomeController::class, 'index'])->name('home');
         Route::resource('/categories', Admin\CategoryController::class);
         Route::resource('/courses', Admin\CourseController::class);
-        Route::resource('/enrolls', Admin\EnrollmentController::class);
+        Route::resource('/enrollments', Admin\EnrollmentController::class);
+        Route::resource('/lessons', Admin\LessonController::class);
     });
 });

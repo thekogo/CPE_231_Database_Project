@@ -31,25 +31,12 @@
                     required
                     autofocus
                     autocomplete="course_name"
-                    v-model="form.course_name"
+                    :value="course.course_name"
+                    disabled
                   />
                 </div>
                 <div class="grid grid-cols-5 mb-2">
-                  <input
-                    type="file"
-                    class="hidden"
-                    ref="photo"
-                    @change="updatePhotoPreview"
-                  />
                   <label-grid for="course_img" value="รูปปก" />
-                  <jet-secondary-button
-                    id="course_img"
-                    class="col-span-1"
-                    type="button"
-                    @click.prevent="selectNewPhoto"
-                  >
-                    Select A New Photo
-                  </jet-secondary-button>
                 </div>
                 <div class="my-2" v-show="photoPreview">
                   <hr />
@@ -61,15 +48,14 @@
                 </div>
                 <div class="grid grid-cols-5 mb-2">
                   <label-grid for="user_id" value="ผู้สอน" />
-                  <jet-select v-model="form.user_id" required id="user_id">
-                    <option
-                      v-for="tutor in tutors"
-                      :key="tutor.id"
-                      :value="tutor.id"
-                    >
-                      {{ tutor.fullName }}
-                    </option>
-                  </jet-select>
+                  <jet-input
+                    id="course_status"
+                    type="text"
+                    class="mt-1 block w-full col-span-1"
+                    :value="course.user.fullName"
+                    required
+                    disabled
+                  />
                 </div>
                 <div class="grid grid-cols-5 mb-2">
                   <label-grid
@@ -78,8 +64,9 @@
                   />
                   <jet-text-area
                     class="mt-1 block w-full col-span-3"
-                    v-model="form.course_description"
+                    :value="course.course_description"
                     required
+                    disabled
                   />
                 </div>
                 <div class="grid grid-cols-5 mb-2">
@@ -91,7 +78,8 @@
                     required
                     autofocus
                     autocomplete="price"
-                    v-model="form.price"
+                    :value="course.price"
+                    disabled
                   />
                   <label-grid for="price" class="ml-4" value="บาท" />
                 </div>
@@ -104,17 +92,21 @@
                     required
                     autofocus
                     autocomplete="hours_left"
-                    v-model="form.hours_left"
+                    :value="course.hours_left"
+                    disabled
                   />
                   <label-grid for="price" value="ชั่วโมง" />
                 </div>
                 <div class="grid grid-cols-5 mb-2">
                   <label-grid for="course_status" value="สถานะ" />
-                  <jet-select v-model="form.course_status" required>
-                    <option v-for="option in options" :key="option">
-                      {{ option }}
-                    </option>
-                  </jet-select>
+                  <jet-input
+                    id="course_status"
+                    type="text"
+                    class="mt-1 block w-full col-span-1"
+                    :value="options[course.course_status]"
+                    required
+                    disabled
+                  />
                 </div>
 
                 <div class="grid grid-cols-5 mb-2">
@@ -123,8 +115,9 @@
                     id="birthday"
                     type="date"
                     class="mt-1 block w-full"
-                    v-model="form.expire_date"
+                    :value="course.expire_date"
                     required
+                    disabled
                   />
                 </div>
 
@@ -166,21 +159,11 @@ export default {
     JetTextArea,
     JetSecondaryButton,
   },
-  props: ["tutors"],
+  props: ["tutors", "course"],
   data() {
     return {
-      form: this.$inertia.form({
-        course_name: "",
-        course_description: "",
-        price: null,
-        course_status: "",
-        expire_date: "",
-        hours_left: null,
-        user_id: null,
-        course_img: null,
-      }),
       options: ["เผยแพร่", "ปิดการมองเห็น"],
-      photoPreview: null,
+      photoPreview: "/" + this.course.course_img,
     };
   },
 
