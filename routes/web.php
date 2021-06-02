@@ -34,8 +34,9 @@ Route::middleware(['auth:sanctum'])->group(function () {
 });
 
 Route::middleware(['auth:sanctum'])->group(function () {
-    Route::middleware(['role:tutor'])->prefix('tutors')->group(function () {
-        Route::get('/', [Tutor\HomeController::class, 'index']);
+    Route::middleware(['role:tutor'])->prefix('tutors')->name('tutor.')->group(function () {
+        Route::get('/', [Tutor\HomeController::class, 'index'])->name('home');
+        Route::resource('/courses', Tutor\CourseController::class);
     });
 });
 

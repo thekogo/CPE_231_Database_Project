@@ -2,7 +2,7 @@
   <app-layout>
     <template #header>
       <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-        จัดการหมวดหมู่
+        จัดการคอร์สเรียน
       </h2>
     </template>
 
@@ -49,7 +49,7 @@
                 <div class="grid grid-cols-5 mb-2">
                   <label-grid for="user_id" value="ผู้สอน" />
                   <jet-input
-                    id="course_status"
+                    id="user_id"
                     type="text"
                     class="mt-1 block w-full col-span-1"
                     :value="course.user.fullName"
@@ -139,7 +139,6 @@ import JetTextArea from "@/Jetstream/TextArea.vue";
 import LabelGrid from "@/Components/Common/LabelGrid.vue";
 import JetSelect from "@/Jetstream/Select.vue";
 import JetValidationErrors from "@/Jetstream/ValidationErrors";
-import Swal from "sweetalert2";
 import JetSecondaryButton from "@/Jetstream/SecondaryButton";
 
 export default {
@@ -158,36 +157,12 @@ export default {
   props: ["tutors", "course"],
   data() {
     return {
-      options: ["เผยแพร่", "ปิดการมองเห็น"],
+      options: ["เผยแพร่", "ปิดการมองเห็น", "รอการอนุมัติ"],
       photoPreview: "/" + this.course.course_img,
     };
   },
 
   methods: {
-    submit() {
-      this.form.post(this.route("admin.courses.store"), {
-        onSuccess: () => {
-          Swal.fire({
-            title: "Suscess",
-            html: `เพิ่ม ${this.form.category_name} เรียบร้อย`,
-            icon: "success",
-            timer: 3000,
-            timerProgressBar: true,
-            showCancelButton: true,
-            confirmButtonColor: "#3085d6",
-            confirmButtonText: "กลับไปหน้าจัดการทั้งหมด",
-            cancelButtonColor: "#d33",
-            cancelButtonText: "ปิด",
-          }).then((result) => {
-            if (result.isConfirmed) {
-              this.$inertia.get(route("admin.courses.index"));
-            }
-          });
-          this.form.reset();
-          this.photoPreview = null;
-        },
-      });
-    },
     selectNewPhoto() {
       this.$refs.photo.click();
     },

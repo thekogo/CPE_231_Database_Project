@@ -2,7 +2,7 @@
   <app-layout>
     <template #header>
       <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-        จัดการหมวดหมู่
+        จัดการคอร์สเรียน
       </h2>
     </template>
 
@@ -15,7 +15,7 @@
           <div class="col-span-9">
             <div class="flex justify-between mb-2">
               <h1 class="text-2xl font-semibold mb-3">สร้างคอร์สเรียน</h1>
-              <jet-button :href="route('admin.courses.index')"
+              <jet-button :href="route('tutor.courses.index')"
                 >รายการคอร์ส</jet-button
               >
             </div>
@@ -31,12 +31,25 @@
                     required
                     autofocus
                     autocomplete="course_name"
-                    :value="course.course_name"
-                    disabled
+                    v-model="form.course_name"
                   />
                 </div>
                 <div class="grid grid-cols-5 mb-2">
+                  <input
+                    type="file"
+                    class="hidden"
+                    ref="photo"
+                    @change="updatePhotoPreview"
+                  />
                   <label-grid for="course_img" value="รูปปก" />
+                  <jet-secondary-button
+                    id="course_img"
+                    class="col-span-1"
+                    type="button"
+                    @click.prevent="selectNewPhoto"
+                  >
+                    Select A New Photo
+                  </jet-secondary-button>
                 </div>
                 <div class="my-2" v-show="photoPreview">
                   <hr />
@@ -49,10 +62,10 @@
                 <div class="grid grid-cols-5 mb-2">
                   <label-grid for="user_id" value="ผู้สอน" />
                   <jet-input
-                    id="course_status"
+                    id="user_id"
                     type="text"
                     class="mt-1 block w-full col-span-1"
-                    :value="course.user.fullName"
+                    :value="tutor.fullName"
                     required
                     disabled
                   />
@@ -64,9 +77,8 @@
                   />
                   <jet-text-area
                     class="mt-1 block w-full col-span-3"
-                    :value="course.course_description"
+                    v-model="form.course_description"
                     required
-                    disabled
                   />
                 </div>
                 <div class="grid grid-cols-5 mb-2">
@@ -78,8 +90,7 @@
                     required
                     autofocus
                     autocomplete="price"
-                    :value="course.price"
-                    disabled
+                    v-model="form.price"
                   />
                   <label-grid for="price" class="ml-4" value="บาท" />
                 </div>
@@ -92,33 +103,23 @@
                     required
                     autofocus
                     autocomplete="hours_left"
-                    :value="course.hours_left"
-                    disabled
+                    v-model="form.hours_left"
                   />
                   <label-grid for="price" value="ชั่วโมง" />
                 </div>
-                <div class="grid grid-cols-5 mb-2">
-                  <label-grid for="course_status" value="สถานะ" />
-                  <jet-input
-                    id="course_status"
-                    type="text"
-                    class="mt-1 block w-full col-span-1"
-                    :value="options[course.course_status]"
-                    required
-                    disabled
-                  />
-                </div>
-
                 <div class="grid grid-cols-5 mb-2">
                   <label-grid for="expire_date" value="วันหมดอายุ" />
                   <jet-input
                     id="birthday"
                     type="date"
                     class="mt-1 block w-full"
-                    :value="course.expire_date"
+                    v-model="form.expire_date"
                     required
-                    disabled
                   />
+                </div>
+
+                <div class="flex justify-end">
+                  <jet-button>บันทึก</jet-button>
                 </div>
               </form>
             </div>
@@ -132,7 +133,7 @@
 <script>
 import AppLayout from "@/Layouts/AppLayout";
 import JetNavLink from "@/Jetstream/NavLink";
-import SideMenu from "@/Components/Admin/SideMenu.vue";
+import SideMenu from "@/Components/Tutor/SideMenu.vue";
 import JetButton from "@/Jetstream/Button.vue";
 import JetInput from "@/Jetstream/Input.vue";
 import JetTextArea from "@/Jetstream/TextArea.vue";
@@ -155,21 +156,29 @@ export default {
     JetTextArea,
     JetSecondaryButton,
   },
-  props: ["tutors", "course"],
+  props: ["tutor"],
   data() {
     return {
-      options: ["เผยแพร่", "ปิดการมองเห็น"],
-      photoPreview: "/" + this.course.course_img,
+      form: this.$inertia.form({
+        course_name: "",
+        course_description: "",
+        price: null,
+        course_status: "",
+        expire_date: "",
+        hours_left: null,
+        course_img: null,
+      }),
+      photoPreview: null,
     };
   },
 
   methods: {
     submit() {
-      this.form.post(this.route("admin.courses.store"), {
+      this.form.post(this.route("tutor.courses.store"), {
         onSuccess: () => {
           Swal.fire({
             title: "Suscess",
-            html: `เพิ่ม ${this.form.category_name} เรียบร้อย`,
+            html: `เพิ่ม ${this.form.course_name} เรียบร้อย`,
             icon: "success",
             timer: 3000,
             timerProgressBar: true,
@@ -180,7 +189,7 @@ export default {
             cancelButtonText: "ปิด",
           }).then((result) => {
             if (result.isConfirmed) {
-              this.$inertia.get(route("admin.courses.index"));
+              this.$inertia.get(route("tutor.courses.index"));
             }
           });
           this.form.reset();
