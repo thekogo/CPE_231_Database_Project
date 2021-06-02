@@ -18,7 +18,7 @@ class CourseController extends Controller
      */
     public function index()
     {
-        $courses = Course::all();
+        $courses = Course::with('user')->get();
         return Inertia::render('Admin/Course/Home', [
             "courses" => $courses
         ]);
@@ -53,11 +53,24 @@ class CourseController extends Controller
             'course_status' => ['required', 'string'],
             'expire_date' => ['required', 'date'],
             'hours_left' => ['required', 'integer'],
-            'user_id' => ['required', 'integer']
+            'user_id' => ['required', 'integer'],
+            'course_img' => ['image'],
         ])->validate();
-        Course::create(array_merge($request->all(), [
-            'create_date' => date("Y-m-d")
-        ]));
+
+        $path = null;
+        if (isset($request["course_img"])) {
+            $path = Course::createCourseImg($request["course_img"]);
+        }
+
+        $request->merge([
+            'create_date' => date("Y-m-d"),
+            'course_img' => $path,
+        ]);
+
+        $input = $request->all();
+        $input["course_img"] = $path;
+
+        Course::create($input);
 
         return redirect()->back();
     }
@@ -70,7 +83,11 @@ class CourseController extends Controller
      */
     public function show($id)
     {
-        //
+        $course = Course::with('user')->findOrFail($id);
+        // dd($course);
+        return Inertia::render('Admin/Course/Show', [
+            "course" => $course,
+        ]);
     }
 
     /**
@@ -104,6 +121,8 @@ class CourseController extends Controller
      */
     public function destroy($id)
     {
-        //
+        Course::findOrFail($id)->delete();
+
+        return redirect()->back();
     }
 }
