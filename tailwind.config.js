@@ -23,7 +23,9 @@ module.exports = {
                 'lightpurple':'#9b59ea',
                 'sky': '#1f86c7',
                 'skyn':'#40a9eb',
-                'pinkk':'#fc8e87'
+                'pinkk':'#fc8e87',
+                'greenn': '#bed3c3',
+                'grayn':'#f2f2f2'
 
             }
         },
