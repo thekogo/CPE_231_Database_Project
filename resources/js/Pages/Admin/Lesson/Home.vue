@@ -34,8 +34,8 @@
                     v-for="lesson in lessons"
                     :key="lesson.id"
                   >
-                    <td>{{ lesson.lesson_order }}</td>
-                    <td>{{ lesson.lesson_name }}</td>
+                    <td>{{ lesson.order }}</td>
+                    <td>{{ lesson.name }}</td>
                     <td class="flex gap-2 justify-center">
                       <jet-button
                         :href="
@@ -113,7 +113,7 @@ export default {
         if (result.isConfirmed) {
           Swal.fire({
             title: "Suscess",
-            html: `ลบ ${lesson_name} เรียบร้อย`,
+            html: `ลบ ${name} เรียบร้อย`,
             icon: "success",
             timer: 2000,
             timerProgressBar: true,

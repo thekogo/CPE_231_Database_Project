@@ -9,7 +9,7 @@ class Category extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['category_name', 'category_display'];
+    protected $fillable = ['name', 'status'];
 
     private $mapTextToInt = [
         "Draft" => 0,
@@ -23,7 +23,7 @@ class Category extends Model
 
     public function setCategoryDisplayAttribute($value)
     {
-        $this->attributes['category_display'] = $this->mapTextToInt[$value];
+        $this->attributes['status'] = $this->mapTextToInt[$value];
     }
 
     public function getCategoryDisplayAttribute($value)

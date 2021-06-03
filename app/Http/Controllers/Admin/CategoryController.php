@@ -42,8 +42,8 @@ class CategoryController extends Controller
     public function store(Request $request)
     {
         Validator::make($request->all(), [
-            'category_name' => ['required', 'string', 'max:50', 'unique:categories'],
-            'category_display' => ['required', 'string', 'max:50'],
+            'name' => ['required', 'string', 'max:50', 'unique:categories'],
+            'status' => ['required', 'string', 'max:50'],
         ])->validate();
 
         Category::create($request->all());
@@ -90,8 +90,8 @@ class CategoryController extends Controller
     public function update(Request $request, $id)
     {
         Validator::make($request->all(), [
-            'category_name' => ['required', 'string', 'max:50', Rule::unique('categories')->ignore($id)],
-            'category_display' => ['required', 'string', 'max:50'],
+            'name' => ['required', 'string', 'max:50', Rule::unique('categories')->ignore($id)],
+            'status' => ['required', 'string', 'max:50'],
         ])->validate();
 
         $category = Category::findOrFail($id);

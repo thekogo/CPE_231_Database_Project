@@ -166,7 +166,7 @@ export default {
         onSuccess: () => {
           Swal.fire({
             title: "Suscess",
-            html: `เพิ่ม ${this.form.category_name} เรียบร้อย`,
+            html: `เพิ่ม ${this.form.name} เรียบร้อย`,
             icon: "success",
             timer: 3000,
             timerProgressBar: true,

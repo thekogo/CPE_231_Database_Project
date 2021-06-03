@@ -17777,8 +17777,8 @@ __webpack_require__.r(__webpack_exports__);
   data: function data() {
     return {
       form: this.$inertia.form({
-        category_name: "",
-        category_display: 0
+        name: "",
+        status: 0
       }),
       options: ["Active", "Draft"]
     };
@@ -17792,7 +17792,7 @@ __webpack_require__.r(__webpack_exports__);
         onSuccess: function onSuccess() {
           sweetalert2__WEBPACK_IMPORTED_MODULE_8___default().fire({
             title: "Suscess",
-            html: "\u0E40\u0E1E\u0E34\u0E48\u0E21 ".concat(_this.form.category_name, " \u0E40\u0E23\u0E35\u0E22\u0E1A\u0E23\u0E49\u0E2D\u0E22"),
+            html: "\u0E40\u0E1E\u0E34\u0E48\u0E21 ".concat(_this.form.name, " \u0E40\u0E23\u0E35\u0E22\u0E1A\u0E23\u0E49\u0E2D\u0E22"),
             icon: "success",
             timer: 3000,
             timerProgressBar: true,
@@ -17862,8 +17862,8 @@ __webpack_require__.r(__webpack_exports__);
     return {
       options: ["Active", "Draft"],
       form: this.$inertia.form({
-        category_name: this.category.category_name,
-        category_display: this.category.category_display
+        name: this.category.name,
+        status: this.category.status
       })
     };
   },
@@ -17878,7 +17878,7 @@ __webpack_require__.r(__webpack_exports__);
         onSuccess: function onSuccess() {
           sweetalert2__WEBPACK_IMPORTED_MODULE_8___default().fire({
             title: "Suscess",
-            html: "\u0E41\u0E01\u0E49 ".concat(_this.form.category_name, " \u0E40\u0E23\u0E35\u0E22\u0E1A\u0E23\u0E49\u0E2D\u0E22"),
+            html: "\u0E41\u0E01\u0E49 ".concat(_this.form.name, " \u0E40\u0E23\u0E35\u0E22\u0E1A\u0E23\u0E49\u0E2D\u0E22"),
             icon: "success",
             timer: 3000,
             timerProgressBar: true,
@@ -17937,7 +17937,7 @@ __webpack_require__.r(__webpack_exports__);
       var _this = this;
 
       var id = _ref.id,
-          category_name = _ref.category_name;
+          name = _ref.name;
       sweetalert2__WEBPACK_IMPORTED_MODULE_4___default().fire({
         title: "Are you sure?",
         text: "You won't be able to revert this!",
@@ -17966,7 +17966,7 @@ __webpack_require__.r(__webpack_exports__);
         if (result.isConfirmed) {
           sweetalert2__WEBPACK_IMPORTED_MODULE_4___default().fire({
             title: "Suscess",
-            html: "\u0E25\u0E1A ".concat(category_name, " \u0E40\u0E23\u0E35\u0E22\u0E1A\u0E23\u0E49\u0E2D\u0E22"),
+            html: "\u0E25\u0E1A ".concat(name, " \u0E40\u0E23\u0E35\u0E22\u0E1A\u0E23\u0E49\u0E2D\u0E22"),
             icon: "success",
             timer: 2000,
             timerProgressBar: true
@@ -18079,9 +18079,9 @@ __webpack_require__.r(__webpack_exports__);
     return {
       form: this.$inertia.form({
         name: "",
-        course_description: "",
+        description: "",
         price: null,
-        course_status: "",
+        status: "",
         expire_date: "",
         hours_left: null,
         user_id: null,
@@ -18099,7 +18099,7 @@ __webpack_require__.r(__webpack_exports__);
         onSuccess: function onSuccess() {
           sweetalert2__WEBPACK_IMPORTED_MODULE_9___default().fire({
             title: "Suscess",
-            html: "\u0E40\u0E1E\u0E34\u0E48\u0E21 ".concat(_this.form.category_name, " \u0E40\u0E23\u0E35\u0E22\u0E1A\u0E23\u0E49\u0E2D\u0E22"),
+            html: "\u0E40\u0E1E\u0E34\u0E48\u0E21 ".concat(_this.form.name, " \u0E40\u0E23\u0E35\u0E22\u0E1A\u0E23\u0E49\u0E2D\u0E22"),
             icon: "success",
             timer: 3000,
             timerProgressBar: true,
@@ -18173,7 +18173,7 @@ __webpack_require__.r(__webpack_exports__);
       var _this = this;
 
       var id = _ref.id,
-          category_name = _ref.category_name;
+          name = _ref.name;
       sweetalert2__WEBPACK_IMPORTED_MODULE_4___default().fire({
         title: "Are you sure?",
         text: "You won't be able to revert this!",
@@ -18202,7 +18202,7 @@ __webpack_require__.r(__webpack_exports__);
         if (result.isConfirmed) {
           sweetalert2__WEBPACK_IMPORTED_MODULE_4___default().fire({
             title: "Suscess",
-            html: "\u0E25\u0E1A ".concat(category_name, " \u0E40\u0E23\u0E35\u0E22\u0E1A\u0E23\u0E49\u0E2D\u0E22"),
+            html: "\u0E25\u0E1A ".concat(name, " \u0E40\u0E23\u0E35\u0E22\u0E1A\u0E23\u0E49\u0E2D\u0E22"),
             icon: "success",
             timer: 2000,
             timerProgressBar: true
@@ -18349,8 +18349,8 @@ __webpack_require__.r(__webpack_exports__);
     return {
       options: ["Active", "Draft"],
       form: this.$inertia.form({
-        category_name: this.category.category_name,
-        category_display: this.category.category_display
+        name: this.category.name,
+        status: this.category.status
       })
     };
   },
@@ -18365,7 +18365,7 @@ __webpack_require__.r(__webpack_exports__);
         onSuccess: function onSuccess() {
           sweetalert2__WEBPACK_IMPORTED_MODULE_8___default().fire({
             title: "Suscess",
-            html: "\u0E41\u0E01\u0E49 ".concat(_this.form.category_name, " \u0E40\u0E23\u0E35\u0E22\u0E1A\u0E23\u0E49\u0E2D\u0E22"),
+            html: "\u0E41\u0E01\u0E49 ".concat(_this.form.name, " \u0E40\u0E23\u0E35\u0E22\u0E1A\u0E23\u0E49\u0E2D\u0E22"),
             icon: "success",
             timer: 3000,
             timerProgressBar: true,
@@ -22327,28 +22327,28 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
           return $options.submit && $options.submit.apply($options, arguments);
         }, ["prevent"]))
       }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("div", _hoisted_11, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_label_grid, {
-        "for": "category_name",
+        "for": "name",
         value: "Category Name"
       }), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_jet_input, {
-        id: "category_name",
+        id: "name",
         type: "text",
         "class": "mt-1 block w-full col-span-3",
         required: "",
         autofocus: "",
-        autocomplete: "category_name",
-        modelValue: $data.form.category_name,
+        autocomplete: "name",
+        modelValue: $data.form.name,
         "onUpdate:modelValue": _cache[1] || (_cache[1] = function ($event) {
-          return $data.form.category_name = $event;
+          return $data.form.name = $event;
         })
       }, null, 8
       /* PROPS */
       , ["modelValue"])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("div", _hoisted_12, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_label_grid, {
-        "for": "category_display",
+        "for": "status",
         value: "Category Display"
       }), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_jet_select, {
-        modelValue: $data.form.category_display,
+        modelValue: $data.form.status,
         "onUpdate:modelValue": _cache[2] || (_cache[2] = function ($event) {
-          return $data.form.category_display = $event;
+          return $data.form.status = $event;
         }),
         required: ""
       }, {
@@ -22487,29 +22487,29 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
           return $options.submit && $options.submit.apply($options, arguments);
         }, ["prevent"]))
       }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("div", _hoisted_11, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_label_grid, {
-        "for": "category_name",
+        "for": "name",
         value: "Category Name"
       }), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_jet_input, {
-        id: "category_name",
+        id: "name",
         type: "text",
         "class": "mt-1 block w-full col-span-3",
         required: "",
         autofocus: "",
-        autocomplete: "category_name",
-        modelValue: $data.form.category_name,
+        autocomplete: "name",
+        modelValue: $data.form.name,
         "onUpdate:modelValue": _cache[1] || (_cache[1] = function ($event) {
-          return $data.form.category_name = $event;
+          return $data.form.name = $event;
         })
       }, null, 8
       /* PROPS */
       , ["modelValue"])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("div", _hoisted_12, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_label_grid, {
-        "for": "category_display",
+        "for": "status",
         value: "Category Display"
       }), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_jet_select, {
         options: $data.options,
-        modelValue: $data.form.category_display,
+        modelValue: $data.form.status,
         "onUpdate:modelValue": _cache[2] || (_cache[2] = function ($event) {
-          return $data.form.category_display = $event;
+          return $data.form.status = $event;
         }),
         required: ""
       }, {
@@ -22642,12 +22642,12 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
       , ["href"])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("div", _hoisted_10, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("table", _hoisted_11, [_hoisted_12, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("tbody", null, [((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)($props.categories, function (category) {
         return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)("tr", {
           "class": "text-center",
-          key: category.category_name
+          key: category.name
         }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("td", null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(category.id), 1
         /* TEXT */
-        ), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("td", null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(category.category_name), 1
+        ), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("td", null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(category.name), 1
         /* TEXT */
-        ), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("td", null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(category.category_display), 1
+        ), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("td", null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(category.status), 1
         /* TEXT */
         ), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("td", null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(category.course_categories_count), 1
         /* TEXT */
@@ -22802,29 +22802,29 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
           return _ctx.submit && _ctx.submit.apply(_ctx, arguments);
         }, ["prevent"]))
       }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("div", _hoisted_11, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_label_grid, {
-        "for": "category_name",
+        "for": "name",
         value: "Category Name"
       }), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_jet_input, {
-        id: "category_name",
+        id: "name",
         type: "text",
         "class": "mt-1 block w-full col-span-3",
         required: "",
         autofocus: "",
-        autocomplete: "category_name",
-        modelValue: $props.category.category_name,
+        autocomplete: "name",
+        modelValue: $props.category.name,
         "onUpdate:modelValue": _cache[1] || (_cache[1] = function ($event) {
-          return $props.category.category_name = $event;
+          return $props.category.name = $event;
         }),
         disabled: ""
       }, null, 8
       /* PROPS */
       , ["modelValue"])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("div", _hoisted_12, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_label_grid, {
-        "for": "category_display",
+        "for": "status",
         value: "Category Display"
       }), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_jet_select, {
-        modelValue: $props.category.category_display,
+        modelValue: $props.category.status,
         "onUpdate:modelValue": _cache[2] || (_cache[2] = function ($event) {
-          return $props.category.category_display = $event;
+          return $props.category.status = $event;
         }),
         required: "",
         disabled: ""
@@ -23088,13 +23088,13 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
       }, 8
       /* PROPS */
       , ["modelValue"])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("div", _hoisted_18, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_label_grid, {
-        "for": "course_description",
+        "for": "description",
         value: "รายละเอียดคอร์ส"
       }), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_jet_text_area, {
         "class": "mt-1 block w-full col-span-3",
-        modelValue: $data.form.course_description,
+        modelValue: $data.form.description,
         "onUpdate:modelValue": _cache[4] || (_cache[4] = function ($event) {
-          return $data.form.course_description = $event;
+          return $data.form.description = $event;
         }),
         required: ""
       }, null, 8
@@ -23139,12 +23139,12 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
         "for": "price",
         value: "ชั่วโมง"
       })]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("div", _hoisted_21, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_label_grid, {
-        "for": "course_status",
+        "for": "status",
         value: "สถานะ"
       }), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_jet_select, {
-        modelValue: $data.form.course_status,
+        modelValue: $data.form.status,
         "onUpdate:modelValue": _cache[7] || (_cache[7] = function ($event) {
-          return $data.form.course_status = $event;
+          return $data.form.status = $event;
         }),
         required: ""
       }, {
@@ -23291,12 +23291,12 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
       , ["href"])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("div", _hoisted_10, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("table", _hoisted_11, [_hoisted_12, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("tbody", null, [((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)($props.categories, function (category) {
         return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)("tr", {
           "class": "text-center",
-          key: category.category_name
+          key: category.name
         }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("td", null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(category.id), 1
         /* TEXT */
-        ), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("td", null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(category.category_name), 1
+        ), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("td", null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(category.name), 1
         /* TEXT */
-        ), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("td", null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(category.category_display), 1
+        ), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("td", null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(category.status), 1
         /* TEXT */
         ), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("td", null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(category.course_categories_count), 1
         /* TEXT */
@@ -23707,29 +23707,29 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
           return $options.submit && $options.submit.apply($options, arguments);
         }, ["prevent"]))
       }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("div", _hoisted_11, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_label_grid, {
-        "for": "category_name",
+        "for": "name",
         value: "Category Name"
       }), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_jet_input, {
-        id: "category_name",
+        id: "name",
         type: "text",
         "class": "mt-1 block w-full col-span-3",
         required: "",
         autofocus: "",
-        autocomplete: "category_name",
-        modelValue: $data.form.category_name,
+        autocomplete: "name",
+        modelValue: $data.form.name,
         "onUpdate:modelValue": _cache[1] || (_cache[1] = function ($event) {
-          return $data.form.category_name = $event;
+          return $data.form.name = $event;
         })
       }, null, 8
       /* PROPS */
       , ["modelValue"])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("div", _hoisted_12, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_label_grid, {
-        "for": "category_display",
+        "for": "status",
         value: "Category Display"
       }), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_jet_select, {
         options: $data.options,
-        modelValue: $data.form.category_display,
+        modelValue: $data.form.status,
         "onUpdate:modelValue": _cache[2] || (_cache[2] = function ($event) {
-          return $data.form.category_display = $event;
+          return $data.form.status = $event;
         }),
         required: ""
       }, null, 8
@@ -24011,30 +24011,30 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
           return _ctx.submit && _ctx.submit.apply(_ctx, arguments);
         }, ["prevent"]))
       }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("div", _hoisted_11, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_label_grid, {
-        "for": "category_name",
+        "for": "name",
         value: "Category Name"
       }), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_jet_input, {
-        id: "category_name",
+        id: "name",
         type: "text",
         "class": "mt-1 block w-full col-span-3",
         required: "",
         autofocus: "",
-        autocomplete: "category_name",
-        modelValue: $props.category.category_name,
+        autocomplete: "name",
+        modelValue: $props.category.name,
         "onUpdate:modelValue": _cache[1] || (_cache[1] = function ($event) {
-          return $props.category.category_name = $event;
+          return $props.category.name = $event;
         }),
         disabled: ""
       }, null, 8
       /* PROPS */
       , ["modelValue"])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("div", _hoisted_12, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_label_grid, {
-        "for": "category_display",
+        "for": "status",
         value: "Category Display"
       }), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_jet_select, {
         options: $data.options,
-        modelValue: $props.category.category_display,
+        modelValue: $props.category.status,
         "onUpdate:modelValue": _cache[2] || (_cache[2] = function ($event) {
-          return $props.category.category_display = $event;
+          return $props.category.status = $event;
         }),
         required: "",
         disabled: ""

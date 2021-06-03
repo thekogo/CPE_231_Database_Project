@@ -25,51 +25,51 @@
               <jet-validation-errors class="mb-4" />
               <form @submit.prevent="submit">
                 <div class="grid grid-cols-5 mb-2">
-                  <label-grid for="lesson_order" value="ลำดับที่" />
+                  <label-grid for="order" value="ลำดับที่" />
                   <jet-input
-                    id="lesson_order"
+                    id="order"
                     type="number"
                     class="mt-1 block w-full col-span-1"
                     required
                     autofocus
-                    autocomplete="lesson_order"
-                    v-model="lesson.lesson_order"
+                    autocomplete="order"
+                    v-model="lesson.order"
                     disabled
                   />
                 </div>
                 <div class="grid grid-cols-5 mb-2">
-                  <label-grid for="lesson_name" value="ชื่อบทเรียน" />
+                  <label-grid for="name" value="ชื่อบทเรียน" />
                   <jet-input
-                    id="lesson_name"
+                    id="name"
                     type="text"
                     class="mt-1 block w-full col-span-2"
                     required
                     autofocus
-                    autocomplete="lesson_name"
-                    v-model="lesson.lesson_name"
+                    autocomplete="name"
+                    v-model="lesson.name"
                     disabled
                   />
                 </div>                
                 <div class="grid grid-cols-5 mb-2">
-                  <label-grid for="lesson_vdo" value="ลิงค์วิดีโอ" />
+                  <label-grid for="vdo_url" value="ลิงค์วิดีโอ" />
                   <jet-input
-                    id="lesson_vdo"
+                    id="vdo_url"
                     type="text"
                     class="mt-1 block w-full col-span-2"
                     autofocus
-                    autocomplete="lesson_vdo"
-                    v-model="lesson.lesson_vdo"
+                    autocomplete="vdo_url"
+                    v-model="lesson.vdo_url"
                     disabled
                   />
                 </div>
                 <div class="grid grid-cols-5 mb-2">
                   <label-grid
-                    for="course_description"
+                    for="description"
                     value="รายละเอียดคอร์ส"
                   />
                   <jet-text-area
                     class="mt-1 block w-full col-span-3"
-                    v-model="lesson.course_description"
+                    v-model="lesson.description"
                     disabled
                   />
                 </div>

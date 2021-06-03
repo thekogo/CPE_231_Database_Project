@@ -23,22 +23,22 @@
               <jet-validation-errors class="mb-4" />
               <form @submit.prevent="submit">
                 <div class="grid grid-cols-5 mb-2">
-                  <label-grid for="category_name" value="Category Name" />
+                  <label-grid for="name" value="Category Name" />
                   <jet-input
-                    id="category_name"
+                    id="name"
                     type="text"
                     class="mt-1 block w-full col-span-3"
                     required
                     autofocus
-                    autocomplete="category_name"
-                    v-model="category.category_name"
+                    autocomplete="name"
+                    v-model="category.name"
                     disabled
                   />
                 </div>
                 <div class="grid grid-cols-5 mb-2">
-                  <label-grid for="category_display" value="Category Display" />
+                  <label-grid for="status" value="Category Display" />
                   <jet-select
-                    v-model="category.category_display"
+                    v-model="category.status"
                     required
                     disabled
                   >

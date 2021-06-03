@@ -17,7 +17,7 @@
               <h1 class="text-2xl font-semibold mb-3">
                 สร้างการลงทะเบียนเรียน
               </h1>
-              <jet-button :href="route('admin.categories.index')"
+              <jet-button :href="route('admin.lessons.index')"
                 >รายการการลงทะเบียนเรียน</jet-button
               >
             </div>

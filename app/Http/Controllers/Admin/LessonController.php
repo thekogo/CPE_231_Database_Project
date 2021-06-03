@@ -47,10 +47,10 @@ class LessonController extends Controller
     public function store(Request $request)
     {
         Validator::make($request->all(), [
-            'lesson_name' => ['required', 'string'],
-            'lesson_order' => ['required', 'integer'],
-            'lesson_vdo' => ['', ''],
-            'lesson_desciption' => ['', ''],
+            'name' => ['required', 'string'],
+            'order' => ['required', 'integer'],
+            'vdo_url' => ['', ''],
+            'desciption' => ['', ''],
             'course_id' => ['required', 'integer'],
         ])->validate();
 
@@ -99,10 +99,10 @@ class LessonController extends Controller
     public function update(Request $request, $id)
     {
         Validator::make($request->all(), [
-            'lesson_name' => ['required', 'string'],
-            'lesson_order' => ['required', 'integer'],
-            'lesson_vdo' => ['', ''],
-            'lesson_desciption' => ['', ''],
+            'name' => ['required', 'string'],
+            'order' => ['required', 'integer'],
+            'vdo_url' => ['', ''],
+            'desciption' => ['', ''],
             'course_id' => ['required', 'integer'],
         ])->validate();
 
