@@ -4,13 +4,21 @@ namespace App\Http\Controllers\Tutor;
 
 use App\Http\Controllers\Controller;
 use App\Models\Course;
-use Illuminate\Support\Facades\Auth;
+use App\Models\Lesson;
 use Illuminate\Http\Request;
-use Inertia\Inertia;
 use Illuminate\Support\Facades\Validator;
+use Inertia\Inertia;
 
-class CourseController extends Controller
+class LessonController extends Controller
 {
+
+    function __construct(Request $request)
+    {
+        if ($request->route() != null) {
+            $course_id = $request->route()->parameter('course');
+            $this->course = Course::findOrFail($course_id);
+        }
+    }
     /**
      * Display a listing of the resource.
      *
@@ -18,9 +26,10 @@ class CourseController extends Controller
      */
     public function index()
     {
-        $courses = Course::with('user')->where('user_id', Auth::id())->get();
-        return Inertia::render('Tutor/Course/Home', [
-            "courses" => $courses
+        $lessons = Lesson::where('course_id', $this->course->id)->orderBy('order')->get();
+        return Inertia::render('Tutor/Lesson/Home', [
+            'course' => $this->course,
+            'lessons' => $lessons,
         ]);
     }
 
@@ -31,9 +40,10 @@ class CourseController extends Controller
      */
     public function create()
     {
-        $tutor = Auth::user();
-        return Inertia::render('Tutor/Course/Create', [
-            "tutor" => $tutor
+        $lessons = Lesson::where('course_id', $this->course->id)->get();
+        return Inertia::render('Tutor/Lesson/Create', [
+            "course" => $this->course,
+            "lessons" => $lessons,
         ]);
     }
 
@@ -45,31 +55,18 @@ class CourseController extends Controller
      */
     public function store(Request $request)
     {
+        $lessons = Lesson::where('course_id', $this->course->id)->count();
         Validator::make($request->all(), [
-            'name' => ['required', 'string', 'unique:courses'],
+            'name' => ['required', 'string'],
             'description' => ['required', 'string'],
-            'price' => ['required', 'integer'],
-            'expire_date' => ['required', 'date'],
-            'hours_left' => ['required', 'integer'],
-            'course_img' => ['image'],
+            'order' => ['required', 'integer', "max:$lessons"],
         ])->validate();
-
-        $path = null;
-        if (isset($request["course_img"])) {
-            $path = Course::createCourseImg($request["course_img"]);
+        if ($request->order != $lessons) {
+            Lesson::reOrder($this->course->id, $request->order);
         }
-
-        $request->merge([
-            'create_date' => date("Y-m-d"),
-            'course_img' => $path,
-            'user_id' => Auth::id(),
-            'status' => 'รอการอนุมัติ'
-        ]);
-
-        $input = $request->all();
-        $input["course_img"] = $path;
-
-        Course::create($input);
+        Lesson::create($request->merge([
+            'course_id' => $this->course->id
+        ])->all());
 
         return redirect()->back();
     }
@@ -80,11 +77,13 @@ class CourseController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($course_id, $id)
     {
-        $course = Course::with('user')->findOrFail($id);
-        return Inertia::render('Tutor/Course/Show', [
-            "course" => $course,
+        $lesson = Lesson::findOrFail($id);
+
+        return Inertia::render('Tutor/Lesson/Show', [
+            "lesson" => $lesson,
+            "course" => $this->course,
         ]);
     }
 
@@ -96,12 +95,7 @@ class CourseController extends Controller
      */
     public function edit($id)
     {
-        $course = Course::findOrFail($id);
-        $tutor = Auth::user();
-        return Inertia::render('Tutor/Course/Edit', [
-            "course" => $course,
-            "tutor" => $tutor
-        ]);
+        //
     }
 
     /**
@@ -122,9 +116,12 @@ class CourseController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy($course_id, $id)
     {
-        Course::findOrFail($id)->delete();
+        $lesson = Lesson::findOrFail($id);
+        $order = $lesson->order;
+        $lesson->delete();
+        Lesson::reOrder($this->course->id, $order, 'delete');
 
         return redirect()->back();
     }
