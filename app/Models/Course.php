@@ -11,12 +11,12 @@ class Course extends Model
     use HasFactory;
 
     protected $fillable = [
-        'course_name',
+        'name',
         'course_img',
-        'course_category',
-        'course_description',
+        'category',
+        'description',
         'price',
-        'course_status',
+        'status',
         'create_date',
         'expire_date',
         'hours_left',
@@ -37,12 +37,12 @@ class Course extends Model
         "รอการอนุมัติ"
     ];
 
-    public function setCourseStatusAttribute($value)
+    public function setStatusAttribute($value)
     {
-        $this->attributes['course_status'] = $this->mapTextToInt[$value];
+        $this->attributes['status'] = $this->mapTextToInt[$value];
     }
 
-    public function getCategoryStatusAttribute($value)
+    public function getStatusAttribute($value)
     {
         return $this->mapIntToText[$value];
     }
@@ -62,5 +62,10 @@ class Course extends Model
     public function user()
     {
         return $this->belongsTo(User::class);
+    }
+
+    public function lessons()
+    {
+        return $this->hasMany(Lesson::class);
     }
 }
