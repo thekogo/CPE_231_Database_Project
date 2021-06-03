@@ -1,30 +1,32 @@
 <template>
-  <div class="container mx-auto">
-    <div class="flex justify-between">
-      <img src="/images/logo1.png" alt="" />
-      <div class="inline-flex gap-4 items-center">
-        <span class="inline-flex items-center">FAQ</span>
-        <span class="inline-flex items-center">ติดต่อเรา</span>
-        <input-pill />
-        <button-pill>ลงทะเบียน</button-pill>
+  <div class="w-full fixed pt-2 bg-white z-50">
+    <div class="container mx-auto">
+      <div class="flex justify-between">
+        <img src="/images/logo1.png" alt="" />
+        <div class="inline-flex gap-4 items-center">
+          <span class="inline-flex items-center">FAQ</span>
+          <span class="inline-flex items-center">ติดต่อเรา</span>
+          <input-pill />
+          <button-pill>ลงทะเบียน</button-pill>
+        </div>
+      </div>
+      <div class="flex justify-center gap-16 mt-4 pb-4">
+        <span class="border-b-2 border-transparent hover:border-greenn"
+          >หน้าแรก</span
+        >
+        <span class="border-b-2 border-transparent hover:border-greenn"
+          >ช่องทางการติดต่อ</span
+        >
+        <span class="border-b-2 border-transparent hover:border-greenn"
+          >ถาม-ตอบ ปัญหา</span
+        >
+        <span class="border-b-2 border-transparent hover:border-greenn"
+          >โปรไฟล์</span
+        >
       </div>
     </div>
-    <div class="flex justify-center gap-16 mt-4">
-      <span class="border-b-2 border-transparent hover:border-greenn"
-        >กหฟกหฟหก</span
-      >
-      <span class="border-b-2 border-transparent hover:border-greenn"
-        >กหฟกหฟหก</span
-      >
-      <span class="border-b-2 border-transparent hover:border-greenn"
-        >กหฟกหฟหก</span
-      >
-      <span class="border-b-2 border-transparent hover:border-greenn"
-        >กหฟกหฟหก</span
-      >
-    </div>
   </div>
-  <div class="grid grid-cols-2 bg-blue-400 mt-4">
+  <div class="grid grid-cols-2 bg-blue-400">
     <div class="col-span-1 flex flex-col justify-center align-middle">
       <div class="w-9/12 ml-auto">
         <img src="/images/lightup.png" draggable="false" class="mb-8" />
@@ -52,7 +54,84 @@
       </lottie-player>
     </div>
   </div>
-  <div class="container mx-auto">test</div>
+
+  <div class="container mx-auto grid grid-cols-5 gap-5 py-5">
+    <div class="col-span-4">
+      <img src="/images/banner1.png" class="h-80 object-cover w-full" />
+    </div>
+    <div class="col-span-1 grid grid-cols-2 grid-rows-2 gap-2">
+      <div
+        class="col-span-1 row-span-1 border border-gray-200 rounded-md bg-grey flex flex-col justify-center items-center gap-4 cursor-pointer hover:bg-pink-200 hover:shadow-xl"
+      >
+        <i class="fas fa-cart-plus text-6xl text-pinkn"></i>
+        <span>PAYMENT</span>
+      </div>
+      <div
+        class="col-span-1 row-span-1 border border-gray-200 rounded-md bg-grey flex flex-col justify-center items-center gap-4 cursor-pointer hover:bg-pink-200 hover:shadow-xl"
+      >
+        <i class="fas fa-user text-6xl text-purplen"></i>
+        <span>PROFILE</span>
+      </div>
+      <div
+        class="col-span-1 row-span-1 border border-gray-200 rounded-md bg-grey flex flex-col justify-center items-center gap-4 cursor-pointer hover:bg-pink-200 hover:shadow-xl"
+      >
+        <i class="fas fa-chalkboard-teacher text-6xl text-skyn"></i>
+        <span>TUTOR</span>
+      </div>
+      <div
+        class="col-span-1 row-span-1 border border-gray-200 rounded-md bg-grey flex flex-col justify-center items-center gap-4 cursor-pointer hover:bg-pink-200 hover:shadow-xl"
+      >
+        <i class="far fa-question-circle text-6xl text-yellow-400"></i>
+        <span>CONTACT</span>
+      </div>
+    </div>
+  </div>
+  <div class="container grid grid-cols-5 gap-2 h-40 mx-auto">
+    <div
+      class="col-span-1 row-span-1"
+      v-for="course in courses"
+      :key="course.id"
+    >
+      <img :src="course.course_img" alt="" class="h-40" />
+      <h3>{{ course.name }}</h3>
+      <h4>{{ course.user.fullName }}</h4>
+    </div>
+    <div class="col-span-1 row-span-1 bg-red-300"></div>
+    <div class="col-span-1 row-span-1 bg-red-300"></div>
+    <div class="col-span-1 row-span-1 bg-red-300"></div>
+    <div class="col-span-1 row-span-1 bg-red-300"></div>
+  </div>
+  <div class="grid grid-cols-2 mt-4">
+    <div class="col-span-1">
+      <lottie-player
+        autoplay
+        loop
+        mode="normal"
+        speed="0.5"
+        src="https://assets1.lottiefiles.com/private_files/lf30_9ltfoN.json"
+        class="w-11/12 mx-auto"
+      >
+      </lottie-player>
+    </div>
+    <div class="col-span-1 flex flex-col justify-center align-middle">
+      <div class="w-9/12">
+        <img src="/images/whatis.png" draggable="false" class="mb-2" />
+        <img src="/images/nextlevel.png" />
+        <img src="/images/learning.png" class="mt-2 mx-auto" />
+        <span class="text-center block mt-3 text-5xl"
+          >สามารถเรียนได้ทุกที่ทุกเวลา</span
+        >
+        <span class="text-center block mt-2 text-5xl"
+          >เรียนได้ตลอด24ชั่วโมง</span
+        >
+        <span class="text-center block mt-2 text-5xl"
+          >สะดวก สบาย เวลาเหลือเยอะขึ้น</span
+        >
+      </div>
+    </div>
+  </div>
+  <img src="/images/bottom2.png" class="w-full" />
+  <copyright></copyright>
 </template>
 
 <style scoped>
@@ -71,19 +150,10 @@ import "@lottiefiles/lottie-player";
 import JetButton from "@/Jetstream/Button.vue";
 import ButtonPill from "@/Components/Common/ButtonPill.vue";
 import InputPill from "@/Components/Common/InputPill.vue";
+import Copyright from "@/Components/Common/Copyright.vue";
 
 export default {
-  components: { JetButton, ButtonPill, InputPill },
-  data() {
-    return {
-      loginBtn: false,
-    };
-  },
-  computed: {
-    loginBtnPath() {
-      if (this.loginBtn) return "/images/login-hover.png";
-      return "/images/login.png";
-    },
-  },
+  components: { JetButton, ButtonPill, InputPill, Copyright },
+  props: ["courses"],
 };
 </script>

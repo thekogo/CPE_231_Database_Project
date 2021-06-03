@@ -23,15 +23,15 @@
               <jet-validation-errors class="mb-4" />
               <form @submit.prevent="submit">
                 <div class="grid grid-cols-5 mb-2">
-                  <label-grid for="course_name" value="ชื่อคอร์ส" />
+                  <label-grid for="name" value="ชื่อคอร์ส" />
                   <jet-input
-                    id="course_name"
+                    id="name"
                     type="text"
                     class="mt-1 block w-full col-span-3"
                     required
                     autofocus
-                    autocomplete="course_name"
-                    v-model="form.course_name"
+                    autocomplete="name"
+                    v-model="form.name"
                   />
                 </div>
                 <div class="grid grid-cols-5 mb-2">
@@ -72,13 +72,10 @@
                   </jet-select>
                 </div>
                 <div class="grid grid-cols-5 mb-2">
-                  <label-grid
-                    for="course_description"
-                    value="รายละเอียดคอร์ส"
-                  />
+                  <label-grid for="description" value="รายละเอียดคอร์ส" />
                   <jet-text-area
                     class="mt-1 block w-full col-span-3"
-                    v-model="form.course_description"
+                    v-model="form.description"
                     required
                   />
                 </div>
@@ -109,8 +106,8 @@
                   <label-grid for="price" value="ชั่วโมง" />
                 </div>
                 <div class="grid grid-cols-5 mb-2">
-                  <label-grid for="course_status" value="สถานะ" />
-                  <jet-select v-model="form.course_status" required>
+                  <label-grid for="status" value="สถานะ" />
+                  <jet-select v-model="form.status" required>
                     <option v-for="option in options" :key="option">
                       {{ option }}
                     </option>
