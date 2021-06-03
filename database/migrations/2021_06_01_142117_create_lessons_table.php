@@ -18,7 +18,7 @@ class CreateLessonsTable extends Migration
             $table->string('name');
             $table->integer('order');
             $table->string('vdo')->nullable();
-            $table->string('desciption')->nullable();
+            $table->string('description')->nullable();
             $table->foreignId('course_id')->constrained();
         });
     }
