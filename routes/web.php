@@ -3,6 +3,7 @@
 use App\Http\Controllers\Student;
 use App\Http\Controllers\Tutor;
 use App\Http\Controllers\Admin;
+use App\Http\Controllers\HomeController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -18,9 +19,8 @@ use Inertia\Inertia;
 |
 */
 
-Route::get('/', function () {
-    return Inertia::render('Welcome');
-});
+Route::get('/', [HomeController::class, 'index']);
+Route::get('/home', [HomeController::class, 'home']);
 
 Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
     return Inertia::render('Dashboard');
