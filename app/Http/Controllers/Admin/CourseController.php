@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Course;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Inertia\Inertia;
 use Illuminate\Support\Facades\Validator;
 
@@ -47,10 +48,10 @@ class CourseController extends Controller
     public function store(Request $request)
     {
         Validator::make($request->all(), [
-            'course_name' => ['required', 'string', 'unique:courses'],
-            'course_description' => ['required', 'string'],
+            'name' => ['required', 'string', 'unique:courses'],
+            'description' => ['required', 'string'],
             'price' => ['required', 'integer'],
-            'course_status' => ['required', 'string'],
+            'status' => ['required', 'string'],
             'expire_date' => ['required', 'date'],
             'hours_left' => ['required', 'integer'],
             'user_id' => ['required', 'integer'],

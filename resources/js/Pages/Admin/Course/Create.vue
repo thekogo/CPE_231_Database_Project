@@ -170,10 +170,10 @@ export default {
   data() {
     return {
       form: this.$inertia.form({
-        course_name: "",
-        course_description: "",
+        name: "",
+        description: "",
         price: null,
-        course_status: "",
+        status: "",
         expire_date: "",
         hours_left: null,
         user_id: null,

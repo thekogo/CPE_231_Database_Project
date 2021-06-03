@@ -23,15 +23,15 @@
               <jet-validation-errors class="mb-4" />
               <form @submit.prevent="submit">
                 <div class="grid grid-cols-5 mb-2">
-                  <label-grid for="course_name" value="ชื่อคอร์ส" />
+                  <label-grid for="name" value="ชื่อคอร์ส" />
                   <jet-input
-                    id="course_name"
+                    id="name"
                     type="text"
                     class="mt-1 block w-full col-span-3"
                     required
                     autofocus
-                    autocomplete="course_name"
-                    :value="course.course_name"
+                    autocomplete="name"
+                    :value="course.name"
                     disabled
                   />
                 </div>
@@ -49,7 +49,7 @@
                 <div class="grid grid-cols-5 mb-2">
                   <label-grid for="user_id" value="ผู้สอน" />
                   <jet-input
-                    id="course_status"
+                    id="status"
                     type="text"
                     class="mt-1 block w-full col-span-1"
                     :value="course.user.fullName"
@@ -58,13 +58,10 @@
                   />
                 </div>
                 <div class="grid grid-cols-5 mb-2">
-                  <label-grid
-                    for="course_description"
-                    value="รายละเอียดคอร์ส"
-                  />
+                  <label-grid for="description" value="รายละเอียดคอร์ส" />
                   <jet-text-area
                     class="mt-1 block w-full col-span-3"
-                    :value="course.course_description"
+                    :value="course.description"
                     required
                     disabled
                   />
@@ -98,12 +95,12 @@
                   <label-grid for="price" value="ชั่วโมง" />
                 </div>
                 <div class="grid grid-cols-5 mb-2">
-                  <label-grid for="course_status" value="สถานะ" />
+                  <label-grid for="status" value="สถานะ" />
                   <jet-input
-                    id="course_status"
+                    id="status"
                     type="text"
                     class="mt-1 block w-full col-span-1"
-                    :value="options[course.course_status]"
+                    :value="options[course.status]"
                     required
                     disabled
                   />

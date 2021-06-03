@@ -35,11 +35,11 @@
                   <tr
                     class="text-center"
                     v-for="course in courses"
-                    :key="course.course_name"
+                    :key="course.name"
                   >
                     <td>#{{ course.id }}</td>
-                    <td>{{ course.course_name }}</td>
-                    <td>{{ course.course_status }}</td>
+                    <td>{{ course.name }}</td>
+                    <td>{{ course.status }}</td>
                     <td>{{ course.price }} บาท</td>
                     <td>{{ course.user.fullName }}</td>
                     <td class="flex gap-2 justify-center">
@@ -84,7 +84,7 @@ export default {
   props: ["courses"],
 
   methods: {
-    openDelete({ id, course_name }) {
+    openDelete({ id, name }) {
       Swal.fire({
         title: "Are you sure?",
         text: "You won't be able to revert this!",
@@ -96,18 +96,15 @@ export default {
         showLoaderOnConfirm: true,
         preConfirm: () => {
           return this.$inertia.delete(
-            route(
-              "tutor.courses.destroy",
-              { course: id },
-              {
-                onSuccess: () => {
-                  return;
-                },
-                onError: () => {
-                  Swal.showValidationMessage(`Request failed: ${error}`);
-                },
-              }
-            )
+            route("tutor.courses.destroy", { course: id }),
+            {
+              onSuccess: () => {
+                return;
+              },
+              onError: () => {
+                Swal.showValidationMessage(`Request failed: ${error}`);
+              },
+            }
           );
         },
         allowOutsideClick: () => !Swal.isLoading(),
@@ -115,7 +112,7 @@ export default {
         if (result.isConfirmed) {
           Swal.fire({
             title: "Suscess",
-            html: `ลบคอร์ส  ${course_name}  เรียบร้อย`,
+            html: `ลบคอร์ส  ${name}  เรียบร้อย`,
             icon: "success",
             timer: 2000,
             timerProgressBar: true,
