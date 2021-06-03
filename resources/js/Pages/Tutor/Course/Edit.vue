@@ -14,9 +14,7 @@
           </div>
           <div class="col-span-9">
             <div class="flex justify-between mb-2">
-              <h1 class="text-2xl font-semibold mb-3">
-                แก้ไขคอร์สเรียน
-              </h1>
+              <h1 class="text-2xl font-semibold mb-3">แก้ไขคอร์สเรียน</h1>
               <jet-button :href="route('tutor.courses.index')"
                 >รายการคอร์ส</jet-button
               >
@@ -169,7 +167,7 @@ export default {
         hours_left: this.course.hours_left,
         course_img: this.course.course_img,
       }),
-      photoPreview: null,
+      photoPreview: this.course.course_img,
     };
   },
 

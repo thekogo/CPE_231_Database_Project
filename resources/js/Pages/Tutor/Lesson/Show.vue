@@ -18,7 +18,7 @@
                 รายละเอียดบทเรียน : {{ lesson.name }}
               </h1>
               <div class="flex gap-2">
-                <jet-button :href="route('admin.courses.index')"
+                <jet-button :href="route('tutor.courses.index')"
                   >นักเรียนในคอร์ส</jet-button
                 >
                 <jet-button
@@ -83,7 +83,9 @@
                 </div>
               </form>
             </div>
-            <h1 class="text-2xl font-semibold mb-3 mt-2">คำถามในบทเรียน</h1>
+            <div class="flex justify-between">
+              <h1 class="text-2xl font-semibold mb-3 mt-2">คำถามในบทเรียน</h1>
+            </div>
             <box-content class="flex flex-col gap-4">
               <div class="flex justify-between gap-2">
                 <p>

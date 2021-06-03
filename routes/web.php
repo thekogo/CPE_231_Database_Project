@@ -27,7 +27,7 @@ Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
 })->name('dashboard');
 
 Route::middleware(['auth:sanctum'])->group(function () {
-    Route::middleware(['role:student'])->prefix('student')->group(function () {
+    Route::middleware(['role:student'])->prefix('students')->group(function () {
         Route::get('/', [Student\HomeController::class, 'index'])->name('student.home');
         Route::resource('/courses', Student\CourseController::class);
     });
@@ -38,6 +38,7 @@ Route::middleware(['auth:sanctum'])->group(function () {
         Route::get('/', [Tutor\HomeController::class, 'index'])->name('home');
         Route::resource('/courses', Tutor\CourseController::class);
         Route::resource('courses.lessons', Tutor\LessonController::class);
+        Route::resource('courses.lessons.questions', Tutor\QuestionController::class);
     });
 });
 

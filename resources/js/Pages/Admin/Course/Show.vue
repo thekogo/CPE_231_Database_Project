@@ -156,7 +156,7 @@ export default {
   data() {
     return {
       options: ["เผยแพร่", "ปิดการมองเห็น"],
-      photoPreview: "/" + this.course.course_img,
+      photoPreview: this.course.course_img,
     };
   },
 

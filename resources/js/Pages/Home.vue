@@ -66,12 +66,13 @@
         <i class="fas fa-cart-plus text-6xl text-pinkn"></i>
         <span>PAYMENT</span>
       </div>
-      <div
+      <a
+        :href="route('login')"
         class="col-span-1 row-span-1 border border-gray-200 rounded-md bg-grey flex flex-col justify-center items-center gap-4 cursor-pointer hover:bg-pink-200 hover:shadow-xl"
       >
         <i class="fas fa-user text-6xl text-purplen"></i>
         <span>PROFILE</span>
-      </div>
+      </a>
       <div
         class="col-span-1 row-span-1 border border-gray-200 rounded-md bg-grey flex flex-col justify-center items-center gap-4 cursor-pointer hover:bg-pink-200 hover:shadow-xl"
       >

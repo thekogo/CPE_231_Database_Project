@@ -72,14 +72,7 @@
                   </jet-select>
                 </div>
                 <div class="grid grid-cols-5 mb-2">
-<<<<<<< HEAD
-                  <label-grid
-                    for="description"
-                    value="รายละเอียดคอร์ส"
-                  />
-=======
                   <label-grid for="description" value="รายละเอียดคอร์ส" />
->>>>>>> 16b74d92da6b8da893b1748f7677d2cdbab87cdd
                   <jet-text-area
                     class="mt-1 block w-full col-span-3"
                     v-model="form.description"

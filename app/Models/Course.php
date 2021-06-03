@@ -49,7 +49,7 @@ class Course extends Model
 
     public function getCourseImgAttribute($value)
     {
-        return "storage/" . str_replace("public/", "", $value);
+        return "/storage/" . str_replace("public/", "", $value);
     }
 
     public static function createCourseImg(UploadedFile $file)

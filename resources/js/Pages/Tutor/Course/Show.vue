@@ -196,7 +196,7 @@ export default {
   data() {
     return {
       options: ["เผยแพร่", "ปิดการมองเห็น", "รอการอนุมัติ"],
-      photoPreview: "/" + this.course.course_img,
+      photoPreview: this.course.course_img,
     };
   },
 
