@@ -2,7 +2,7 @@
   <app-layout>
     <template #header>
       <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-        จัดการการลงทะเบียนเรียน
+        จัดการคอร์สเรียน
       </h2>
     </template>
 
@@ -15,81 +15,108 @@
           <div class="col-span-9">
             <div class="flex justify-between mb-2">
               <h1 class="text-2xl font-semibold mb-3">
-                สร้างการลงทะเบียนเรียน
+                แก้ไขคอร์สเรียน
               </h1>
-              <jet-button :href="route('admin.categories.index')"
-                >รายการการลงทะเบียนเรียน</jet-button
+              <jet-button :href="route('tutor.courses.index')"
+                >รายการคอร์ส</jet-button
               >
             </div>
             <div class="bg-white shadow-lg rounded-md p-5 flex flex-col gap-4">
               <jet-validation-errors class="mb-4" />
               <form @submit.prevent="submit">
                 <div class="grid grid-cols-5 mb-2">
-                  <label-grid for="user_id" value="ผู้เรียน" />
-                  <jet-select v-model="form.user_id" required id="user_id">
-                    <option
-                      v-for="student in students"
-                      :key="student.id"
-                      :value="student.id"
-                    >
-                      {{ student.fullName }}
-                    </option>
-                  </jet-select>
-                </div>
-                <div class="grid grid-cols-5 mb-2">
-                  <label-grid for="course_id" value="คอร์สเรียน" />
-                  <jet-select v-model="form.course_id" required id="course_id">
-                    <option
-                      v-for="course in courses"
-                      :key="course.id"
-                      :value="course.id"
-                    >
-                      {{ course.name }}
-                    </option>
-                  </jet-select>
-                </div>
-                <div class="grid grid-cols-5 mb-2">
-                  <label-grid for="payment_method" value="ช่องทางการชำระเงิน" />
-                  <jet-select
-                    id="payment_method"
-                    v-model="form.payment_method"
-                    required
-                  >
-                    <option
-                      v-for="option in method_options"
-                      :key="option"
-                      :value="option"
-                    >
-                      {{ option }}
-                    </option>
-                  </jet-select>
-                </div>
-                <div class="grid grid-cols-5 mb-2">
-                  <label-grid for="payment_date" value="วันที่ชำระเงิน" />
+                  <label-grid for="name" value="ชื่อคอร์ส" />
                   <jet-input
-                    id="payment_date"
-                    type="date"
-                    class="mt-1 block w-full"
-                    v-model="form.payment_date"
+                    id="name"
+                    type="text"
+                    class="mt-1 block w-full col-span-3"
+                    required
+                    autofocus
+                    autocomplete="name"
+                    v-model="form.name"
+                  />
+                </div>
+                <div class="grid grid-cols-5 mb-2">
+                  <input
+                    type="file"
+                    class="hidden"
+                    ref="photo"
+                    @change="updatePhotoPreview"
+                  />
+                  <label-grid for="course_img" value="รูปปก" />
+                  <jet-secondary-button
+                    id="course_img"
+                    class="col-span-1"
+                    type="button"
+                    @click.prevent="selectNewPhoto"
+                  >
+                    Select A New Photo
+                  </jet-secondary-button>
+                </div>
+                <div class="my-2" v-show="photoPreview">
+                  <hr />
+                  <img
+                    :src="photoPreview"
+                    class="h-64 w-80 object-cover mx-auto my-1 rounded-md"
+                  />
+                  <hr />
+                </div>
+                <div class="grid grid-cols-5 mb-2">
+                  <label-grid for="user_id" value="ผู้สอน" />
+                  <jet-input
+                    id="user_id"
+                    type="text"
+                    class="mt-1 block w-full col-span-1"
+                    :value="tutor.fullName"
+                    required
+                    disabled
+                  />
+                </div>
+                <div class="grid grid-cols-5 mb-2">
+                  <label-grid for="description" value="รายละเอียดคอร์ส" />
+                  <jet-text-area
+                    class="mt-1 block w-full col-span-3"
+                    v-model="form.description"
                     required
                   />
                 </div>
                 <div class="grid grid-cols-5 mb-2">
-                  <label-grid for="payment_status" value="สถานะการชำระเงิน" />
-                  <jet-select
-                    id="payment_status"
-                    v-model="form.payment_status"
+                  <label-grid for="price" value="ราคาคอร์ส" />
+                  <jet-input
+                    id="price"
+                    type="number"
+                    class="mt-1 block w-full col-span-1"
                     required
-                  >
-                    <option
-                      v-for="option in status_options"
-                      :key="option"
-                      :value="option"
-                    >
-                      {{ option }}
-                    </option>
-                  </jet-select>
+                    autofocus
+                    autocomplete="price"
+                    v-model="form.price"
+                  />
+                  <label-grid for="price" class="ml-4" value="บาท" />
                 </div>
+                <div class="grid grid-cols-5 mb-2">
+                  <label-grid for="hours_left" value="จำนวนชั่วโมง" />
+                  <jet-input
+                    id="hours_left"
+                    type="number"
+                    class="mt-1 block w-4/5 col-span-1"
+                    required
+                    autofocus
+                    autocomplete="hours_left"
+                    v-model="form.hours_left"
+                  />
+                  <label-grid for="price" value="ชั่วโมง" />
+                </div>
+                <div class="grid grid-cols-5 mb-2">
+                  <label-grid for="expire_date" value="วันหมดอายุ" />
+                  <jet-input
+                    id="birthday"
+                    type="date"
+                    class="mt-1 block w-full"
+                    v-model="form.expire_date"
+                    required
+                  />
+                </div>
+
                 <div class="flex justify-end">
                   <jet-button>บันทึก</jet-button>
                 </div>
@@ -108,10 +135,12 @@ import JetNavLink from "@/Jetstream/NavLink";
 import SideMenu from "@/Components/Tutor/SideMenu.vue";
 import JetButton from "@/Jetstream/Button.vue";
 import JetInput from "@/Jetstream/Input.vue";
+import JetTextArea from "@/Jetstream/TextArea.vue";
 import LabelGrid from "@/Components/Common/LabelGrid.vue";
 import JetSelect from "@/Jetstream/Select.vue";
 import JetValidationErrors from "@/Jetstream/ValidationErrors";
 import Swal from "sweetalert2";
+import JetSecondaryButton from "@/Jetstream/SecondaryButton";
 
 export default {
   components: {
@@ -123,34 +152,36 @@ export default {
     LabelGrid,
     JetSelect,
     JetValidationErrors,
+    JetTextArea,
+    JetSecondaryButton,
   },
 
-  props: ["enrollment", "students", "courses"],
+  props: ["tutor", "course"],
 
   data() {
     return {
       form: this.$inertia.form({
-        user_id: this.enrollment.user_id,
-        course_id: this.enrollment.course_id,
-        payment_method: this.enrollment.payment_method,
-        payment_date: this.enrollment.payment_date,
-        payment_status: this.enrollment.payment_status,
+        name: this.course.name,
+        description: this.course.description,
+        price: this.course.price,
+        status: this.course.status,
+        expire_date: this.course.expire_date,
+        hours_left: this.course.hours_left,
+        course_img: this.course.course_img,
       }),
-      method_options: ["เงินสด", "ช่องทางออนไลน์"],
-      status_options: ["ชำระเงินเรียบร้อย", "รอดำเนินการ", "ขอคืนเงิน"],
+      photoPreview: null,
     };
   },
 
   methods: {
     submit() {
-      // console.log(this.form);
       this.form.put(
-        this.route("admin.enrollments.update", { enroll: this.enrollment.id }),
+        this.route("tutor.courses.update", { course: this.course.id }),
         {
           onSuccess: () => {
             Swal.fire({
               title: "Suscess",
-              html: `แก้ #${this.enrollment.id} เรียบร้อย`,
+              html: `แก้ ${this.course.name} เรียบร้อย`,
               icon: "success",
               timer: 3000,
               timerProgressBar: true,
@@ -161,7 +192,7 @@ export default {
               cancelButtonText: "ปิด",
             }).then((result) => {
               if (result.isConfirmed) {
-                this.$inertia.get(route("admin.enrollment.index"));
+                this.$inertia.get(route("tutor.course.index"));
               }
             });
             this.form.reset();

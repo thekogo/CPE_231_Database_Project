@@ -2,7 +2,7 @@
   <app-layout>
     <template #header>
       <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-        จัดการหมวดหมู่
+        จัดการคอร์สเรียน
       </h2>
     </template>
 
@@ -14,7 +14,9 @@
           </div>
           <div class="col-span-9">
             <div class="flex justify-between mb-2">
-              <h1 class="text-2xl font-semibold mb-3">สร้างคอร์สเรียน</h1>
+              <h1 class="text-2xl font-semibold mb-3">
+                แก้ไขคอร์สเรียน
+              </h1>
               <jet-button :href="route('admin.courses.index')"
                 >รายการคอร์ส</jet-button
               >
@@ -72,10 +74,7 @@
                   </jet-select>
                 </div>
                 <div class="grid grid-cols-5 mb-2">
-                  <label-grid
-                    for="description"
-                    value="รายละเอียดคอร์ส"
-                  />
+                  <label-grid for="description" value="รายละเอียดคอร์ส" />
                   <jet-text-area
                     class="mt-1 block w-full col-span-3"
                     v-model="form.description"
@@ -109,15 +108,6 @@
                   <label-grid for="price" value="ชั่วโมง" />
                 </div>
                 <div class="grid grid-cols-5 mb-2">
-                  <label-grid for="status" value="สถานะ" />
-                  <jet-select v-model="form.status" required>
-                    <option v-for="option in options" :key="option">
-                      {{ option }}
-                    </option>
-                  </jet-select>
-                </div>
-
-                <div class="grid grid-cols-5 mb-2">
                   <label-grid for="expire_date" value="วันหมดอายุ" />
                   <jet-input
                     id="birthday"
@@ -143,7 +133,7 @@
 <script>
 import AppLayout from "@/Layouts/AppLayout";
 import JetNavLink from "@/Jetstream/NavLink";
-import SideMenu from "@/Components/Admin/SideMenu.vue";
+import SideMenu from "@/Components/Tutor/SideMenu.vue";
 import JetButton from "@/Jetstream/Button.vue";
 import JetInput from "@/Jetstream/Input.vue";
 import JetTextArea from "@/Jetstream/TextArea.vue";
@@ -166,61 +156,50 @@ export default {
     JetTextArea,
     JetSecondaryButton,
   },
-  props: ["tutors"],
+
+  props: ["tutors", "courses"],
+
   data() {
     return {
       form: this.$inertia.form({
-        name: "",
-        description: "",
-        price: null,
-        status: "",
-        expire_date: "",
-        hours_left: null,
-        user_id: null,
-        course_img: null,
+        name: this.courses.name,
+        description: this.courses.description,
+        price: this.courses.price,
+        status: this.courses.status,
+        expire_date: this.courses.expire_date,
+        hours_left: this.courses.hours_left,
+        course_img: this.courses.course_img,
       }),
-      options: ["เผยแพร่", "ปิดการมองเห็น", "รอการอนุมัติ"],
       photoPreview: null,
     };
   },
 
   methods: {
     submit() {
-      this.form.post(this.route("admin.courses.store"), {
-        onSuccess: () => {
-          Swal.fire({
-            title: "Suscess",
-            html: `เพิ่ม ${this.form.name} เรียบร้อย`,
-            icon: "success",
-            timer: 3000,
-            timerProgressBar: true,
-            showCancelButton: true,
-            confirmButtonColor: "#3085d6",
-            confirmButtonText: "กลับไปหน้าจัดการทั้งหมด",
-            cancelButtonColor: "#d33",
-            cancelButtonText: "ปิด",
-          }).then((result) => {
-            if (result.isConfirmed) {
-              this.$inertia.get(route("admin.courses.index"));
-            }
-          });
-          this.form.reset();
-          this.photoPreview = null;
-        },
-      });
-    },
-    selectNewPhoto() {
-      this.$refs.photo.click();
-    },
-    updatePhotoPreview(event) {
-      const reader = new FileReader();
-
-      this.form.course_img = event.target.files[0];
-      reader.onload = (e) => {
-        this.photoPreview = e.target.result;
-      };
-
-      reader.readAsDataURL(this.$refs.photo.files[0]);
+      this.form.put(
+        this.route("admin.courses.update", { course: this.course.id }),
+        {
+          onSuccess: () => {
+            Swal.fire({
+              title: "Suscess",
+              html: `แก้ ${this.course.name} เรียบร้อย`,
+              icon: "success",
+              timer: 3000,
+              timerProgressBar: true,
+              showCancelButton: true,
+              confirmButtonColor: "#3085d6",
+              confirmButtonText: "กลับไปหน้าจัดการทั้งหมด",
+              cancelButtonColor: "#d33",
+              cancelButtonText: "ปิด",
+            }).then((result) => {
+              if (result.isConfirmed) {
+                this.$inertia.get(route("admin.course.index"));
+              }
+            });
+            this.form.reset();
+          },
+        }
+      );
     },
   },
 };

@@ -113,7 +113,34 @@ class CourseController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        Validator::make($request->all(), [
+            'name' => ['required', 'string', 'unique:courses'],
+            'description' => ['required', 'string'],
+            'price' => ['required', 'integer'],
+            'expire_date' => ['required', 'date'],
+            'hours_left' => ['required', 'integer'],
+            'course_img' => ['image'],
+        ])->validate();
+
+        $path = null;
+        if (isset($request["course_img"])) {
+            $path = Course::createCourseImg($request["course_img"]);
+        }
+
+        $request->merge([
+            'create_date' => date("Y-m-d"),
+            'course_img' => $path,
+            'user_id' => Auth::id(),
+            'status' => 'รอการอนุมัติ'
+        ]);
+
+        $input = $request->all();
+        $input["course_img"] = $path;
+
+        $course = Course::findOrFail($id);
+        $course->update($request->all());
+
+        return redirect()->back();
     }
 
     /**

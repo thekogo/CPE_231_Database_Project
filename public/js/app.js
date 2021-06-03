@@ -18078,7 +18078,7 @@ __webpack_require__.r(__webpack_exports__);
   data: function data() {
     return {
       form: this.$inertia.form({
-        course_name: "",
+        name: "",
         course_description: "",
         price: null,
         course_status: "",
@@ -23011,18 +23011,18 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
           return $options.submit && $options.submit.apply($options, arguments);
         }, ["prevent"]))
       }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("div", _hoisted_11, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_label_grid, {
-        "for": "course_name",
+        "for": "name",
         value: "ชื่อคอร์ส"
       }), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_jet_input, {
-        id: "course_name",
+        id: "name",
         type: "text",
         "class": "mt-1 block w-full col-span-3",
         required: "",
         autofocus: "",
-        autocomplete: "course_name",
-        modelValue: $data.form.course_name,
+        autocomplete: "name",
+        modelValue: $data.form.name,
         "onUpdate:modelValue": _cache[1] || (_cache[1] = function ($event) {
-          return $data.form.course_name = $event;
+          return $data.form.name = $event;
         })
       }, null, 8
       /* PROPS */
@@ -23506,7 +23506,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
             return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)("option", {
               key: course.id,
               value: course.id
-            }, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(course.course_name), 9
+            }, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(course.name), 9
             /* TEXT, PROPS */
             , ["value"]);
           }), 128

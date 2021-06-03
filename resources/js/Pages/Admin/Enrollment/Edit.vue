@@ -14,8 +14,8 @@
           </div>
           <div class="col-span-9">
             <div class="flex justify-between mb-2">
-              <h1 class="text-2xl font-semibold mb-3">สร้างการลงทะเบียนเรียน</h1>
-              <jet-button :href="route('admin.categories.index')"
+              <h1 class="text-2xl font-semibold mb-3">แก้ไขการลงทะเบียนเรียน</h1>
+              <jet-button :href="route('admin.enrollments.index')"
                 >รายการการลงทะเบียนเรียน</jet-button
               >
             </div>
@@ -42,7 +42,7 @@
                       :key="course.id"
                       :value="course.id"
                     >
-                      {{ course.course_name }}
+                      {{ course.name }}
                     </option>
                   </jet-select>
                 </div>

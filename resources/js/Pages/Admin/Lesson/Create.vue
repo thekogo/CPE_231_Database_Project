@@ -30,7 +30,7 @@
                       :key="course.id"
                       :value="course.id"
                     >
-                      {{ course.course_name }}
+                      {{ course.name }}
                     </option>
                   </jet-select>
                 </div>

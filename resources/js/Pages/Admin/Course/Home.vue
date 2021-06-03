@@ -35,7 +35,7 @@
                   <tr
                     class="text-center"
                     v-for="course in courses"
-                    :key="course.course_name"
+                    :key="course.name"
                   >
                     <td>#{{ course.id }}</td>
                     <td>{{ course.name }}</td>
@@ -84,7 +84,7 @@ export default {
   props: ["courses"],
 
   methods: {
-    openDelete({ id, course_name }) {
+    openDelete({ id, name }) {
       Swal.fire({
         title: "Are you sure?",
         text: "You won't be able to revert this!",
@@ -115,7 +115,7 @@ export default {
         if (result.isConfirmed) {
           Swal.fire({
             title: "Suscess",
-            html: `ลบคอร์ส  ${course_name}  เรียบร้อย`,
+            html: `ลบคอร์ส  ${name}  เรียบร้อย`,
             icon: "success",
             timer: 2000,
             timerProgressBar: true,

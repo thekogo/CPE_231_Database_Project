@@ -15,7 +15,7 @@
           <div class="col-span-9">
             <div class="flex justify-between mb-2">
               <h1 class="text-2xl font-semibold mb-3">สร้างบทเรียน</h1>
-              <jet-button :href="route('tutor.courses.index')"
+              <jet-button :href="route('tutor.lessons.index')"
                 >รายการคอร์ส</jet-button
               >
             </div>

@@ -99,7 +99,12 @@ class CourseController extends Controller
      */
     public function edit($id)
     {
-        //
+        $courses = Course::with('user')->findOrFail($id);
+        $tutors = User::where('role', 'tutor')->get();
+        return Inertia::render('Admin/Course/Edit', [
+            "courses" => $courses,
+            "tutors" => $tutors,
+        ]);
     }
 
     /**
@@ -111,7 +116,34 @@ class CourseController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        Validator::make($request->all(), [
+            'name' => ['required', 'string', 'unique:courses'],
+            'description' => ['required', 'string'],
+            'price' => ['required', 'integer'],
+            'status' => ['required', 'string'],
+            'expire_date' => ['required', 'date'],
+            'hours_left' => ['required', 'integer'],
+            'user_id' => ['required', 'integer'],
+            'course_img' => ['image'],
+        ])->validate();
+
+        $path = null;
+        if (isset($request["course_img"])) {
+            $path = Course::createCourseImg($request["course_img"]);
+        }
+
+        $request->merge([
+            'create_date' => date("Y-m-d"),
+            'course_img' => $path,
+        ]);
+
+        $input = $request->all();
+        $input["course_img"] = $path;
+
+        $course = Course::findOrFail($id);
+        $course->update($request->all());
+
+        return redirect()->back();
     }
 
     /**
