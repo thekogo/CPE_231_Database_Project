@@ -121,7 +121,7 @@ export default {
         if (result.isConfirmed) {
           Swal.fire({
             title: "Suscess",
-            html: `ลบ ${enrollment_name} เรียบร้อย`,
+            html: `ลบ ${enrollments.name} เรียบร้อย`,
             icon: "success",
             timer: 2000,
             timerProgressBar: true,

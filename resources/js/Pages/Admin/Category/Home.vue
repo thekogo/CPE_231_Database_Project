@@ -34,11 +34,11 @@
                   <tr
                     class="text-center"
                     v-for="category in categories"
-                    :key="category.category_name"
+                    :key="category.name"
                   >
                     <td>{{ category.id }}</td>
-                    <td>{{ category.category_name }}</td>
-                    <td>{{ category.category_display }}</td>
+                    <td>{{ category.name }}</td>
+                    <td>{{ category.status }}</td>
                     <td>{{ category.course_categories_count }}</td>
                     <td class="flex gap-2 justify-center">
                       <jet-button
@@ -86,7 +86,7 @@ export default {
   props: ["categories"],
 
   methods: {
-    openDelete({ id, category_name }) {
+    openDelete({ id, name }) {
       Swal.fire({
         title: "Are you sure?",
         text: "You won't be able to revert this!",
@@ -117,7 +117,7 @@ export default {
         if (result.isConfirmed) {
           Swal.fire({
             title: "Suscess",
-            html: `ลบ ${category_name} เรียบร้อย`,
+            html: `ลบ ${name} เรียบร้อย`,
             icon: "success",
             timer: 2000,
             timerProgressBar: true,

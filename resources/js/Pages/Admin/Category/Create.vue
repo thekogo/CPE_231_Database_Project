@@ -23,20 +23,20 @@
               <jet-validation-errors class="mb-4" />
               <form @submit.prevent="submit">
                 <div class="grid grid-cols-5 mb-2">
-                  <label-grid for="category_name" value="Category Name" />
+                  <label-grid for="name" value="Category Name" />
                   <jet-input
-                    id="category_name"
+                    id="name"
                     type="text"
                     class="mt-1 block w-full col-span-3"
                     required
                     autofocus
-                    autocomplete="category_name"
-                    v-model="form.category_name"
+                    autocomplete="name"
+                    v-model="form.name"
                   />
                 </div>
                 <div class="grid grid-cols-5 mb-2">
-                  <label-grid for="category_display" value="Category Display" />
-                  <jet-select v-model="form.category_display" required>
+                  <label-grid for="status" value="Category Display" />
+                  <jet-select v-model="form.status" required>
                     <option v-for="option in options" :key="option">
                       {{ option }}
                     </option>
@@ -79,8 +79,8 @@ export default {
   data() {
     return {
       form: this.$inertia.form({
-        category_name: "",
-        category_display: 0,
+        name: "",
+        status: 0,
       }),
       options: ["Active", "Draft"],
     };
@@ -93,7 +93,7 @@ export default {
         onSuccess: () => {
           Swal.fire({
             title: "Suscess",
-            html: `เพิ่ม ${this.form.category_name} เรียบร้อย`,
+            html: `เพิ่ม ${this.form.name} เรียบร้อย`,
             icon: "success",
             timer: 3000,
             timerProgressBar: true,

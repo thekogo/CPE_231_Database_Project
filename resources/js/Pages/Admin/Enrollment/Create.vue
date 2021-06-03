@@ -156,7 +156,7 @@ export default {
             cancelButtonText: "ปิด",
           }).then((result) => {
             if (result.isConfirmed) {
-              this.$inertia.get(route("admin.categories.index"));
+              this.$inertia.get(route("admin.enrollments.index"));
             }
           });
           this.form.reset();
