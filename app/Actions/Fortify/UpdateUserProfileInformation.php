@@ -20,6 +20,13 @@ class UpdateUserProfileInformation implements UpdatesUserProfileInformation
     {
         Validator::make($input, [
             'photo' => ['nullable', 'mimes:jpg,jpeg,png', 'max:1024'],
+            'firstName' => ['required', 'string', 'max:255'],
+            'lastName' => ['required', 'string', 'max:255'],
+            'birthday' => ['required', 'date'],
+            'nickName' => ['string'],
+            'email' => ['required', 'string', 'email', 'max:255', Rule::unique('users')->ignore($user->id)],
+            'address' => ['required', 'string', 'max:255'],
+            'phoneNumber' => ['required', 'string', 'size:10'],
         ])->validateWithBag('updateProfileInformation');
 
         if (isset($input['photo'])) {
@@ -33,8 +40,14 @@ class UpdateUserProfileInformation implements UpdatesUserProfileInformation
             $this->updateVerifiedUser($user, $input);
         } else {
             $user->forceFill([
-                // 'name' => $input['name'],
+                'firstName' => $input['firstName'],
+                'lastName' => $input['lastName'],
+                'nickName' => $input['nickName'],
+                'birthday' => $input['birthday'],
                 'email' => $input['email'],
+                'address' => $input['address'],
+                'phoneNumber' => $input['phoneNumber'],
+                'facebook' => $input['facebook'],
             ])->save();
         }
     }
