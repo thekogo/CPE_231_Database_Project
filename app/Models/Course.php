@@ -77,6 +77,7 @@ class Course extends Model
     public static function updateCourseCategories($categories, $course)
     {
         CourseCategory::where('course_id', $course->id)->delete();
+        if ($categories == null) return;
         foreach ($categories as $category) {
             $category_id = null;
             if (Category::where('name', $category)->exists()) {

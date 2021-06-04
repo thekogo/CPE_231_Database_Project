@@ -108,11 +108,13 @@ class CourseController extends Controller
      */
     public function edit($id)
     {
-        $course = Course::with('user')->findOrFail($id);
+        $course = Course::with('user')->with('course_categories.category')->findOrFail($id);
+        $categories = Category::all();
         $tutors = User::where('role', 'tutor')->get();
         return Inertia::render('Admin/Course/Edit', [
             "course" => $course,
             "tutors" => $tutors,
+            "categories" => $categories,
         ]);
     }
 
@@ -136,21 +138,17 @@ class CourseController extends Controller
             'course_img' => ['nullable', 'image'],
         ])->validate();
 
-        $path = null;
-        if ($request->file('course_img')) {
-            $path = Course::createCourseImg($request["course_img"]);
-        }
-
-        $request->merge([
-            'create_date' => date("Y-m-d"),
-            'course_img' => $path,
-        ]);
-
-        $input = $request->all();
-        $input["course_img"] = $path;
-
         $course = Course::findOrFail($id);
-        $course->update($request->all());
+
+        if ($request->file('course_img') != null) {
+            $path = Course::createCourseImg($request["course_img"]);
+            $request->merge([
+                'course_img' => $path
+            ]);
+            $course->update($request->all());
+        } else {
+            $course->update($request->except('course_img'));
+        }
 
         Course::updateCourseCategories($request["selected_categories"], $course);
 

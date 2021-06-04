@@ -115,6 +115,17 @@
                     required
                   />
                 </div>
+                <div class="grid grid-cols-5 mb-2">
+                  <label-grid for="selected_categories" value="หมวดหมู่" />
+                  <multiselect
+                    v-model="form.selected_categories"
+                    :options="options_categories"
+                    mode="tags"
+                    :searchable="true"
+                    :createTag="true"
+                    class="col-span-3 w-full"
+                  />
+                </div>
 
                 <div class="flex justify-end">
                   <jet-button>บันทึก</jet-button>
@@ -140,6 +151,8 @@ import JetSelect from "@/Jetstream/Select.vue";
 import JetValidationErrors from "@/Jetstream/ValidationErrors";
 import Swal from "sweetalert2";
 import JetSecondaryButton from "@/Jetstream/SecondaryButton";
+import Multiselect from "@vueform/multiselect";
+import { Inertia } from "@inertiajs/inertia";
 
 export default {
   components: {
@@ -153,9 +166,10 @@ export default {
     JetValidationErrors,
     JetTextArea,
     JetSecondaryButton,
+    Multiselect,
   },
 
-  props: ["tutors", "course"],
+  props: ["tutors", "course", "categories"],
 
   data() {
     return {
@@ -168,7 +182,12 @@ export default {
         expire_date: this.course.expire_date,
         hours_left: this.course.hours_left,
         course_img: null,
+        selected_categories: this.course.course_categories.map(
+          (item) => item.category.name
+        ),
       }),
+      options: ["เผยแพร่", "ปิดการมองเห็น", "รอการอนุมัติ"],
+      options_categories: this.categories.map((category) => category.name),
       photoPreview: this.course.course_img,
     };
   },
@@ -195,11 +214,25 @@ export default {
                 this.$inertia.get(route("admin.course.index"));
               }
             });
-            this.form.reset();
           },
         }
       );
     },
+    selectNewPhoto() {
+      this.$refs.photo.click();
+    },
+    updatePhotoPreview(event) {
+      const reader = new FileReader();
+
+      this.form.course_img = event.target.files[0];
+      reader.onload = (e) => {
+        this.photoPreview = e.target.result;
+      };
+
+      reader.readAsDataURL(this.$refs.photo.files[0]);
+    },
   },
 };
 </script>
+
+<style src="@vueform/multiselect/themes/default.css"></style>
