@@ -14,8 +14,11 @@
           </div>
           <div class="col-span-9">
             <div class="flex justify-between mb-2">
-              <h1 class="text-2xl font-semibold mb-3">เพิ่มบทเรียน</h1>
-              <jet-button :href="route('admin.lessons.index')"
+              <h1 class="text-2xl font-semibold mb-3">แก้ไขบทเรียน</h1>
+              <jet-button
+                :href="
+                  route('admin.courses.lessons.index', { course: course.id })
+                "
                 >รายการบทเรียน</jet-button
               >
             </div>
@@ -23,62 +26,50 @@
               <jet-validation-errors class="mb-4" />
               <form @submit.prevent="submit">
                 <div class="grid grid-cols-5 mb-2">
-                  <label-grid for="course_id" value="คอร์สเรียน" />
-                  <jet-select v-model="form.course_id" required id="course_id">
-                    <option
-                      v-for="course in courses"
-                      :key="course.id"
-                      :value="course.id"
-                    >
-                      {{ course.name }}
-                    </option>
-                  </jet-select>
-                </div>
-                <div class="grid grid-cols-5 mb-2">
-                  <label-grid for="order" value="ลำดับที่" />
-                  <jet-input
-                    id="order"
-                    type="number"
-                    class="mt-1 block w-full col-span-1"
-                    required
-                    autofocus
-                    autocomplete="order"
-                    v-model="form.order"
-                  />
-                </div>
-                <div class="grid grid-cols-5 mb-2">
-                  <label-grid for="name" value="ชื่อบทเรียน" />
+                  <label-grid for="name" value="ชื่อ" />
                   <jet-input
                     id="name"
                     type="text"
-                    class="mt-1 block w-full col-span-2"
+                    class="mt-1 block w-full col-span-3"
                     required
                     autofocus
                     autocomplete="name"
                     v-model="form.name"
                   />
-                </div>                
+                </div>
                 <div class="grid grid-cols-5 mb-2">
-                  <label-grid for="vdo_url" value="ลิงค์วิดีโอ" />
+                  <label-grid for="vdo" value="ลิงค์วิดีโอ" />
                   <jet-input
-                    id="vdo_url"
+                    id="vdo"
                     type="text"
-                    class="mt-1 block w-full col-span-2"
+                    class="mt-1 block w-full col-span-3"
+                    required
                     autofocus
-                    autocomplete="vdo_url"
-                    v-model="form.vdo_url"
+                    autocomplete="vdo"
+                    v-model="form.vdo"
                   />
                 </div>
                 <div class="grid grid-cols-5 mb-2">
-                  <label-grid
-                    for="description"
-                    value="รายละเอียดคอร์ส"
+                  <label-grid for="user_id" value="ลำดับ" />
+                  <jet-input
+                    id="user_id"
+                    type="number"
+                    class="mt-1 block w-full col-span-1"
+                    v-model="form.order"
+                    min="0"
+                    :max="lessons.length"
+                    required
                   />
+                </div>
+                <div class="grid grid-cols-5 mb-2">
+                  <label-grid for="description" value="รายละเอียด" />
                   <jet-text-area
                     class="mt-1 block w-full col-span-3"
                     v-model="form.description"
+                    required
                   />
-                </div>                       
+                </div>
+
                 <div class="flex justify-end">
                   <jet-button>บันทึก</jet-button>
                 </div>
@@ -102,6 +93,7 @@ import LabelGrid from "@/Components/Common/LabelGrid.vue";
 import JetSelect from "@/Jetstream/Select.vue";
 import JetValidationErrors from "@/Jetstream/ValidationErrors";
 import Swal from "sweetalert2";
+import JetSecondaryButton from "@/Jetstream/SecondaryButton";
 
 export default {
   components: {
@@ -110,47 +102,50 @@ export default {
     SideMenu,
     JetButton,
     JetInput,
-    JetTextArea,
     LabelGrid,
     JetSelect,
     JetValidationErrors,
-
+    JetTextArea,
+    JetSecondaryButton,
   },
-
-  props: ["lesson", "courses"],
+  props: ["course", "lesson", "lessons"],
 
   data() {
     return {
       form: this.$inertia.form({
         name: this.lesson.name,
+        description: this.lesson.description,
+        vdo: this.lesson.vdo,
         order: this.lesson.order,
-        vdo_url: this.lesson.vdo_url,
-        desciption: this.lesson.desciption,
-        course_id: this.lesson.course_id,
-      })
+      }),
     };
   },
 
   methods: {
     submit() {
       this.form.put(
-        this.route("admin.lessons.update", { enroll: this.lesson.id }),
+        this.route("admin.courses.lessons.update", {
+          course: this.course.id,
+          lesson: this.lesson.id,
+        }),
         {
           onSuccess: () => {
             Swal.fire({
               title: "Suscess",
-              html: `แก้ไข บทที่ ${this.lesson.order} ${this.lesson.name} เรียบร้อย`,
+              html: `แก้ <b>${this.lesson.name}</b> เรียบร้อย`,
               icon: "success",
               timer: 3000,
               timerProgressBar: true,
               showCancelButton: true,
               confirmButtonColor: "#3085d6",
-              confirmButtonText: "กลับไปหน้าจัดการทั้งหมด",
+              confirmButtonText: "กลับหน้าหลัก",
               cancelButtonColor: "#d33",
               cancelButtonText: "ปิด",
             }).then((result) => {
               if (result.isConfirmed) {
-                this.$inertia.get(route("admin.enrollment.index"));
+                this.$inertia.get(
+                  route('admin.courses.lessons.index', { course: this.course.id })
+                );
               }
             });
             this.form.reset();

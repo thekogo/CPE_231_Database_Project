@@ -2,7 +2,7 @@
   <app-layout>
     <template #header>
       <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-        จัดการหมวดหมู่
+        จัดการคอร์สเรียน
       </h2>
     </template>
 
@@ -14,10 +14,21 @@
           </div>
           <div class="col-span-9">
             <div class="flex justify-between mb-2">
-              <h1 class="text-2xl font-semibold mb-3">สร้างคอร์สเรียน</h1>
-              <jet-button :href="route('admin.courses.index')"
-                >รายการคอร์ส</jet-button
-              >
+              <h1 class="text-2xl font-semibold mb-3">รายละเอียดของ {{ course.name }}</h1>
+              <div class="flex gap-2">
+                <jet-button :href="route('admin.courses.index')"
+                  >นักเรียนในคอร์ส</jet-button
+                >
+                <jet-button
+                  :href="
+                    route('admin.courses.lessons.index', { course: course.id })
+                  "
+                  >บทเรียนในคอร์ส</jet-button
+                >
+                <jet-button :href="route('admin.courses.index')"
+                  >รายการคอร์ส</jet-button
+                >
+              </div>
             </div>
             <div class="bg-white shadow-lg rounded-md p-5 flex flex-col gap-4">
               <jet-validation-errors class="mb-4" />
@@ -93,19 +104,7 @@
                     disabled
                   />
                   <label-grid for="price" value="ชั่วโมง" />
-                </div>
-                <div class="grid grid-cols-5 mb-2">
-                  <label-grid for="status" value="สถานะ" />
-                  <jet-input
-                    id="status"
-                    type="text"
-                    class="mt-1 block w-full col-span-1"
-                    :value="course.status"
-                    required
-                    disabled
-                  />
-                </div>
-
+                </div>                
                 <div class="grid grid-cols-5 mb-2">
                   <label-grid for="expire_date" value="วันหมดอายุ" />
                   <jet-input
@@ -126,6 +125,17 @@
                     mode="tags"
                     :searchable="true"
                     class="col-span-3 w-full"
+                    disabled
+                  />
+                </div>
+                <div class="grid grid-cols-5 mb-2">
+                  <label-grid for="status" value="สถานะ" />
+                  <jet-input
+                    id="status"
+                    type="text"
+                    class="mt-1 block w-full col-span-1"
+                    :value="course.status"
+                    required
                     disabled
                   />
                 </div>

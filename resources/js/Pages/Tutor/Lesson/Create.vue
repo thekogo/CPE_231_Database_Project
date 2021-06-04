@@ -2,7 +2,7 @@
   <app-layout>
     <template #header>
       <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-        จัดการคอร์สเรียน
+        จัดการบทเรียน
       </h2>
     </template>
 
@@ -15,15 +15,15 @@
           <div class="col-span-9">
             <div class="flex justify-between mb-2">
               <h1 class="text-2xl font-semibold mb-3">สร้างบทเรียน</h1>
-              <jet-button :href="route('tutor.lessons.index')"
-                >รายการคอร์ส</jet-button
+              <jet-button :href="route('tutor.courses.lessons.index', { course: course.id })"
+                >รายการบทเรียน</jet-button
               >
             </div>
             <div class="bg-white shadow-lg rounded-md p-5 flex flex-col gap-4">
               <jet-validation-errors class="mb-4" />
               <form @submit.prevent="submit">
                 <div class="grid grid-cols-5 mb-2">
-                  <label-grid for="name" value="ชื่อบทเรียน" />
+                  <label-grid for="name" value="ชื่อ" />
                   <jet-input
                     id="name"
                     type="text"
@@ -35,7 +35,7 @@
                   />
                 </div>
                 <div class="grid grid-cols-5 mb-2">
-                  <label-grid for="vdo" value="ลิ้งค์ Vdo" />
+                  <label-grid for="vdo" value="ลิงค์วิดีโอ" />
                   <jet-input
                     id="vdo"
                     type="text"
@@ -47,7 +47,7 @@
                   />
                 </div>
                 <div class="grid grid-cols-5 mb-2">
-                  <label-grid for="user_id" value="ลำดับบทเรียน" />
+                  <label-grid for="user_id" value="ลำดับ" />
                   <jet-input
                     id="user_id"
                     type="number"
@@ -59,7 +59,7 @@
                   />
                 </div>
                 <div class="grid grid-cols-5 mb-2">
-                  <label-grid for="description" value="รายละเอียดคอร์ส" />
+                  <label-grid for="description" value="รายละเอียด" />
                   <jet-text-area
                     class="mt-1 block w-full col-span-3"
                     v-model="form.description"
@@ -125,18 +125,18 @@ export default {
           onSuccess: () => {
             Swal.fire({
               title: "Suscess",
-              html: `เพิ่มบทเรียน ${this.form.name} เรียบร้อย`,
+              html: `เพิ่มบทเรียน <b>${this.form.name}</b> เรียบร้อย`,
               icon: "success",
               timer: 3000,
               timerProgressBar: true,
               showCancelButton: true,
               confirmButtonColor: "#3085d6",
-              confirmButtonText: "กลับไปหน้าจัดการทั้งหมด",
+              confirmButtonText: "กลับหน้าหลัก",
               cancelButtonColor: "#d33",
               cancelButtonText: "ปิด",
             }).then((result) => {
               if (result.isConfirmed) {
-                this.$inertia.get(route("tutor.courses.index"));
+                this.$inertia.get(route('tutor.courses.lessons.index', { course: this.course.id }));
               }
             });
             this.form.reset();

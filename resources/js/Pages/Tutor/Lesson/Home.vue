@@ -2,7 +2,7 @@
   <app-layout>
     <template #header>
       <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-        จัดการคอร์สเรียน
+        จัดการบทเรียน
       </h2>
     </template>
 
@@ -21,7 +21,7 @@
                 :href="
                   route('tutor.courses.lessons.create', { course: course.id })
                 "
-                >สร้างคอร์สเรียน</jet-button
+                >เพิ่มบทเรียน</jet-button
               >
             </div>
             <div class="bg-white shadow-lg rounded-md p-5 flex flex-col gap-4">
@@ -29,8 +29,8 @@
                 <thead>
                   <tr>
                     <th>รหัส</th>
-                    <th>ลำดับบทเรียน</th>
-                    <th>ชื่อบทเรียน</th>
+                    <th>ลำดับ</th>
+                    <th>ชื่อ</th>
                     <th>แก้ไข</th>
                   </tr>
                 </thead>
@@ -51,7 +51,7 @@
                             course: course.id,
                           })
                         "
-                        >View</jet-button
+                        ><i class="far fa-eye"></i></jet-button
                       >
                       <jet-button
                         color="warning"
@@ -61,10 +61,10 @@
                             course: course.id,
                           })
                         "
-                        >Edit</jet-button
+                        ><i class="far fa-edit"></i></jet-button
                       >
                       <jet-button color="danger" @click="openDelete(lesson)"
-                        >Delete</jet-button
+                        ><i class="far fa-trash-alt"></i></jet-button
                       >
                     </td>
                   </tr>

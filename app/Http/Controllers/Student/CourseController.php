@@ -83,4 +83,9 @@ class CourseController extends Controller
     {
         //
     }
+
+    public function buyCourseView()
+    {
+        inertia::render('Student/BuyCourse');
+    }
 }

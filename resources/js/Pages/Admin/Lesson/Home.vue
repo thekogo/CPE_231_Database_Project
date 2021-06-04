@@ -14,8 +14,13 @@
           </div>
           <div class="col-span-9">
             <div class="flex justify-between mb-2">
-              <h1 class="text-2xl font-semibold mb-3">รายการบทเรียน</h1>
-              <jet-button :href="route('admin.lessons.create')"
+              <h1 class="text-2xl font-semibold mb-3">
+                บทเรียนในคอร์ส : {{ course.name }}
+              </h1>
+              <jet-button
+                :href="
+                  route('admin.courses.lessons.create', { course: course.id })
+                "
                 >เพิ่มบทเรียน</jet-button
               >
             </div>
@@ -23,9 +28,10 @@
               <table class="table-auto">
                 <thead>
                   <tr>
-                    <th>ลำดับที่</th>
-                    <th>ชื่อบทเรียน</th>
-                    <th>จัดการ</th>
+                    <th>รหัส</th>
+                    <th>ลำดับ</th>
+                    <th>ชื่อ</th>
+                    <th>แก้ไข</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -34,24 +40,31 @@
                     v-for="lesson in lessons"
                     :key="lesson.id"
                   >
+                    <td>#{{ lesson.id }}</td>
                     <td>{{ lesson.order }}</td>
                     <td>{{ lesson.name }}</td>
                     <td class="flex gap-2 justify-center">
                       <jet-button
                         :href="
-                          route('admin.lessons.show', { id: lesson.id })
+                          route('admin.courses.lessons.show', {
+                            lesson: lesson.id,
+                            course: course.id,
+                          })
                         "
-                        >View</jet-button
+                        ><i class="far fa-eye"></i></jet-button
                       >
                       <jet-button
                         color="warning"
                         :href="
-                          route('admin.lessons.edit', { id: lesson.id })
+                          route('admin.courses.lessons.edit', {
+                            lesson: lesson.id,
+                            course: course.id,
+                          })
                         "
-                        >Edit</jet-button
+                        ><i class="far fa-edit"></i></jet-button
                       >
                       <jet-button color="danger" @click="openDelete(lesson)"
-                        >Delete</jet-button
+                        ><i class="far fa-trash-alt"></i></jet-button
                       >
                     </td>
                   </tr>
@@ -79,13 +92,14 @@ export default {
     SideMenu,
     JetButton,
   },
-  props: ["lessons"],
+  props: ["lessons", "course"],
 
   methods: {
-    openDelete({ id }) {
+    openDelete({ id, name }) {
+      console.log(id);
       Swal.fire({
         title: "Are you sure?",
-        text: "You won't be able to revert this!",
+        text: "You won't be able to revert this! " + id,
         icon: "warning",
         showCancelButton: true,
         confirmButtonColor: "#3085d6",
@@ -94,18 +108,18 @@ export default {
         showLoaderOnConfirm: true,
         preConfirm: () => {
           return this.$inertia.delete(
-            route(
-              "admin.lessons.destroy",
-              { lesson: id },
-              {
-                onSuccess: () => {
-                  return;
-                },
-                onError: () => {
-                  Swal.showValidationMessage(`Request failed: ${error}`);
-                },
-              }
-            )
+            route("admin.courses.lessons.destroy", {
+              course: this.course.id,
+              lesson: id,
+            }),
+            {
+              onSuccess: () => {
+                return;
+              },
+              onError: () => {
+                Swal.showValidationMessage(`Request failed: ${error}`);
+              },
+            }
           );
         },
         allowOutsideClick: () => !Swal.isLoading(),
@@ -113,7 +127,7 @@ export default {
         if (result.isConfirmed) {
           Swal.fire({
             title: "Suscess",
-            html: `ลบ ${name} เรียบร้อย`,
+            html: `ลบคอร์ส  ${name}  เรียบร้อย`,
             icon: "success",
             timer: 2000,
             timerProgressBar: true,

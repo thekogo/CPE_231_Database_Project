@@ -3,10 +3,12 @@
 use App\Http\Controllers\Student;
 use App\Http\Controllers\Tutor;
 use App\Http\Controllers\Admin;
+use App\Http\Controllers\CourseController;
 use App\Http\Controllers\HomeController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
+use Laravel\Jetstream\Rules\Role;
 
 /*
 |--------------------------------------------------------------------------
@@ -21,6 +23,8 @@ use Inertia\Inertia;
 
 Route::get('/', [HomeController::class, 'index']);
 Route::get('/home', [HomeController::class, 'home']);
+Route::get('/courses', [CourseController::class, 'viewAllCourses']);
+Route::get('/courses/{course}', [CourseController::class, 'viewDetailCourse']);
 
 Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
     return Inertia::render('Dashboard');
@@ -30,6 +34,7 @@ Route::middleware(['auth:sanctum'])->group(function () {
     Route::middleware(['role:student'])->prefix('students')->group(function () {
         Route::get('/', [Student\HomeController::class, 'index'])->name('student.home');
         Route::resource('/courses', Student\CourseController::class);
+        Route::get('/buycourse', [Student\CourseController::class, 'buyCourseView']);
     });
 });
 
@@ -48,6 +53,6 @@ Route::middleware(['auth:sanctum'])->group(function () {
         Route::resource('/categories', Admin\CategoryController::class);
         Route::resource('/courses', Admin\CourseController::class);
         Route::resource('/enrollments', Admin\EnrollmentController::class);
-        Route::resource('/lessons', Admin\LessonController::class);
+        Route::resource('courses.lessons', Admin\LessonController::class);
     });
 });
