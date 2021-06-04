@@ -14,12 +14,12 @@ class CreateReviewsTable extends Migration
     public function up()
     {
         Schema::create('reviews', function (Blueprint $table) {
-            $table->id();            
+            $table->id();
             $table->string('description');
-            $table->integer('rating');             
+            $table->integer('rating');
             $table->tinyInteger('status');
-            $table->date('create_date');           
-            $table->foreignId('enrollment_id')->constrained();
+            $table->date('create_date');
+            $table->foreignId('enrollment_id')->constrained()->onDelete('cascade');
         });
     }
 

@@ -19,7 +19,7 @@ class CreateReservesTable extends Migration
             $table->integer('hours_reserved');
             $table->string('position');
             $table->tinyInteger('status');
-            $table->foreignId('enrollment_id')->constrained();
+            $table->foreignId('enrollment_id')->nullable()->constrained()->onDelete('set null');
         });
     }
 

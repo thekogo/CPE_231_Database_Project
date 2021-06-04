@@ -23,7 +23,7 @@ class CreateCoursesTable extends Migration
             $table->date('create_date');
             $table->date('expire_date');
             $table->unsignedInteger('hours_left');
-            $table->foreignId('user_id')->constrained();
+            $table->foreignId('user_id')->nullable()->constrained()->onUpdate('cascade')->onDelete('set null');
         });
     }
 

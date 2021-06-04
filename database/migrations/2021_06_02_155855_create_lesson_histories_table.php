@@ -15,8 +15,8 @@ class CreateLessonHistoriesTable extends Migration
     {
         Schema::create('lesson_histories', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('lesson_id')->constrained();
-            $table->foreignId('enrollment_id')->constrained();
+            $table->foreignId('lesson_id')->constrained()->onDelete('cascade');
+            $table->foreignId('enrollment_id')->constrained()->onDelete('cascade');
             $table->date('finish_date');
         });
     }

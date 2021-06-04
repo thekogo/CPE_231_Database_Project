@@ -17,8 +17,8 @@ class CreateQuestionsTable extends Migration
             $table->id();
             $table->date('create_date');
             $table->string('description');
-            $table->foreignId('lesson_id')->constrained();
-            $table->foreignId('enrollment_id')->constrained();
+            $table->foreignId('lesson_id')->constrained()->onDelete('cascade');
+            $table->foreignId('enrollment_id')->nullable()->constrained()->onDelete('set null');
         });
     }
 

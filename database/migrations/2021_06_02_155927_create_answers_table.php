@@ -17,8 +17,8 @@ class CreateAnswersTable extends Migration
             $table->id();
             $table->date('create_date');
             $table->string('description');
-            $table->foreignId('user_id')->constrained();
-            $table->foreignId('question_id')->constrained();
+            $table->foreignId('user_id')->nullable()->constrained()->onDelete('set null');
+            $table->foreignId('question_id')->constrained()->onDelete('cascade');
         });
     }
 
