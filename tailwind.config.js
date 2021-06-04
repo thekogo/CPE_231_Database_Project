@@ -12,7 +12,7 @@ module.exports = {
     theme: {
         extend: {
             fontFamily: {
-                sans: ['Nunito', ...defaultTheme.fontFamily.sans],
+                'big-noodle': ['BigNoodle'],
             },
             colors: {
                 'bluen': '#1f86c7',

@@ -5,6 +5,12 @@
 }
 
 @font-face {
+    font-family: BigNoodle;
+    src: url("/fonts/Big Noodle/big_noodle_titling.ttf");
+    font-weight: normal;
+}
+
+@font-face {
     font-family: Lamoon;
     src: url("/fonts/FC Lamoon/FC Lamoon Bold ver 1.00.ttf");
     font-weight: bold;
