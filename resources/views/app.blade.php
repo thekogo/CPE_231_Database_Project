@@ -19,62 +19,8 @@
     <!-- Scripts -->
     @routes
     <script src="{{ mix('js/app.js') }}" defer></script>
-    <style>
-        @font-face {
-            font-family: Lamoon;
-            src: url('/fonts/FC Lamoon/FC Lamoon Regular ver 1.00.ttf');
-            font-weight: normal;
-        }
+    <link rel="stylesheet" href="{{ mix('css/custom.css') }}">
 
-        @font-face {
-            font-family: Lamoon;
-            src: url('/fonts/FC Lamoon/FC Lamoon Bold ver 1.00.ttf');
-            font-weight: bold;
-        }
-
-        @font-face {
-            font-family: Lamoon;
-            src: url('/fonts/FC Lamoon/FC Lamoon Light ver 1.00.ttf');
-            font-weight: 300;
-        }
-
-        html,
-        body {
-            height: 100%;
-            padding: 0px;
-            margin: 0px;
-        }
-
-        * {
-            font-family: Lamoon;
-            font-size: 20px;
-        }
-
-        #id {
-            height: 100%;
-        }
-
-        *::-webkit-scrollbar {
-            width: 10px;
-            background-color: #F5F5F5;
-        }
-
-        *::-webkit-scrollbar-track {
-            -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
-            background-color: #F5F5F5;
-        }
-
-        *::-webkit-scrollbar-thumb {
-            background-color: #F90;
-            background-image: -webkit-linear-gradient(90deg, rgba(255, 255, 255, .2) 25%,
-                    transparent 25%,
-                    transparent 50%,
-                    rgba(255, 255, 255, .2) 50%,
-                    rgba(255, 255, 255, .2) 75%,
-                    transparent 75%,
-                    transparent)
-        }
-    </style>
 </head>
 
 <body class="font-sans antialiased">

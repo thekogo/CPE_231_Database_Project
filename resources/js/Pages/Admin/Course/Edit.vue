@@ -155,18 +155,19 @@ export default {
     JetSecondaryButton,
   },
 
-  props: ["tutors", "courses"],
+  props: ["tutors", "course"],
 
   data() {
     return {
       form: this.$inertia.form({
-        name: this.courses.name,
-        description: this.courses.description,
-        price: this.courses.price,
-        status: this.courses.status,
-        expire_date: this.courses.expire_date,
-        hours_left: this.courses.hours_left,
-        course_img: this.courses.course_img,
+        name: this.course.name,
+        user_id: this.course.user.id,
+        description: this.course.description,
+        price: this.course.price,
+        status: this.course.status,
+        expire_date: this.course.expire_date,
+        hours_left: this.course.hours_left,
+        course_img: null,
       }),
       photoPreview: this.course.course_img,
     };

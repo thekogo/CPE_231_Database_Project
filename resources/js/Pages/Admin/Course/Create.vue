@@ -132,6 +132,7 @@
                     :options="options_categories"
                     mode="tags"
                     :searchable="true"
+                    :createTag="true"
                     class="col-span-3 w-full"
                   />
                 </div>

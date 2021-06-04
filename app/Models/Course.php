@@ -73,4 +73,21 @@ class Course extends Model
             '/public/course_img'
         );
     }
+
+    public static function updateCourseCategories($categories, $course)
+    {
+        CourseCategory::where('course_id', $course->id)->delete();
+        foreach ($categories as $category) {
+            $category_id = null;
+            if (Category::where('name', $category)->exists()) {
+                $category_id = Category::where('name', $category)->first()->id;
+            } else {
+                $category_id = Category::create(['name' => $category, 'status' => "Active"])->id;
+            }
+            CourseCategory::create([
+                'course_id' => $course->id,
+                'category_id' => $category_id
+            ]);
+        }
+    }
 }

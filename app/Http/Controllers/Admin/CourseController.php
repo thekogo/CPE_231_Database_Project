@@ -11,6 +11,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Inertia\Inertia;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Validation\Rule;
 
 class CourseController extends Controller
 {
@@ -75,16 +76,8 @@ class CourseController extends Controller
         $input["course_img"] = $path;
 
         $course = Course::create($input);
-        foreach ($request["selected_categories"] as $category) {
-            $category_id = null;
-            if (Category::where('name', $category)->exists()) {
-                $category_id = Category::where('name', $category)->first()->id;
-            }
-            CourseCategory::create([
-                'course_id' => $course->id,
-                'category_id' => $category_id
-            ]);
-        }
+
+        Course::updateCourseCategories($request["selected_categories"], $course);
 
         return redirect()->back();
     }
@@ -115,10 +108,10 @@ class CourseController extends Controller
      */
     public function edit($id)
     {
-        $courses = Course::with('user')->findOrFail($id);
+        $course = Course::with('user')->findOrFail($id);
         $tutors = User::where('role', 'tutor')->get();
         return Inertia::render('Admin/Course/Edit', [
-            "courses" => $courses,
+            "course" => $course,
             "tutors" => $tutors,
         ]);
     }
@@ -133,18 +126,18 @@ class CourseController extends Controller
     public function update(Request $request, $id)
     {
         Validator::make($request->all(), [
-            'name' => ['required', 'string', 'unique:courses'],
+            'name' => ['required', 'string', Rule::unique('courses')->ignore($id)],
             'description' => ['required', 'string'],
             'price' => ['required', 'integer'],
             'status' => ['required', 'string'],
             'expire_date' => ['required', 'date'],
             'hours_left' => ['required', 'integer'],
             'user_id' => ['required', 'integer'],
-            'course_img' => ['image'],
+            'course_img' => ['nullable', 'image'],
         ])->validate();
 
         $path = null;
-        if (isset($request["course_img"])) {
+        if ($request->file('course_img')) {
             $path = Course::createCourseImg($request["course_img"]);
         }
 
@@ -158,6 +151,8 @@ class CourseController extends Controller
 
         $course = Course::findOrFail($id);
         $course->update($request->all());
+
+        Course::updateCourseCategories($request["selected_categories"], $course);
 
         return redirect()->back();
     }
