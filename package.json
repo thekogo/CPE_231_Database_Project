@@ -30,6 +30,7 @@
     "dependencies": {
         "@fortawesome/fontawesome-free": "^5.15.3",
         "@lottiefiles/lottie-player": "^1.0.4",
+        "@vueform/multiselect": "^1.5.0",
         "sweetalert2": "^11.0.12"
     }
 }
