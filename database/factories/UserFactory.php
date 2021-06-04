@@ -25,7 +25,8 @@ class UserFactory extends Factory
         return [
             'firstName' => $this->faker->firstName(),
             'lastName' => $this->faker->lastName(),
-            'birthday' => $this->faker->dateTime(),
+            'nickName' => $this->faker->firstName(),
+            'birthday' => $this->faker->date(),
             'address' => $this->faker->address(),
             'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
             'phoneNumber' => '0000000000',
