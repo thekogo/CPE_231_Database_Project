@@ -105,15 +105,7 @@
                   />
                   <label-grid for="price" value="ชั่วโมง" />
                 </div>
-                <div class="grid grid-cols-5 mb-2">
-                  <label-grid for="status" value="สถานะ" />
-                  <jet-select v-model="form.status" required>
-                    <option v-for="option in options" :key="option">
-                      {{ option }}
-                    </option>
-                  </jet-select>
-                </div>
-
+                
                 <div class="grid grid-cols-5 mb-2">
                   <label-grid for="expire_date" value="วันหมดอายุ" />
                   <jet-input
@@ -124,7 +116,6 @@
                     required
                   />
                 </div>
-
                 <div class="grid grid-cols-5 mb-2">
                   <label-grid for="selected_categories" value="หมวดหมู่" />
                   <multiselect
@@ -136,7 +127,14 @@
                     class="col-span-3 w-full"
                   />
                 </div>
-
+                <div class="grid grid-cols-5 mb-2">
+                                  <label-grid for="status" value="สถานะ" />
+                                  <jet-select v-model="form.status" required>
+                                    <option v-for="option in options" :key="option">
+                                      {{ option }}
+                                    </option>
+                                  </jet-select>
+                                </div>
                 <div class="flex justify-end">
                   <jet-button>บันทึก</jet-button>
                 </div>

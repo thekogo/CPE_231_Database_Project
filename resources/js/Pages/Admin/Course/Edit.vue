@@ -15,9 +15,20 @@
           <div class="col-span-9">
             <div class="flex justify-between mb-2">
               <h1 class="text-2xl font-semibold mb-3">แก้ไขคอร์สเรียน</h1>
-              <jet-button :href="route('admin.courses.index')"
-                >รายการคอร์ส</jet-button
-              >
+              <div class="flex gap-2">
+                <jet-button :href="route('admin.courses.index')"
+                  >นักเรียนในคอร์ส</jet-button
+                >
+                <jet-button
+                  :href="
+                    route('admin.courses.lessons.index', { course: course.id })
+                  "
+                  >บทเรียนในคอร์ส</jet-button
+                >
+                <jet-button :href="route('admin.courses.index')"
+                  >รายการคอร์ส</jet-button
+                >
+              </div>
             </div>
             <div class="bg-white shadow-lg rounded-md p-5 flex flex-col gap-4">
               <jet-validation-errors class="mb-4" />
@@ -115,7 +126,14 @@
                     required
                   />
                 </div>
-
+                <div class="grid grid-cols-5 mb-2">
+                  <label-grid for="status" value="สถานะ" />
+                  <jet-select v-model="form.status" required>
+                    <option v-for="option in options" :key="option">
+                      {{ option }}
+                    </option>
+                  </jet-select>
+                </div>
                 <div class="flex justify-end">
                   <jet-button>บันทึก</jet-button>
                 </div>
@@ -168,7 +186,8 @@ export default {
         expire_date: this.course.expire_date,
         hours_left: this.course.hours_left,
         course_img: null,
-      }),
+      }),      
+      options: ["เผยแพร่", "ปิดการมองเห็น", "รอการอนุมัติ"],
       photoPreview: this.course.course_img,
     };
   },

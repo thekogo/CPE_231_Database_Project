@@ -24,7 +24,7 @@
                 <thead>
                   <tr>
                     <th>รหัส</th>
-                    <th>ชื่อคอร์ส</th>
+                    <th>ชื่อ</th>
                     <th>สถานะ</th>
                     <th>ราคา</th>
                     <th>ผู้สอน</th>
@@ -45,15 +45,15 @@
                     <td class="flex gap-2 justify-center">
                       <jet-button
                         :href="route('admin.courses.show', { id: course.id })"
-                        >View</jet-button
+                        ><i class="far fa-eye"></i></jet-button
                       >
                       <jet-button
                         color="warning"
                         :href="route('admin.courses.edit', { id: course.id })"
-                        >Edit</jet-button
+                        ><i class="far fa-edit"></i></jet-button
                       >
                       <jet-button color="danger" @click="openDelete(course)"
-                        >Delete</jet-button
+                        ><i class="far fa-trash-alt"></i></jet-button
                       >
                     </td>
                   </tr>

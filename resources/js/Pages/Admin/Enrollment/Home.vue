@@ -49,17 +49,17 @@
                         :href="
                           route('admin.enrollments.show', { id: enrollment.id })
                         "
-                        >View</jet-button
+                        ><i class="far fa-eye"></i></jet-button
                       >
                       <jet-button
                         color="warning"
                         :href="
                           route('admin.enrollments.edit', { id: enrollment.id })
                         "
-                        >Edit</jet-button
+                        ><i class="far fa-edit"></i></jet-button
                       >
                       <jet-button color="danger" @click="openDelete(enrollment)"
-                        >Delete</jet-button
+                        ><i class="far fa-trash-alt"></i></jet-button
                       >
                     </td>
                   </tr>

@@ -3,15 +3,22 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Course;
 use App\Models\Lesson;
 use Illuminate\Http\Request;
-use App\Models\Course;
-use Inertia\Inertia;
 use Illuminate\Support\Facades\Validator;
-
+use Inertia\Inertia;
 
 class LessonController extends Controller
 {
+
+    function __construct(Request $request)
+    {
+        if ($request->route() != null) {
+            $course_id = $request->route()->parameter('course');
+            $this->course = Course::findOrFail($course_id);
+        }
+    }
     /**
      * Display a listing of the resource.
      *
@@ -19,9 +26,10 @@ class LessonController extends Controller
      */
     public function index()
     {
-        $lessons = Lesson::all();
+        $lessons = Lesson::where('course_id', $this->course->id)->orderBy('order')->get();
         return Inertia::render('Admin/Lesson/Home', [
-            "lessons" => $lessons
+            'course' => $this->course,
+            'lessons' => $lessons,
         ]);
     }
 
@@ -32,9 +40,10 @@ class LessonController extends Controller
      */
     public function create()
     {
-        $courses = Course::all();
+        $lessons = Lesson::where('course_id', $this->course->id)->get();
         return Inertia::render('Admin/Lesson/Create', [
-            "courses" => $courses,
+            "course" => $this->course,
+            "lessons" => $lessons,
         ]);
     }
 
@@ -46,15 +55,18 @@ class LessonController extends Controller
      */
     public function store(Request $request)
     {
+        $lessons = Lesson::where('course_id', $this->course->id)->count();
         Validator::make($request->all(), [
             'name' => ['required', 'string'],
-            'order' => ['required', 'integer'],
-            'vdo_url' => ['', ''],
-            'desciption' => ['', ''],
-            'course_id' => ['required', 'integer'],
+            'description' => ['required', 'string'],
+            'order' => ['required', 'integer', "max:$lessons"],
         ])->validate();
-
-        Lesson::create($request->all());
+        if ($request->order != $lessons) {
+            Lesson::reOrder($this->course->id, $request->order);
+        }
+        Lesson::create($request->merge([
+            'course_id' => $this->course->id
+        ])->all());
 
         return redirect()->back();
     }
@@ -65,11 +77,12 @@ class LessonController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($course_id, $id)
     {
         $lesson = Lesson::findOrFail($id);
         return Inertia::render('Admin/Lesson/Show', [
             "lesson" => $lesson,
+            "course" => $this->course,
         ]);
     }
 
@@ -79,13 +92,14 @@ class LessonController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit($course_id, $id)
     {
         $lesson = Lesson::findOrFail($id);
-        $courses = Course::all();
+        $lessons = Lesson::where('course_id', $this->course->id)->orderBy('order')->get();
         return Inertia::render('Admin/Lesson/Edit', [
+            "course" => $this->course,
             "lesson" => $lesson,
-            "courses" => $courses,
+            "lessons" => $lessons,
         ]);
     }
 
@@ -96,18 +110,22 @@ class LessonController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, $course_id, $id)
     {
+        $lessons = Lesson::where('course_id', $this->course->id)->count();
         Validator::make($request->all(), [
             'name' => ['required', 'string'],
-            'order' => ['required', 'integer'],
-            'vdo_url' => ['', ''],
-            'desciption' => ['', ''],
-            'course_id' => ['required', 'integer'],
+            'description' => ['required', 'string'],
+            'order' => ['required', 'integer', "max:$lessons"],
         ])->validate();
+
+        if ($request->order != $lessons) {
+            Lesson::reOrder($this->course->id, $request->order);
+        }
 
         $lesson = Lesson::findOrFail($id);
         $lesson->update($request->all());
+
         return redirect()->back();
     }
 
@@ -117,9 +135,12 @@ class LessonController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy($course_id, $id)
     {
-        Lesson::findOrFail($id)->delete();
+        $lesson = Lesson::findOrFail($id);
+        $order = $lesson->order;
+        $lesson->delete();
+        Lesson::reOrder($this->course->id, $order, 'delete');
 
         return redirect()->back();
     }

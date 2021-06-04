@@ -45,17 +45,17 @@
                         :href="
                           route('admin.categories.show', { id: category.id })
                         "
-                        >View</jet-button
+                        ><i class="far fa-eye"></i></jet-button
                       >
                       <jet-button
                         color="warning"
                         :href="
                           route('admin.categories.edit', { id: category.id })
                         "
-                        >Edit</jet-button
+                        ><i class="far fa-edit"></i></jet-button
                       >
                       <jet-button color="danger" @click="openDelete(category)"
-                        >Delete</jet-button
+                        ><i class="far fa-trash-alt"></i></jet-button
                       >
                     </td>
                   </tr>

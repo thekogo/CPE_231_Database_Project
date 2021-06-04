@@ -2,7 +2,7 @@
   <app-layout>
     <template #header>
       <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-        จัดการคอร์สเรียน : {{ course.name }}
+        จัดการบทเรียน
       </h2>
     </template>
 
@@ -15,7 +15,7 @@
           <div class="col-span-9">
             <div class="flex justify-between mb-2">
               <h1 class="text-2xl font-semibold mb-3">
-                รายละเอียดบทเรียน : {{ lesson.name }}
+                รายละเอียด : {{ lesson.name }}
               </h1>
               <div class="flex gap-2">
                 <jet-button :href="route('tutor.courses.index')"
@@ -35,7 +35,7 @@
             <div class="bg-white shadow-lg rounded-md p-5 flex flex-col gap-4">
               <form @submit.prevent="submit">
                 <div class="grid grid-cols-5 mb-2">
-                  <label-grid for="name" value="ชื่อบทเรียน" />
+                  <label-grid for="name" value="ชื่อ" />
                   <jet-input
                     id="name"
                     type="text"
@@ -48,7 +48,7 @@
                   />
                 </div>
                 <div class="grid grid-cols-5 mb-2">
-                  <label-grid for="vdo" value="ลิ้งค์ Vdo" />
+                  <label-grid for="vdo" value="ลิงค์วิดีโอ" />
                   <jet-input
                     id="vdo"
                     type="text"
@@ -61,7 +61,7 @@
                   />
                 </div>
                 <div class="grid grid-cols-5 mb-2">
-                  <label-grid for="user_id" value="ลำดับบทเรียน" />
+                  <label-grid for="user_id" value="ลำดับ" />
                   <jet-input
                     id="user_id"
                     type="number"
@@ -73,7 +73,7 @@
                   />
                 </div>
                 <div class="grid grid-cols-5 mb-2">
-                  <label-grid for="description" value="รายละเอียดคอร์ส" />
+                  <label-grid for="description" value="รายละเอียด" />
                   <jet-text-area
                     class="mt-1 block w-full col-span-3"
                     :value="lesson.description"
@@ -96,7 +96,7 @@
                       lesson: lesson.id,
                     })
                   "
-                  >คำถามทั้งหมดในบทเรียน</jet-button
+                  >คำถามทั้งหมด</jet-button
                 >
               </div>
             </div>

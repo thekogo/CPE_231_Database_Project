@@ -15,66 +15,74 @@
           <div class="col-span-9">
             <div class="flex justify-between mb-2">
               <h1 class="text-2xl font-semibold mb-3">
-                เพิ่มบทเรียน
+                รายละเอียด : {{ lesson.name }}
               </h1>
-              <jet-button :href="route('admin.enrollments.index')"
-                >รายการบทเรียน</jet-button
-              >
+              <div class="flex gap-2">
+                <jet-button :href="route('admin.courses.index')"
+                  >นักเรียนในคอร์ส</jet-button
+                >
+                <jet-button
+                  :href="
+                    route('admin.courses.lessons.index', { course: course.id })
+                  "
+                  >บทเรียนในคอร์ส</jet-button
+                >
+                <jet-button :href="route('admin.courses.index')"
+                  >รายการคอร์ส</jet-button
+                >
+              </div>
             </div>
             <div class="bg-white shadow-lg rounded-md p-5 flex flex-col gap-4">
-              <jet-validation-errors class="mb-4" />
               <form @submit.prevent="submit">
                 <div class="grid grid-cols-5 mb-2">
-                  <label-grid for="order" value="ลำดับที่" />
-                  <jet-input
-                    id="order"
-                    type="number"
-                    class="mt-1 block w-full col-span-1"
-                    required
-                    autofocus
-                    autocomplete="order"
-                    v-model="lesson.order"
-                    disabled
-                  />
-                </div>
-                <div class="grid grid-cols-5 mb-2">
-                  <label-grid for="name" value="ชื่อบทเรียน" />
+                  <label-grid for="name" value="ชื่อ" />
                   <jet-input
                     id="name"
                     type="text"
-                    class="mt-1 block w-full col-span-2"
+                    class="mt-1 block w-full col-span-3"
                     required
                     autofocus
                     autocomplete="name"
-                    v-model="lesson.name"
-                    disabled
-                  />
-                </div>                
-                <div class="grid grid-cols-5 mb-2">
-                  <label-grid for="vdo_url" value="ลิงค์วิดีโอ" />
-                  <jet-input
-                    id="vdo_url"
-                    type="text"
-                    class="mt-1 block w-full col-span-2"
-                    autofocus
-                    autocomplete="vdo_url"
-                    v-model="lesson.vdo_url"
+                    :value="lesson.name"
                     disabled
                   />
                 </div>
                 <div class="grid grid-cols-5 mb-2">
-                  <label-grid
-                    for="description"
-                    value="รายละเอียดคอร์ส"
+                  <label-grid for="vdo" value="ลิงค์วิดีโอ" />
+                  <jet-input
+                    id="vdo"
+                    type="text"
+                    class="mt-1 block w-full col-span-3"
+                    required
+                    autofocus
+                    autocomplete="vdo"
+                    :value="lesson.vdo"
+                    disabled
                   />
+                </div>
+                <div class="grid grid-cols-5 mb-2">
+                  <label-grid for="user_id" value="ลำดับ" />
+                  <jet-input
+                    id="user_id"
+                    type="number"
+                    class="mt-1 block w-full col-span-1"
+                    :value="lesson.order"
+                    min="0"
+                    required
+                    disabled
+                  />
+                </div>
+                <div class="grid grid-cols-5 mb-2">
+                  <label-grid for="description" value="รายละเอียด" />
                   <jet-text-area
                     class="mt-1 block w-full col-span-3"
-                    v-model="lesson.description"
+                    :value="lesson.description"
+                    required
                     disabled
                   />
                 </div>
               </form>
-            </div>
+            </div>      
           </div>
         </div>
       </div>
@@ -88,10 +96,9 @@ import JetNavLink from "@/Jetstream/NavLink";
 import SideMenu from "@/Components/Admin/SideMenu.vue";
 import JetButton from "@/Jetstream/Button.vue";
 import JetInput from "@/Jetstream/Input.vue";
-import LabelGrid from "@/Components/Common/LabelGrid.vue";
-import JetSelect from "@/Jetstream/Select.vue";
-import JetValidationErrors from "@/Jetstream/ValidationErrors";
 import JetTextArea from "@/Jetstream/TextArea.vue";
+import LabelGrid from "@/Components/Common/LabelGrid.vue";
+import BoxContent from "@/Components/Common/BoxContent.vue";
 
 export default {
   components: {
@@ -101,16 +108,9 @@ export default {
     JetButton,
     JetInput,
     LabelGrid,
-    JetSelect,
-    JetValidationErrors,
     JetTextArea,
+    BoxContent,
   },
-
-  props: ['lesson'],
-
-  data() {
-    return {
-    };
-  },
+  props: ["lesson", "course"],
 };
 </script>

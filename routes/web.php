@@ -48,6 +48,6 @@ Route::middleware(['auth:sanctum'])->group(function () {
         Route::resource('/categories', Admin\CategoryController::class);
         Route::resource('/courses', Admin\CourseController::class);
         Route::resource('/enrollments', Admin\EnrollmentController::class);
-        Route::resource('/lessons', Admin\LessonController::class);
+        Route::resource('courses.lessons', Admin\LessonController::class);
     });
 });
