@@ -59,3 +59,7 @@ body {
 .multiselect-tag i:before {
     content: "X" !important;
 }
+
+.rounded-course {
+    border-radius: 40%;
+}
