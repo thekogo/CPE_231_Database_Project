@@ -3,10 +3,24 @@
 namespace App\Http\Controllers\Tutor;
 
 use App\Http\Controllers\Controller;
+use App\Models\Course;
+use App\Models\Lesson;
+use App\Models\Question;
 use Illuminate\Http\Request;
+use Inertia\Inertia;
 
 class QuestionController extends Controller
 {
+
+    function __construct(Request $request)
+    {
+        if ($request->route() != null) {
+            $course_id = $request->route()->parameter('course');
+            $lesson_id = $request->route()->parameter('lesson');
+            $this->course = Course::findOrFail($course_id);
+            $this->lesson = Lesson::findOrFail($lesson_id);
+        }
+    }
     /**
      * Display a listing of the resource.
      *
@@ -14,7 +28,12 @@ class QuestionController extends Controller
      */
     public function index()
     {
-        //
+        $questions = Question::where('lesson_id', $this->lesson->id);
+        return Inertia::render('Tutor/Question/Home', [
+            "course" => $this->course,
+            "lesson" => $this->lesson,
+            "questions" => $questions
+        ]);
     }
 
     /**

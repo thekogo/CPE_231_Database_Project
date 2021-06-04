@@ -3,7 +3,9 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Category;
 use App\Models\Course;
+use App\Models\CourseCategory;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -33,9 +35,10 @@ class CourseController extends Controller
     public function create()
     {
         $tutors = User::where('role', 'tutor')->get();
-        // dd($tutors);
+        $categories = Category::all();
         return Inertia::render('Admin/Course/Create', [
-            "tutors" => $tutors
+            "tutors" => $tutors,
+            "categories" => $categories
         ]);
     }
 
@@ -55,11 +58,11 @@ class CourseController extends Controller
             'expire_date' => ['required', 'date'],
             'hours_left' => ['required', 'integer'],
             'user_id' => ['required', 'integer'],
-            'course_img' => ['image'],
+            'course_img' => ['image', 'nullable'],
         ])->validate();
 
         $path = null;
-        if (isset($request["course_img"])) {
+        if ($request["course_img"] != null) {
             $path = Course::createCourseImg($request["course_img"]);
         }
 
@@ -71,7 +74,17 @@ class CourseController extends Controller
         $input = $request->all();
         $input["course_img"] = $path;
 
-        Course::create($input);
+        $course = Course::create($input);
+        foreach ($request["selected_categories"] as $category) {
+            $category_id = null;
+            if (Category::where('name', $category)->exists()) {
+                $category_id = Category::where('name', $category)->first()->id;
+            }
+            CourseCategory::create([
+                'course_id' => $course->id,
+                'category_id' => $category_id
+            ]);
+        }
 
         return redirect()->back();
     }
@@ -84,10 +97,13 @@ class CourseController extends Controller
      */
     public function show($id)
     {
-        $course = Course::with('user')->findOrFail($id);
-        // dd($course);
+        $course = Course::with('user')
+            ->with('course_categories.category')
+            ->findOrFail($id);
+        $categories = Category::all();
         return Inertia::render('Admin/Course/Show', [
             "course" => $course,
+            "categories" => $categories
         ]);
     }
 

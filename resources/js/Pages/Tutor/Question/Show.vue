@@ -2,7 +2,7 @@
   <app-layout>
     <template #header>
       <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-        จัดการคอร์สเรียน
+        จัดการคอร์สเรียน : {{ course.name }}
       </h2>
     </template>
 
@@ -14,7 +14,9 @@
           </div>
           <div class="col-span-9">
             <div class="flex justify-between mb-2">
-              <h1 class="text-2xl font-semibold mb-3">รายละเอียด</h1>
+              <h1 class="text-2xl font-semibold mb-3">
+                รายละเอียดบทเรียน : {{ lesson.name }}
+              </h1>
               <div class="flex gap-2">
                 <jet-button :href="route('tutor.courses.index')"
                   >นักเรียนในคอร์ส</jet-button
@@ -31,10 +33,9 @@
               </div>
             </div>
             <div class="bg-white shadow-lg rounded-md p-5 flex flex-col gap-4">
-              <jet-validation-errors class="mb-4" />
               <form @submit.prevent="submit">
                 <div class="grid grid-cols-5 mb-2">
-                  <label-grid for="name" value="ชื่อคอร์ส" />
+                  <label-grid for="name" value="ชื่อบทเรียน" />
                   <jet-input
                     id="name"
                     type="text"
@@ -42,28 +43,31 @@
                     required
                     autofocus
                     autocomplete="name"
-                    :value="course.name"
+                    :value="lesson.name"
                     disabled
                   />
                 </div>
                 <div class="grid grid-cols-5 mb-2">
-                  <label-grid for="course_img" value="รูปปก" />
-                </div>
-                <div class="my-2" v-show="photoPreview">
-                  <hr />
-                  <img
-                    :src="photoPreview"
-                    class="h-64 w-80 object-cover mx-auto my-1 rounded-md"
+                  <label-grid for="vdo" value="ลิ้งค์ Vdo" />
+                  <jet-input
+                    id="vdo"
+                    type="text"
+                    class="mt-1 block w-full col-span-3"
+                    required
+                    autofocus
+                    autocomplete="vdo"
+                    :value="lesson.vdo"
+                    disabled
                   />
-                  <hr />
                 </div>
                 <div class="grid grid-cols-5 mb-2">
-                  <label-grid for="user_id" value="ผู้สอน" />
+                  <label-grid for="user_id" value="ลำดับบทเรียน" />
                   <jet-input
                     id="user_id"
-                    type="text"
+                    type="number"
                     class="mt-1 block w-full col-span-1"
-                    :value="course.user.fullName"
+                    :value="lesson.order"
+                    min="0"
                     required
                     disabled
                   />
@@ -72,68 +76,31 @@
                   <label-grid for="description" value="รายละเอียดคอร์ส" />
                   <jet-text-area
                     class="mt-1 block w-full col-span-3"
-                    :value="course.description"
-                    required
-                    disabled
-                  />
-                </div>
-                <div class="grid grid-cols-5 mb-2">
-                  <label-grid for="price" value="ราคาคอร์ส" />
-                  <jet-input
-                    id="price"
-                    type="number"
-                    class="mt-1 block w-full col-span-1"
-                    required
-                    autofocus
-                    autocomplete="price"
-                    :value="course.price"
-                    disabled
-                  />
-                  <label-grid for="price" class="ml-4" value="บาท" />
-                </div>
-                <div class="grid grid-cols-5 mb-2">
-                  <label-grid for="hours_left" value="จำนวนชั่วโมง" />
-                  <jet-input
-                    id="hours_left"
-                    type="number"
-                    class="mt-1 block w-4/5 col-span-1"
-                    required
-                    autofocus
-                    autocomplete="hours_left"
-                    :value="course.hours_left"
-                    disabled
-                  />
-                  <label-grid for="price" value="ชั่วโมง" />
-                </div>
-                <div class="grid grid-cols-5 mb-2">
-                  <label-grid for="status" value="สถานะ" />
-                  <jet-input
-                    id="status"
-                    type="text"
-                    class="mt-1 block w-full col-span-1"
-                    :value="course.status"
-                    required
-                    disabled
-                  />
-                </div>
-
-                <div class="grid grid-cols-5 mb-2">
-                  <label-grid for="expire_date" value="วันหมดอายุ" />
-                  <jet-input
-                    id="birthday"
-                    type="date"
-                    class="mt-1 block w-full"
-                    :value="course.expire_date"
+                    :value="lesson.description"
                     required
                     disabled
                   />
                 </div>
               </form>
             </div>
-            <h1 class="text-2xl font-semibold mb-3 mt-2">
-              คำถามที่ยังไม่ได้ตอบ
-            </h1>
-            <div class="bg-white shadow-lg rounded-md p-5 flex flex-col gap-4">
+            <div class="flex justify-between">
+              <h1 class="text-2xl font-semibold mb-3 mt-2">
+                คำถามที่ยังไม่ได้ตอบ
+              </h1>
+              <div class="flex items-center gap-4">
+                <jet-button>สร้างคำถามที่พบบ่อย</jet-button>
+                <jet-button
+                  :href="
+                    route('tutor.courses.lessons.questions.index', {
+                      course: course.id,
+                      lesson: lesson.id,
+                    })
+                  "
+                  >คำถามทั้งหมด</jet-button
+                >
+              </div>
+            </div>
+            <box-content class="flex flex-col gap-4">
               <div class="flex justify-between gap-2">
                 <p>
                   Lorem ipsum dolor sit amet, consectetur adipisicing elit.
@@ -159,7 +126,7 @@
                 </p>
                 <jet-button>test</jet-button>
               </div>
-            </div>
+            </box-content>
           </div>
         </div>
       </div>
@@ -175,9 +142,7 @@ import JetButton from "@/Jetstream/Button.vue";
 import JetInput from "@/Jetstream/Input.vue";
 import JetTextArea from "@/Jetstream/TextArea.vue";
 import LabelGrid from "@/Components/Common/LabelGrid.vue";
-import JetSelect from "@/Jetstream/Select.vue";
-import JetValidationErrors from "@/Jetstream/ValidationErrors";
-import JetSecondaryButton from "@/Jetstream/SecondaryButton";
+import BoxContent from "@/Components/Common/BoxContent.vue";
 
 export default {
   components: {
@@ -187,33 +152,9 @@ export default {
     JetButton,
     JetInput,
     LabelGrid,
-    JetSelect,
-    JetValidationErrors,
     JetTextArea,
-    JetSecondaryButton,
+    BoxContent,
   },
-  props: ["tutors", "course"],
-  data() {
-    return {
-      options: ["เผยแพร่", "ปิดการมองเห็น", "รอการอนุมัติ"],
-      photoPreview: this.course.course_img,
-    };
-  },
-
-  methods: {
-    selectNewPhoto() {
-      this.$refs.photo.click();
-    },
-    updatePhotoPreview(event) {
-      const reader = new FileReader();
-
-      this.form.course_img = event.target.files[0];
-      reader.onload = (e) => {
-        this.photoPreview = e.target.result;
-      };
-
-      reader.readAsDataURL(this.$refs.photo.files[0]);
-    },
-  },
+  props: ["lesson", "course"],
 };
 </script>

@@ -27,7 +27,7 @@
                   "
                   >บทเรียนในคอร์ส</jet-button
                 >
-                <jet-button :href="route('admin.courses.index')"
+                <jet-button :href="route('tutor.courses.index')"
                   >รายการคอร์ส</jet-button
                 >
               </div>
@@ -84,7 +84,21 @@
               </form>
             </div>
             <div class="flex justify-between">
-              <h1 class="text-2xl font-semibold mb-3 mt-2">คำถามในบทเรียน</h1>
+              <h1 class="text-2xl font-semibold mb-3 mt-2">
+                คำถามที่ยังไม่ได้ตอบ
+              </h1>
+              <div class="flex items-center gap-4">
+                <jet-button>สร้างคำถามที่พบบ่อย</jet-button>
+                <jet-button
+                  :href="
+                    route('tutor.courses.lessons.questions.index', {
+                      course: course.id,
+                      lesson: lesson.id,
+                    })
+                  "
+                  >คำถามทั้งหมดในบทเรียน</jet-button
+                >
+              </div>
             </div>
             <box-content class="flex flex-col gap-4">
               <div class="flex justify-between gap-2">

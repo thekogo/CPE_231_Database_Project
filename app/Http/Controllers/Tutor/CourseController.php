@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Tutor;
 
 use App\Http\Controllers\Controller;
+use App\Models\Category;
 use App\Models\Course;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
@@ -32,8 +33,10 @@ class CourseController extends Controller
     public function create()
     {
         $tutor = Auth::user();
+        $categories = Category::all();
         return Inertia::render('Tutor/Course/Create', [
-            "tutor" => $tutor
+            "tutor" => $tutor,
+            "categories" => $categories
         ]);
     }
 

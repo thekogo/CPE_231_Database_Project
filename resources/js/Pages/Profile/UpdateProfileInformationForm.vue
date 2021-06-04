@@ -26,7 +26,7 @@
         <div class="mt-2" v-show="!photoPreview">
           <img
             :src="user.profileImgUrl"
-            :alt="user.name"
+            :alt="user.firstName"
             class="rounded-full h-20 w-20 object-cover"
           />
         </div>
@@ -66,15 +66,85 @@
 
       <!-- Name -->
       <div class="col-span-6 sm:col-span-4">
-        <jet-label for="name" value="Name" />
-        <jet-input
-          id="name"
-          type="text"
-          class="mt-1 block w-full"
-          v-model="form.name"
-          autocomplete="name"
-        />
-        <jet-input-error :message="form.errors.name" class="mt-2" />
+        <div class="grid grid-cols-2 gap-4">
+          <div class="col-span-1">
+            <jet-label for="firstName" value="First Name" />
+            <jet-input
+              id="firstName"
+              type="text"
+              class="mt-1 block w-full"
+              v-model="form.firstName"
+              autocomplete="firstName"
+            />
+            <jet-input-error :message="form.errors.firstName" class="mt-2" />
+          </div>
+          <div class="col-span-1">
+            <jet-label for="lastName" value="Last Name" />
+            <jet-input
+              id="lastName"
+              type="text"
+              class="mt-1 block w-full"
+              v-model="form.lastName"
+              autocomplete="lastName"
+            />
+            <jet-input-error :message="form.errors.lastName" class="mt-2" />
+          </div>
+          <div class="col-span-1">
+            <jet-label for="nickName" value="Nick Name" />
+            <jet-input
+              id="nickName"
+              type="text"
+              class="mt-1 block w-full"
+              v-model="form.nickName"
+              autocomplete="nickName"
+            />
+            <jet-input-error :message="form.errors.nickName" class="mt-2" />
+          </div>
+          <div class="col-span-1">
+            <jet-label for="birthday" value="Birthday" />
+            <jet-input
+              id="birthday"
+              type="date"
+              class="mt-1 block w-full"
+              v-model="form.birthday"
+              autocomplete="birthday"
+            />
+            <jet-input-error :message="form.errors.birthday" class="mt-2" />
+          </div>
+          <div class="col-span-2">
+            <jet-label for="address" value="Address" />
+            <jet-text-area
+              id="address"
+              type="date"
+              class="mt-1 block w-full"
+              v-model="form.address"
+              autocomplete="address"
+            />
+            <jet-input-error :message="form.errors.address" class="mt-2" />
+          </div>
+          <div class="col-span-1">
+            <jet-label for="phoneNumber" value="Phone Number" />
+            <jet-input
+              id="phoneNumber"
+              type="text"
+              class="mt-1 block w-full"
+              v-model="form.phoneNumber"
+              autocomplete="phoneNumber"
+            />
+            <jet-input-error :message="form.errors.phoneNumber" class="mt-2" />
+          </div>
+          <div class="col-span-1">
+            <jet-label for="facebook" value="Facebook" />
+            <jet-input
+              id="facebook"
+              type="text"
+              class="mt-1 block w-full"
+              v-model="form.facebook"
+              autocomplete="facebook"
+            />
+            <jet-input-error :message="form.errors.facebook" class="mt-2" />
+          </div>
+        </div>
       </div>
 
       <!-- Email -->
@@ -113,6 +183,7 @@ import JetInputError from "@/Jetstream/InputError";
 import JetLabel from "@/Jetstream/Label";
 import JetActionMessage from "@/Jetstream/ActionMessage";
 import JetSecondaryButton from "@/Jetstream/SecondaryButton";
+import JetTextArea from "@/Jetstream/TextArea";
 
 export default {
   components: {
@@ -123,6 +194,7 @@ export default {
     JetInputError,
     JetLabel,
     JetSecondaryButton,
+    JetTextArea,
   },
 
   props: ["user"],
@@ -131,8 +203,7 @@ export default {
     return {
       form: this.$inertia.form({
         _method: "PUT",
-        name: this.user.name,
-        email: this.user.email,
+        ...this.user,
         photo: null,
       }),
 

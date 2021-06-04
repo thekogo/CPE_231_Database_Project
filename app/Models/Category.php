@@ -21,12 +21,12 @@ class Category extends Model
         "Active"
     ];
 
-    public function setCategoryDisplayAttribute($value)
+    public function setStatusAttribute($value)
     {
         $this->attributes['status'] = $this->mapTextToInt[$value];
     }
 
-    public function getCategoryDisplayAttribute($value)
+    public function getStatusAttribute($value)
     {
         return $this->mapIntToText[$value];
     }

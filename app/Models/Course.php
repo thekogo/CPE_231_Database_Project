@@ -25,6 +25,21 @@ class Course extends Model
 
     public $timestamps = false;
 
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
+
+    public function lessons()
+    {
+        return $this->hasMany(Lesson::class);
+    }
+
+    public function course_categories()
+    {
+        return $this->hasMany(CourseCategory::class);
+    }
+
     private $mapTextToInt = [
         "ปิดการมองเห็น" => 0,
         "เผยแพร่" => 1,
@@ -57,15 +72,5 @@ class Course extends Model
         return $file->store(
             '/public/course_img'
         );
-    }
-
-    public function user()
-    {
-        return $this->belongsTo(User::class);
-    }
-
-    public function lessons()
-    {
-        return $this->hasMany(Lesson::class);
     }
 }

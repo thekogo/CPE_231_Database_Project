@@ -100,7 +100,7 @@
                     id="status"
                     type="text"
                     class="mt-1 block w-full col-span-1"
-                    :value="options[course.status]"
+                    :value="course.status"
                     required
                     disabled
                   />
@@ -114,6 +114,18 @@
                     class="mt-1 block w-full"
                     :value="course.expire_date"
                     required
+                    disabled
+                  />
+                </div>
+
+                <div class="grid grid-cols-5 mb-2">
+                  <label-grid for="selected_categories" value="หมวดหมู่" />
+                  <multiselect
+                    v-model="selected_categories"
+                    :options="options_categories"
+                    mode="tags"
+                    :searchable="true"
+                    class="col-span-3 w-full"
                     disabled
                   />
                 </div>
@@ -138,6 +150,7 @@ import JetSelect from "@/Jetstream/Select.vue";
 import JetValidationErrors from "@/Jetstream/ValidationErrors";
 import Swal from "sweetalert2";
 import JetSecondaryButton from "@/Jetstream/SecondaryButton";
+import Multiselect from "@vueform/multiselect";
 
 export default {
   components: {
@@ -151,13 +164,22 @@ export default {
     JetValidationErrors,
     JetTextArea,
     JetSecondaryButton,
+    Multiselect,
   },
-  props: ["tutors", "course"],
+  props: ["tutors", "course", "categories"],
   data() {
     return {
       options: ["เผยแพร่", "ปิดการมองเห็น"],
       photoPreview: this.course.course_img,
+      options_categories: this.categories.map((category) => category.name),
+      selected_categories: this.course.course_categories.map(
+        (item) => item.category.name
+      ),
     };
+  },
+
+  mounted() {
+    console.log(this.course);
   },
 
   methods: {
@@ -201,3 +223,5 @@ export default {
   },
 };
 </script>
+
+<style src="@vueform/multiselect/themes/default.css"></style>

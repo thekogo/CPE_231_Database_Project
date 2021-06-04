@@ -114,6 +114,15 @@
                     required
                   />
                 </div>
+                <div class="grid grid-cols-5 mb-2">
+                  <label-grid for="selected_categories" value="หมวดหมู่" />
+                  <multiselect
+                    v-model="selected_categories"
+                    :options="options"
+                    :searchable="true"
+                    class="col-span-3 w-full"
+                  />
+                </div>
 
                 <div class="flex justify-end">
                   <jet-button>บันทึก</jet-button>
@@ -127,6 +136,8 @@
   </app-layout>
 </template>
 
+<style src="@vueform/multiselect/themes/default.css"></style>
+
 <script>
 import AppLayout from "@/Layouts/AppLayout";
 import JetNavLink from "@/Jetstream/NavLink";
@@ -139,6 +150,7 @@ import JetSelect from "@/Jetstream/Select.vue";
 import JetValidationErrors from "@/Jetstream/ValidationErrors";
 import Swal from "sweetalert2";
 import JetSecondaryButton from "@/Jetstream/SecondaryButton";
+import Multiselect from "@vueform/multiselect";
 
 export default {
   components: {
@@ -152,8 +164,9 @@ export default {
     JetValidationErrors,
     JetTextArea,
     JetSecondaryButton,
+    Multiselect,
   },
-  props: ["tutor"],
+  props: ["tutor", "categories"],
   data() {
     return {
       form: this.$inertia.form({
@@ -164,8 +177,10 @@ export default {
         expire_date: "",
         hours_left: null,
         course_img: null,
+        selected_categories: null,
       }),
       photoPreview: null,
+      options: this.categories.map((category) => category.name),
     };
   },
 
@@ -210,3 +225,4 @@ export default {
   },
 };
 </script>
+
