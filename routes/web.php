@@ -21,10 +21,10 @@ use Laravel\Jetstream\Rules\Role;
 |
 */
 
-Route::get('/', [HomeController::class, 'index']);
-Route::get('/home', [HomeController::class, 'home']);
-Route::get('/courses', [CourseController::class, 'viewAllCourses']);
-Route::get('/courses/{course}', [CourseController::class, 'viewDetailCourse']);
+Route::get('/', [HomeController::class, 'index'])->name('index');
+Route::get('/home', [HomeController::class, 'home'])->name('home');
+Route::get('/courses', [CourseController::class, 'viewAllCourses'])->name('course.all');
+Route::get('/courses/{course}', [CourseController::class, 'viewDetailCourse'])->name('course.detail');
 
 Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
     return Inertia::render('Dashboard');
@@ -34,7 +34,7 @@ Route::middleware(['auth:sanctum'])->group(function () {
     Route::middleware(['role:student'])->prefix('students')->group(function () {
         Route::get('/', [Student\HomeController::class, 'index'])->name('student.home');
         Route::resource('/courses', Student\CourseController::class);
-        Route::get('/buycourse', [Student\CourseController::class, 'buyCourseView']);
+        Route::get('/buycourse/{course}', [Student\CourseController::class, 'buyCourseView'])->name('buycourse');
     });
 });
 

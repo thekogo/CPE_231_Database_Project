@@ -117,9 +117,11 @@
                 <div class="grid grid-cols-5 mb-2">
                   <label-grid for="selected_categories" value="หมวดหมู่" />
                   <multiselect
-                    v-model="selected_categories"
-                    :options="options"
+                    v-model="form.selected_categories"
+                    :options="options_categories"
+                    mode="tags"
                     :searchable="true"
+                    :createTag="true"
                     class="col-span-3 w-full"
                   />
                 </div>
@@ -177,10 +179,11 @@ export default {
         expire_date: "",
         hours_left: null,
         course_img: null,
-        selected_categories: null,
+        selected_categories: [],
       }),
       photoPreview: null,
       options: this.categories.map((category) => category.name),
+      options_categories: this.categories.map((category) => category.name),
     };
   },
 

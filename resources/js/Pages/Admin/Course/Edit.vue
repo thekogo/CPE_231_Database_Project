@@ -170,7 +170,6 @@ import JetValidationErrors from "@/Jetstream/ValidationErrors";
 import Swal from "sweetalert2";
 import JetSecondaryButton from "@/Jetstream/SecondaryButton";
 import Multiselect from "@vueform/multiselect";
-import { Inertia } from "@inertiajs/inertia";
 
 export default {
   components: {

@@ -11,8 +11,10 @@
         </div>
       </div>
       <div class="flex justify-center gap-16 mt-4 pb-4">
-        <span class="border-b-2 border-transparent hover:border-greenn"
-          >หน้าแรก</span
+        <a
+          class="border-b-2 border-transparent hover:border-greenn"
+          :href="route('home')"
+          >หน้าแรก</a
         >
         <span class="border-b-2 border-transparent hover:border-greenn"
           >ช่องทางการติดต่อ</span
@@ -20,8 +22,10 @@
         <span class="border-b-2 border-transparent hover:border-greenn"
           >ถาม-ตอบ ปัญหา</span
         >
-        <span class="border-b-2 border-transparent hover:border-greenn"
-          >โปรไฟล์</span
+        <a
+          class="border-b-2 border-transparent hover:border-greenn"
+          :href="route('profile.show')"
+          >โปรไฟล์</a
         >
       </div>
     </div>

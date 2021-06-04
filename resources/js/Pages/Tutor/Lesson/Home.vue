@@ -17,12 +17,18 @@
               <h1 class="text-2xl font-semibold mb-3">
                 บทเรียนในคอร์ส : {{ course.name }}
               </h1>
-              <jet-button
-                :href="
-                  route('tutor.courses.lessons.create', { course: course.id })
-                "
-                >เพิ่มบทเรียน</jet-button
-              >
+              <div class="flex gap-2">
+                <jet-button
+                  :href="route('tutor.courses.show', { course: course.id })"
+                  >กลับไปหน้าคอร์ส</jet-button
+                >
+                <jet-button
+                  :href="
+                    route('tutor.courses.lessons.create', { course: course.id })
+                  "
+                  >เพิ่มบทเรียน</jet-button
+                >
+              </div>
             </div>
             <div class="bg-white shadow-lg rounded-md p-5 flex flex-col gap-4">
               <table class="table-auto">
@@ -51,8 +57,8 @@
                             course: course.id,
                           })
                         "
-                        ><i class="far fa-eye"></i></jet-button
-                      >
+                        ><i class="far fa-eye"></i
+                      ></jet-button>
                       <jet-button
                         color="warning"
                         :href="
@@ -61,11 +67,11 @@
                             course: course.id,
                           })
                         "
-                        ><i class="far fa-edit"></i></jet-button
-                      >
+                        ><i class="far fa-edit"></i
+                      ></jet-button>
                       <jet-button color="danger" @click="openDelete(lesson)"
-                        ><i class="far fa-trash-alt"></i></jet-button
-                      >
+                        ><i class="far fa-trash-alt"></i
+                      ></jet-button>
                     </td>
                   </tr>
                 </tbody>
@@ -99,7 +105,7 @@ export default {
       console.log(id);
       Swal.fire({
         title: "Are you sure?",
-        text: "You won't be able to revert this! " + id,
+        text: "You won't be able to revert this! ",
         icon: "warning",
         showCancelButton: true,
         confirmButtonColor: "#3085d6",

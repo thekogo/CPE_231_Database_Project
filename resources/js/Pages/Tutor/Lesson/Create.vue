@@ -15,9 +15,18 @@
           <div class="col-span-9">
             <div class="flex justify-between mb-2">
               <h1 class="text-2xl font-semibold mb-3">สร้างบทเรียน</h1>
-              <jet-button :href="route('tutor.courses.lessons.index', { course: course.id })"
-                >รายการบทเรียน</jet-button
-              >
+              <div class="flex gap-2">
+                <jet-button
+                  :href="route('tutor.courses.show', { course: course.id })"
+                  >กลับไปหน้าคอร์ส</jet-button
+                >
+                <jet-button
+                  :href="
+                    route('tutor.courses.lessons.index', { course: course.id })
+                  "
+                  >รายการบทเรียน</jet-button
+                >
+              </div>
             </div>
             <div class="bg-white shadow-lg rounded-md p-5 flex flex-col gap-4">
               <jet-validation-errors class="mb-4" />
@@ -136,7 +145,11 @@ export default {
               cancelButtonText: "ปิด",
             }).then((result) => {
               if (result.isConfirmed) {
-                this.$inertia.get(route('tutor.courses.lessons.index', { course: this.course.id }));
+                this.$inertia.get(
+                  route("tutor.courses.lessons.index", {
+                    course: this.course.id,
+                  })
+                );
               }
             });
             this.form.reset();

@@ -63,7 +63,7 @@ class CourseController extends Controller
         ])->validate();
 
         $path = null;
-        if ($request["course_img"] != null) {
+        if ($request->file('course_img') != null) {
             $path = Course::createCourseImg($request["course_img"]);
         }
 
