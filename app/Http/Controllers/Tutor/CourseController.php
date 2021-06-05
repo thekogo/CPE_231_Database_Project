@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Validation\Rule;
 
 class CourseController extends Controller
 {
@@ -54,11 +55,11 @@ class CourseController extends Controller
             'price' => ['required', 'integer'],
             'expire_date' => ['required', 'date'],
             'hours_left' => ['required', 'integer'],
-            'course_img' => ['image'],
+            'course_img' => ['image', 'nullable'],
         ])->validate();
 
         $path = null;
-        if (isset($request["course_img"])) {
+        if ($request->file('course_img') != null) {
             $path = Course::createCourseImg($request["course_img"]);
         }
 
@@ -72,7 +73,8 @@ class CourseController extends Controller
         $input = $request->all();
         $input["course_img"] = $path;
 
-        Course::create($input);
+        $course = Course::create($input);
+        Course::updateCourseCategories($request["selected_categories"], $course);
 
         return redirect()->back();
     }
@@ -85,9 +87,11 @@ class CourseController extends Controller
      */
     public function show($id)
     {
-        $course = Course::with('user')->findOrFail($id);
+        $course = Course::with('user')->with('course_categories.category')->findOrFail($id);
+        $categories = Category::all();
         return Inertia::render('Tutor/Course/Show', [
             "course" => $course,
+            "categories" => $categories
         ]);
     }
 
@@ -99,11 +103,13 @@ class CourseController extends Controller
      */
     public function edit($id)
     {
-        $course = Course::findOrFail($id);
+        $course = Course::with('user')->with('course_categories.category')->findOrFail($id);
+        $categories = Category::all();
         $tutor = Auth::user();
         return Inertia::render('Tutor/Course/Edit', [
             "course" => $course,
-            "tutor" => $tutor
+            "tutor" => $tutor,
+            "categories" => $categories
         ]);
     }
 
@@ -116,32 +122,30 @@ class CourseController extends Controller
      */
     public function update(Request $request, $id)
     {
+
+        dd($request->all());
         Validator::make($request->all(), [
-            'name' => ['required', 'string', 'unique:courses'],
+            'name' => ['required', 'string', Rule::unique('courses')->ignore($id)],
             'description' => ['required', 'string'],
             'price' => ['required', 'integer'],
             'expire_date' => ['required', 'date'],
             'hours_left' => ['required', 'integer'],
-            'course_img' => ['image'],
+            'course_img' => ['image', 'nullable'],
         ])->validate();
 
-        $path = null;
-        if (isset($request["course_img"])) {
+        $course = Course::findOrFail($id);
+
+        if ($request->file('course_img') != null) {
             $path = Course::createCourseImg($request["course_img"]);
+            $request->merge([
+                'course_img' => $path
+            ]);
+            $course->update($request->all());
+        } else {
+            $course->update($request->except('course_img'));
         }
 
-        $request->merge([
-            'create_date' => date("Y-m-d"),
-            'course_img' => $path,
-            'user_id' => Auth::id(),
-            'status' => 'รอการอนุมัติ'
-        ]);
-
-        $input = $request->all();
-        $input["course_img"] = $path;
-
-        $course = Course::findOrFail($id);
-        $course->update($request->all());
+        Course::updateCourseCategories($request["selected_categories"], $course);
 
         return redirect()->back();
     }

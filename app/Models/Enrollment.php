@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Http\UploadedFile;
 
 class Enrollment extends Model
 {
@@ -14,8 +15,8 @@ class Enrollment extends Model
         'payment_date',
         'payment_status',
         'receipt_img',
-        'enroll_date', 
-        'user_id', 
+        'enroll_date',
+        'user_id',
         'course_id'
     ];
 
@@ -30,14 +31,14 @@ class Enrollment extends Model
     ];
 
     public function setPaymentMethodAttribute($value)
-        {
-            $this->attributes['payment_method'] = $this->mapMethodToDB[$value];
-        }
+    {
+        $this->attributes['payment_method'] = $this->mapMethodToDB[$value];
+    }
 
-        public function getPaymentMethodAttribute($value)
-        {
-            return $this->mapDBToMethod[$value];
-        }
+    public function getPaymentMethodAttribute($value)
+    {
+        return $this->mapDBToMethod[$value];
+    }
 
     private $mapStatusToDB = [
         'ชำระเงินเรียบร้อย' => 'success',
@@ -59,6 +60,18 @@ class Enrollment extends Model
     public function getPaymentStatusAttribute($value)
     {
         return $this->mapDBToStatus[$value];
+    }
+
+    public function getReceiptImgAttribute($value)
+    {
+        return "/storage/" . str_replace("public/", "", $value);
+    }
+
+    public static function createReceiptImg(UploadedFile $file)
+    {
+        return $file->store(
+            '/public/receipt_img'
+        );
     }
 
     public $timestamps = false;

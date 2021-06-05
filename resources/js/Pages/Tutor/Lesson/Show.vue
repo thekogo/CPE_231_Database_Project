@@ -18,17 +18,15 @@
                 รายละเอียด : {{ lesson.name }}
               </h1>
               <div class="flex gap-2">
-                <jet-button :href="route('tutor.courses.index')"
-                  >นักเรียนในคอร์ส</jet-button
+                <jet-button
+                  :href="route('tutor.courses.show', { course: course.id })"
+                  >กลับไปหน้าคอร์ส</jet-button
                 >
                 <jet-button
                   :href="
                     route('tutor.courses.lessons.index', { course: course.id })
                   "
-                  >บทเรียนในคอร์ส</jet-button
-                >
-                <jet-button :href="route('tutor.courses.index')"
-                  >รายการคอร์ส</jet-button
+                  >รายการบทเรียน</jet-button
                 >
               </div>
             </div>

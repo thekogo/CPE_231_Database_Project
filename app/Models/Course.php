@@ -64,7 +64,9 @@ class Course extends Model
 
     public function getCourseImgAttribute($value)
     {
-        return "/storage/" . str_replace("public/", "", $value);
+        if ($value != null)
+            return "/storage/" . str_replace("public/", "", $value);
+        return "/images/default1.png"; // default image path
     }
 
     public static function createCourseImg(UploadedFile $file)
@@ -77,6 +79,7 @@ class Course extends Model
     public static function updateCourseCategories($categories, $course)
     {
         CourseCategory::where('course_id', $course->id)->delete();
+        if ($categories == null) return;
         foreach ($categories as $category) {
             $category_id = null;
             if (Category::where('name', $category)->exists()) {

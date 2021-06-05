@@ -1,31 +1,5 @@
 <template>
-  <div class="w-full fixed pt-2 bg-white z-50">
-    <div class="container mx-auto">
-      <div class="flex justify-between">
-        <img src="/images/logo1.png" alt="" />
-        <div class="inline-flex gap-4 items-center">
-          <span class="inline-flex items-center">FAQ</span>
-          <span class="inline-flex items-center">ติดต่อเรา</span>
-          <input-pill />
-          <button-pill>ลงทะเบียน</button-pill>
-        </div>
-      </div>
-      <div class="flex justify-center gap-16 mt-4 pb-4">
-        <span class="border-b-2 border-transparent hover:border-greenn"
-          >หน้าแรก</span
-        >
-        <span class="border-b-2 border-transparent hover:border-greenn"
-          >ช่องทางการติดต่อ</span
-        >
-        <span class="border-b-2 border-transparent hover:border-greenn"
-          >ถาม-ตอบ ปัญหา</span
-        >
-        <span class="border-b-2 border-transparent hover:border-greenn"
-          >โปรไฟล์</span
-        >
-      </div>
-    </div>
-  </div>
+  <navbar />
   <div class="grid grid-cols-2 bg-blue-400">
     <div class="col-span-1 flex flex-col justify-center align-middle">
       <div class="w-9/12 ml-auto">
@@ -88,15 +62,16 @@
     </div>
   </div>
   <div class="container grid grid-cols-5 gap-2 h-40 mx-auto">
-    <div
-      class="col-span-1 row-span-1"
+    <a
+      class="block col-span-1 row-span-1 cursor-pointer"
       v-for="course in courses"
       :key="course.id"
+      :href="route('course.detail', { course: course.id })"
     >
       <img :src="course.course_img" alt="" class="h-40" />
       <h3>{{ course.name }}</h3>
       <h4>{{ course.user.fullName }}</h4>
-    </div>
+    </a>
     <div class="col-span-1 row-span-1 bg-red-300"></div>
     <div class="col-span-1 row-span-1 bg-red-300"></div>
     <div class="col-span-1 row-span-1 bg-red-300"></div>
@@ -132,7 +107,7 @@
     </div>
   </div>
   <img src="/images/bottom2.png" class="w-full" />
-  <copyright></copyright>
+  <copyright />
 </template>
 
 <style scoped>
@@ -152,9 +127,10 @@ import JetButton from "@/Jetstream/Button.vue";
 import ButtonPill from "@/Components/Common/ButtonPill.vue";
 import InputPill from "@/Components/Common/InputPill.vue";
 import Copyright from "@/Components/Common/Copyright.vue";
+import Navbar from "@/Components/Common/Navbar.vue";
 
 export default {
-  components: { JetButton, ButtonPill, InputPill, Copyright },
+  components: { JetButton, ButtonPill, InputPill, Copyright, Navbar },
   props: ["courses"],
 };
 </script>
