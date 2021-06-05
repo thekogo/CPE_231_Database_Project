@@ -2,7 +2,7 @@
   <div>
     <navbar />
     <div class="pt-32">
-      <img src="/images/coursedescription.png" class="mx-auto" />
+      <img src="/images/order.png" class="mx-auto" />
       <div class="container mx-auto mt-10">
         <div class="grid grid-cols-3">
           <h2
@@ -21,7 +21,10 @@
             srcset=""
             class="rounded-course mx-auto"
           />
-          <div class="bg-pinkn h-36 w-36 mx-auto rounded-full mt-5"></div>
+          <img
+            class="bg-pinkn h-36 w-36 mx-auto rounded-full mt-5"
+            :src="course.user.profileImgUrl"
+          />
           <span class="text-2xl block text-center text-purplen"
             >ผู้สอน {{ course.user.fullName }}</span
           >
@@ -103,6 +106,8 @@
       </div>
     </div>
   </div>
+  <img src="/images/bottom2.png" class="w-full" />
+  <copyright />
 </template>
 
 <script>

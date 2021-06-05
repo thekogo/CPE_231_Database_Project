@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Student;
 
 use App\Http\Controllers\Controller;
+use App\Models\Course;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 
@@ -84,8 +85,11 @@ class CourseController extends Controller
         //
     }
 
-    public function buyCourseView()
+    public function buyCourseView($course_id)
     {
-        inertia::render('Student/BuyCourse');
+        $course = Course::with('user')->findOrFail($course_id);
+        return inertia::render('Student/BuyCourse', [
+            "course" => $course
+        ]);
     }
 }
