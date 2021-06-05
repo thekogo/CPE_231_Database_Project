@@ -173,6 +173,7 @@ export default {
   data() {
     return {
       form: this.$inertia.form({
+        _method: "put",
         name: this.course.name,
         description: this.course.description,
         price: this.course.price,
@@ -192,7 +193,7 @@ export default {
 
   methods: {
     submit() {
-      this.form.put(
+      this.form.post(
         this.route("tutor.courses.update", { course: this.course.id }),
         {
           onSuccess: () => {

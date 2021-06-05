@@ -160,7 +160,7 @@
 <script>
 import AppLayout from "@/Layouts/AppLayout";
 import JetNavLink from "@/Jetstream/NavLink";
-import SideMenu from "@/Components/Tutor/SideMenu.vue";
+import SideMenu from "@/Components/Admin/SideMenu.vue";
 import JetButton from "@/Jetstream/Button.vue";
 import JetInput from "@/Jetstream/Input.vue";
 import JetTextArea from "@/Jetstream/TextArea.vue";
@@ -191,6 +191,7 @@ export default {
   data() {
     return {
       form: this.$inertia.form({
+        _method: "put",
         name: this.course.name,
         user_id: this.course.user.id,
         description: this.course.description,
@@ -211,7 +212,7 @@ export default {
 
   methods: {
     submit() {
-      this.form.put(
+      this.form.post(
         this.route("admin.courses.update", { course: this.course.id }),
         {
           onSuccess: () => {

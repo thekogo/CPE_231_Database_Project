@@ -40,6 +40,11 @@ class Enrollment extends Model
         return $this->mapDBToMethod[$value];
     }
 
+    public function course()
+    {
+        return $this->belongsTo(Course::class);
+    }
+
     private $mapStatusToDB = [
         'ชำระเงินเรียบร้อย' => 'success',
         'รอดำเนินการ' => 'pending',

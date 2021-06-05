@@ -36,6 +36,12 @@
                   />
                 </div>
                 <div class="grid grid-cols-5 mb-2">
+                  <label-grid for="id" value="หลักฐานการชำระเงิน" />
+                </div>
+                <hr />
+                <img :src="enrollment.receipt_img" class="my-2 mx-auto" />
+                <hr />
+                <div class="grid grid-cols-5 mb-2">
                   <label-grid for="user_id" value="ผู้เรียน" />
                   <jet-select
                     v-model="enrollment.user_id"
@@ -78,7 +84,7 @@
                     v-model="enrollment.payment_method"
                     required
                     disabled
-                  />                  
+                  />
                 </div>
                 <div class="grid grid-cols-5 mb-2">
                   <label-grid for="payment_date" value="วันที่ชำระเงิน" />
@@ -133,7 +139,7 @@ export default {
     JetValidationErrors,
   },
 
-  props: ["enrollment","students", 'courses'],
+  props: ["enrollment", "students", "courses"],
 
   data() {
     return {

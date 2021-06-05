@@ -6,7 +6,7 @@
       </h2>
     </template>
 
-    <div class="py-12 bg-purplen">
+    <div class="py-12">
       <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
         <div class="grid grid-cols-12 gap-4">
           <div class="col-span-3">
@@ -45,18 +45,18 @@
                         :href="
                           route('admin.categories.show', { id: category.id })
                         "
-                        ><i class="far fa-eye"></i></jet-button
-                      >
+                        ><i class="far fa-eye"></i
+                      ></jet-button>
                       <jet-button
                         color="warning"
                         :href="
                           route('admin.categories.edit', { id: category.id })
                         "
-                        ><i class="far fa-edit"></i></jet-button
-                      >
+                        ><i class="far fa-edit"></i
+                      ></jet-button>
                       <jet-button color="danger" @click="openDelete(category)"
-                        ><i class="far fa-trash-alt"></i></jet-button
-                      >
+                        ><i class="far fa-trash-alt"></i
+                      ></jet-button>
                     </td>
                   </tr>
                 </tbody>

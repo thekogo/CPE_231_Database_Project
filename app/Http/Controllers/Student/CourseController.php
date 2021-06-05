@@ -19,7 +19,10 @@ class CourseController extends Controller
      */
     public function index()
     {
-        return Inertia::render('Student/Course/ViewAllCourse');
+        $enrollment = Enrollment::where('user_id', Auth::id())->where('payment_status', 'success')->with('course')->get();
+        return Inertia::render('Student/Course/Home', [
+            'enrollment' => $enrollment
+        ]);
     }
 
     /**
@@ -29,7 +32,6 @@ class CourseController extends Controller
      */
     public function create()
     {
-        //
     }
 
     /**
@@ -86,35 +88,5 @@ class CourseController extends Controller
     public function destroy($id)
     {
         //
-    }
-
-    public function buyCourseView($course_id)
-    {
-        $course = Course::with('user')->findOrFail($course_id);
-        return inertia::render('Student/BuyCourse', [
-            "course" => $course
-        ]);
-    }
-
-    public function buyCourse(Request $request, $course_id)
-    {
-        Validator::make($request->all(), [
-            'receipt_img' => ['image'],
-        ])->validate();
-
-        $path = Enrollment::createReceiptImg($request['receipt_img']);
-        $request->merge([
-            'receipt_img' => $path,
-            'payment_method' => "ช่องทางออนไลน์",
-            'payment_date' => date("Y-m-d"),
-            'payment_status' => "รอดำเนินการ",
-            'enroll_date' => null,
-            'user_id' => Auth::id(),
-            'course_id' => $course_id
-        ]);
-
-        Enrollment::create($request->all());
-
-        return redirect()->back();
     }
 }

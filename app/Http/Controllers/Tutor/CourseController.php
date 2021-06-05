@@ -134,13 +134,11 @@ class CourseController extends Controller
         ])->validate();
 
         $course = Course::findOrFail($id);
-
+        $input = $request->all();
         if ($request->file('course_img') != null) {
             $path = Course::createCourseImg($request["course_img"]);
-            $request->merge([
-                'course_img' => $path
-            ]);
-            $course->update($request->all());
+            $input['course_img'] = $path;
+            $course->update($input);
         } else {
             $course->update($request->except('course_img'));
         }

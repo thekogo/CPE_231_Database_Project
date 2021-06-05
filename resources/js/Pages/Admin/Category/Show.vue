@@ -37,11 +37,7 @@
                 </div>
                 <div class="grid grid-cols-5 mb-2">
                   <label-grid for="status" value="Category Display" />
-                  <jet-select
-                    v-model="category.status"
-                    required
-                    disabled
-                  >
+                  <jet-select v-model="category.status" required disabled>
                     <option v-for="option in options" :key="option">
                       {{ option }}
                     </option>

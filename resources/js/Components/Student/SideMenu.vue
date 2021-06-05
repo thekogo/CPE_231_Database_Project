@@ -37,10 +37,10 @@
     </jet-nav-link>
     <jet-nav-link
       class="text-xl h-10"
-      :href="route('dashboard')"
-      :active="route().current('dashboard')"
+      :href="route('student.enrollments.index')"
+      :active="route().current('student.enrollments.*')"
     >
-      แจ้งชำระเงิน
+      ประวัติการลงทะเบียน
     </jet-nav-link>
   </div>
 </template>

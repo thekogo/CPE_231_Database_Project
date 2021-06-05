@@ -14,7 +14,9 @@
           </div>
           <div class="col-span-9">
             <div class="flex justify-between mb-2">
-              <h1 class="text-2xl font-semibold mb-3">รายการการลงทะเบียนเรียน</h1>
+              <h1 class="text-2xl font-semibold mb-3">
+                รายการการลงทะเบียนเรียน
+              </h1>
               <jet-button :href="route('admin.enrollments.create')"
                 >สร้างการลงทะเบียนเรียน</jet-button
               >
@@ -27,7 +29,7 @@
                     <th>ชื่อ-นามสกุล</th>
                     <th>คอร์ส</th>
                     <th>ช่องทางการชำระเงิน</th>
-                    <th>วันที่ชำระเงิน</th>          
+                    <th>วันที่ชำระเงิน</th>
                     <th>สถานะการจ่ายเงิน</th>
                     <th>จัดการ</th>
                   </tr>
@@ -49,18 +51,18 @@
                         :href="
                           route('admin.enrollments.show', { id: enrollment.id })
                         "
-                        ><i class="far fa-eye"></i></jet-button
-                      >
+                        ><i class="far fa-eye"></i
+                      ></jet-button>
                       <jet-button
                         color="warning"
                         :href="
                           route('admin.enrollments.edit', { id: enrollment.id })
                         "
-                        ><i class="far fa-edit"></i></jet-button
-                      >
+                        ><i class="far fa-edit"></i
+                      ></jet-button>
                       <jet-button color="danger" @click="openDelete(enrollment)"
-                        ><i class="far fa-trash-alt"></i></jet-button
-                      >
+                        ><i class="far fa-trash-alt"></i
+                      ></jet-button>
                     </td>
                   </tr>
                 </tbody>
@@ -104,7 +106,7 @@ export default {
           return this.$inertia.delete(
             route(
               "admin.enrollments.destroy",
-              { enroll: id },
+              { enrollment: id },
               {
                 onSuccess: () => {
                   return;

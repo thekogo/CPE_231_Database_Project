@@ -14,7 +14,9 @@
           </div>
           <div class="col-span-9">
             <div class="flex justify-between mb-2">
-              <h1 class="text-2xl font-semibold mb-3">รายละเอียดของ {{ course.name }}</h1>
+              <h1 class="text-2xl font-semibold mb-3">
+                รายละเอียดของ {{ course.name }}
+              </h1>
               <div class="flex gap-2">
                 <jet-button :href="route('admin.courses.index')"
                   >นักเรียนในคอร์ส</jet-button
@@ -104,7 +106,7 @@
                     disabled
                   />
                   <label-grid for="price" value="ชั่วโมง" />
-                </div>                
+                </div>
                 <div class="grid grid-cols-5 mb-2">
                   <label-grid for="expire_date" value="วันหมดอายุ" />
                   <jet-input

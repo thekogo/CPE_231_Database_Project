@@ -14,7 +14,9 @@
           </div>
           <div class="col-span-9">
             <div class="flex justify-between mb-2">
-              <h1 class="text-2xl font-semibold mb-3">แก้ไขการลงทะเบียนเรียน</h1>
+              <h1 class="text-2xl font-semibold mb-3">
+                แก้ไขการลงทะเบียนเรียน
+              </h1>
               <jet-button :href="route('admin.enrollments.index')"
                 >รายการการลงทะเบียนเรียน</jet-button
               >
@@ -53,7 +55,7 @@
                     v-model="form.payment_method"
                     required
                   >
-                  <option
+                    <option
                       v-for="option in method_options"
                       :key="option"
                       :value="option"
@@ -79,7 +81,7 @@
                     v-model="form.payment_status"
                     required
                   >
-                  <option
+                    <option
                       v-for="option in status_options"
                       :key="option"
                       :value="option"
@@ -87,7 +89,7 @@
                       {{ option }}
                     </option>
                   </jet-select>
-                </div>              
+                </div>
                 <div class="flex justify-end">
                   <jet-button>บันทึก</jet-button>
                 </div>
@@ -141,9 +143,11 @@ export default {
 
   methods: {
     submit() {
-      // console.log(this.form);
+      console.log(this.form);
       this.form.put(
-        this.route("admin.enrollments.update", { enroll: this.enrollment.id }),
+        this.route("admin.enrollments.update", {
+          enrollment: this.enrollment.id,
+        }),
         {
           onSuccess: () => {
             Swal.fire({
