@@ -76,7 +76,7 @@
           </div>
 
           <button-pill
-            class="w-20 cursor-pointer mx-auto mt-8"
+            class="w-20 cursor-pointer block mx-auto mt-8"
             v-if="$page.props.user?.role == 'student' || !$page.props.user"
             ><a :href="route('buycourse', { course: course.id })"
               >สั่งซื้อ</a

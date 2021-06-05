@@ -19,7 +19,7 @@ class CreateEnrollmentsTable extends Migration
             $table->date('payment_date');
             $table->enum('payment_status', ['success', 'pending', 'refund']);
             $table->string('receipt_img')->nullable();
-            $table->date('enroll_date');
+            $table->date('enroll_date')->nullable();
             $table->foreignId('user_id')->nullable()->constrained()->onDelete('set null');
             $table->foreignId('course_id')->nullable()->constrained()->onDelete('set null');
         });
