@@ -53,6 +53,7 @@ Route::middleware(['auth:sanctum'])->group(function () {
         Route::resource('courses', Tutor\CourseController::class);
         Route::resource('courses.lessons', Tutor\LessonController::class);
         Route::resource('courses.lessons.questions', Tutor\QuestionController::class);
+        Route::resource('courses.lessons.faqs', Tutor\FAQController::class);
     });
 });
 
@@ -63,5 +64,6 @@ Route::middleware(['auth:sanctum'])->group(function () {
         Route::resource('courses', Admin\CourseController::class);
         Route::resource('enrollments', Admin\EnrollmentController::class);
         Route::resource('courses.lessons', Admin\LessonController::class);
+        Route::resource('courses.lessons.faqs', Admin\FAQController::class);
     });
 });

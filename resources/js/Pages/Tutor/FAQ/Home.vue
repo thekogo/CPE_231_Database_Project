@@ -19,12 +19,12 @@
               </h1>
               <jet-button
                 :href="
-                  route('tutor.courses.lessons.questions.create', {
+                  route('tutor.courses.lessons.faqs.create', {
                     lesson: lesson.id,
                     course: course.id,
                   })
                 "
-                >สร้างคำถามที่พบบ่อย</jet-button
+                >เพิ่ม FAQ</jet-button
               >
             </div>
             <div class="bg-white shadow-lg rounded-md p-5 flex flex-col gap-4">
@@ -33,6 +33,7 @@
                   <tr>
                     <th>รหัส</th>
                     <th>คำถาม</th>
+                    <th>คำตอบ</th>
                     <th>วันที่ถาม</th>
                     <th>แก้ไข</th>
                   </tr>
@@ -40,35 +41,26 @@
                 <tbody>
                   <tr
                     class="text-center"
-                    v-for="question in questions"
-                    :key="question.id"
+                    v-for="faq in faqs"
+                    :key="faq.id"
                   >
-                    <td>#{{ question.id }}</td>
-                    <td>{{ question.description }}</td>
-                    <td>{{ question.create_date }}</td>
-                    <td class="flex gap-2 justify-center">
-                      <jet-button
-                        :href="
-                          route('tutor.courses.lessons.questions.show', {
-                            lesson: lesson.id,
-                            course: course.id,
-                            question: question.id,
-                          })
-                        "
-                        ><i class="far fa-eye"></i></jet-button
-                      >
+                    <td>#{{ faq.id }}</td>
+                    <td>{{ faq.question }}</td>
+                    <td>{{ faq.answer }}</td>
+                    <td>{{ faq.create_date }}</td>
+                    <td class="flex gap-2 justify-center">                      
                       <jet-button
                         color="warning"
                         :href="
-                          route('tutor.courses.lessons.questions.edit', {
+                          route('tutor.courses.lessons.faqs.edit', {
                             lesson: lesson.id,
                             course: course.id,
-                            question: question.id,
+                            faq: faq.id,
                           })
                         "
                         ><i class="far fa-edit"></i></jet-button
                       >
-                      <jet-button color="danger" @click="openDelete(lesson)"
+                      <jet-button color="danger" @click="openDelete(faqs)"
                         ><i class="far fa-trash-alt"></i></jet-button
                       >
                     </td>
@@ -97,7 +89,7 @@ export default {
     SideMenu,
     JetButton,
   },
-  props: ["lesson", "course", "questions"],
+  props: ["lesson", "course", "faqs"],
 
   methods: {
     openDelete({ id, name }) {
@@ -113,10 +105,10 @@ export default {
         showLoaderOnConfirm: true,
         preConfirm: () => {
           return this.$inertia.delete(
-            route("tutor.courses.lessons.questions.destroy", {
+            route("tutor.courses.lessons.faqs.destroy", {
               course: this.course.id,
               lesson: this.lesson.id,
-              question: id,
+              faq: id,
             }),
             {
               onSuccess: () => {
@@ -133,7 +125,7 @@ export default {
         if (result.isConfirmed) {
           Swal.fire({
             title: "Suscess",
-            html: `ลบคอร์ส  ${name}  เรียบร้อย`,
+            html: `ลบ FAQ เรียบร้อย`,
             icon: "success",
             timer: 2000,
             timerProgressBar: true,

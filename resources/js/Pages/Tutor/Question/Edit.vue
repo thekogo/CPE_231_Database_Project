@@ -2,7 +2,7 @@
   <app-layout>
     <template #header>
       <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-        จัดการการลงทะเบียนเรียน
+        จัดการคำถามใน {{ lesson.name }}
       </h2>
     </template>
 
@@ -15,10 +15,10 @@
           <div class="col-span-9">
             <div class="flex justify-between mb-2">
               <h1 class="text-2xl font-semibold mb-3">
-                สร้างการลงทะเบียนเรียน
+                สร้างคำถามที่พบบ่อย
               </h1>
               <jet-button :href="route('admin.lessons.index')"
-                >รายการการลงทะเบียนเรียน</jet-button
+                >คำถามทั้งหมด</jet-button
               >
             </div>
             <div class="bg-white shadow-lg rounded-md p-5 flex flex-col gap-4">

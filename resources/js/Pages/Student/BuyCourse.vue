@@ -2,7 +2,7 @@
   <div>
     <navbar />
     <div class="pt-32">
-      <img src="/images/coursedescription.png" class="mx-auto" />
+      <img src="/images/order.png" class="mx-auto" />
       <div class="container mx-auto mt-10">
         <div class="grid grid-cols-3">
           <h2
