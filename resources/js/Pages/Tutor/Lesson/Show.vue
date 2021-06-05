@@ -88,16 +88,16 @@
                 คำถามที่ยังไม่ได้ตอบ
               </h1>
               <div class="flex items-center gap-4">
-                <jet-button>สร้างคำถามที่พบบ่อย</jet-button>
                 <jet-button
                   :href="
-                    route('tutor.courses.lessons.questions.index', {
-                      course: course.id,
+                    route('tutor.courses.lessons.faqs.index', {
                       lesson: lesson.id,
+                      course: course.id,
                     })
                   "
-                  >คำถามทั้งหมด</jet-button
+                  >สร้างคำถามที่พบบ่อย</jet-button
                 >
+                <jet-button>คำถามทั้งหมด</jet-button>
               </div>
             </div>
             <box-content class="flex flex-col gap-4">

@@ -2,7 +2,7 @@
   <app-layout>
     <template #header>
       <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-        จัดการคำถามใน {{ lesson.name }}
+        จัดการ FAQ ใน {{ lesson.name }}
       </h2>
     </template>
 
@@ -14,59 +14,40 @@
           </div>
           <div class="col-span-9">
             <div class="flex justify-between mb-2">
-              <h1 class="text-2xl font-semibold mb-3">เพิ่มคำถาม</h1>
-              <jet-button :href="route('tutor.lessons.index')"
-                >คำถามทั้งหมดใน {{ lesson.name }}</jet-button
+              <h1 class="text-2xl font-semibold mb-3">เพิ่ม FAQ</h1>
+              <jet-button
+                :href="
+                  route('admin.courses.lessons.faqs.index', {
+                    lesson: lesson.id,
+                    course: course.id,
+                  })
+                "
+                >FAQ ทั้งหมดใน {{ lesson.name }}</jet-button
               >
             </div>
             <div class="bg-white shadow-lg rounded-md p-5 flex flex-col gap-4">
               <jet-validation-errors class="mb-4" />
               <form @submit.prevent="submit">
                 <div class="grid grid-cols-5 mb-2">
-                  <label-grid for="name" value="ชื่อบทเรียน" />
+                  <label-grid for="question" value="คำถาม" />
                   <jet-input
-                    id="name"
+                    id="question"
                     type="text"
                     class="mt-1 block w-full col-span-3"
                     required
                     autofocus
-                    autocomplete="name"
-                    v-model="form.name"
+                    autocomplete="question"
+                    v-model="form.question"
                   />
                 </div>
                 <div class="grid grid-cols-5 mb-2">
-                  <label-grid for="vdo" value="ลิ้งค์ Vdo" />
-                  <jet-input
-                    id="vdo"
-                    type="text"
-                    class="mt-1 block w-full col-span-3"
-                    required
-                    autofocus
-                    autocomplete="vdo"
-                    v-model="form.vdo"
-                  />
-                </div>
-                <div class="grid grid-cols-5 mb-2">
-                  <label-grid for="user_id" value="ลำดับบทเรียน" />
-                  <jet-input
-                    id="user_id"
-                    type="number"
-                    class="mt-1 block w-full col-span-1"
-                    v-model="form.order"
-                    min="0"
-                    :max="lessons.length"
-                    required
-                  />
-                </div>
-                <div class="grid grid-cols-5 mb-2">
-                  <label-grid for="description" value="รายละเอียดคอร์ส" />
+                  <label-grid for="answer" value="คำตอบ" />
                   <jet-text-area
                     class="mt-1 block w-full col-span-3"
-                    v-model="form.description"
+                    v-model="form.answer"
                     required
                   />
                 </div>
-
                 <div class="flex justify-end">
                   <jet-button>บันทึก</jet-button>
                 </div>
@@ -82,7 +63,7 @@
 <script>
 import AppLayout from "@/Layouts/AppLayout";
 import JetNavLink from "@/Jetstream/NavLink";
-import SideMenu from "@/Components/Tutor/SideMenu.vue";
+import SideMenu from "@/Components/Admin/SideMenu.vue";
 import JetButton from "@/Jetstream/Button.vue";
 import JetInput from "@/Jetstream/Input.vue";
 import JetTextArea from "@/Jetstream/TextArea.vue";
@@ -105,14 +86,12 @@ export default {
     JetTextArea,
     JetSecondaryButton,
   },
-  props: ["course", "lessons"],
+  props: ["course", "lesson"],
   data() {
     return {
       form: this.$inertia.form({
-        name: "",
-        description: "",
-        vdo: "",
-        order: this.lessons.length,
+        question: "",
+        answer: "",
       }),
     };
   },
@@ -120,23 +99,31 @@ export default {
   methods: {
     submit() {
       this.form.post(
-        this.route("tutor.courses.lessons.store", { course: this.course.id }),
+        this.route("admin.courses.lessons.faqs.store", {
+          lesson: this.lesson.id,
+          course: this.course.id,
+        }),
         {
           onSuccess: () => {
             Swal.fire({
               title: "Suscess",
-              html: `เพิ่มบทเรียน ${this.form.name} เรียบร้อย`,
+              html: `เพิ่ม FAQ เรียบร้อย`,
               icon: "success",
               timer: 3000,
               timerProgressBar: true,
               showCancelButton: true,
               confirmButtonColor: "#3085d6",
-              confirmButtonText: "กลับไปหน้าจัดการทั้งหมด",
+              confirmButtonText: "กลับไปหน้าหลัก",
               cancelButtonColor: "#d33",
               cancelButtonText: "ปิด",
             }).then((result) => {
               if (result.isConfirmed) {
-                this.$inertia.get(route("tutor.courses.index"));
+                this.$inertia.get(
+                  route("admin.courses.lessons.faqs.index", {
+                    lesson: this.lesson.id,
+                    course: this.course.id,
+                  })
+                );
               }
             });
             this.form.reset();

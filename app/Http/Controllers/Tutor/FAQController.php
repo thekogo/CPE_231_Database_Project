@@ -5,12 +5,12 @@ namespace App\Http\Controllers\Tutor;
 use App\Http\Controllers\Controller;
 use App\Models\Course;
 use App\Models\Lesson;
-use App\Models\Question;
+use App\Models\FAQ;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 use Illuminate\Support\Facades\Validator;
 
-class QuestionController extends Controller
+class FAQController extends Controller
 {
 
     function __construct(Request $request)
@@ -29,11 +29,11 @@ class QuestionController extends Controller
      */
     public function index()
     {
-        $questions = Question::where('lesson_id', $this->lesson->id);
-        return Inertia::render('Tutor/Question/Home', [
+        $faqs = FAQ::where('lesson_id', $this->lesson->id)->get();
+        return Inertia::render('Tutor/FAQ/Home', [
             "course" => $this->course,
             "lesson" => $this->lesson,
-            "questions" => $questions
+            "faqs" => $faqs
         ]);
     }
 
@@ -44,7 +44,7 @@ class QuestionController extends Controller
      */
     public function create()
     {
-        return Inertia::render('Tutor/Question/Home', [
+        return Inertia::render('Tutor/FAQ/Create', [
             "course" => $this->course,
             "lesson" => $this->lesson,
         ]);
@@ -59,14 +59,15 @@ class QuestionController extends Controller
     public function store(Request $request)
     {
         Validator::make($request->all(), [
-            'description' => ['required', 'string'],
+            'question' => ['required', 'string'],
+            'answer' => ['required', 'string'],
         ])->validate();
 
         $request->merge([
             'create_date' => date("Y-m-d"),
         ]);
 
-        Lesson::create($request->merge([
+        FAQ::create($request->merge([
             'lesson_id' => $this->lesson->id
         ])->all());
         
@@ -90,9 +91,14 @@ class QuestionController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit($course_id, $lesson_id, $id)
     {
-        //
+        $faq = FAQ::findOrFail($id);
+        return Inertia::render('Tutor/FAQ/Edit', [
+            "course" => $this->course,
+            "lesson" => $this->lesson,
+            "faq" => $faq
+        ]);
     }
 
     /**
@@ -104,7 +110,15 @@ class QuestionController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        Validator::make($request->all(), [
+            'question' => ['required', 'string'],
+            'answer' => ['required', 'string'],
+        ])->validate();
+
+        $faq = FAQ::findOrFail($id);
+        $faq->update($request->all());
+
+        return redirect()->back();
     }
 
     /**
@@ -115,6 +129,8 @@ class QuestionController extends Controller
      */
     public function destroy($id)
     {
-        //
+        FAQ::findOrFail($id)->delete();
+
+        return redirect()->back();
     }
 }

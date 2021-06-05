@@ -82,6 +82,19 @@
                   />
                 </div>
               </form>
+            </div>
+            <div class="flex justify-end">
+              <div class="flex items-center gap-4 mt-2">
+                <jet-button
+                  :href="
+                    route('admin.courses.lessons.faqs.index', {
+                      lesson: lesson.id,
+                      course: course.id,
+                    })
+                  "
+                  >สร้างคำถามที่พบบ่อย</jet-button
+                >
+              </div>
             </div>      
           </div>
         </div>
