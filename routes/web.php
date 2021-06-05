@@ -28,8 +28,8 @@ Route::prefix('home')->group(function () {
     Route::get('/', [HomeController::class, 'home'])->name('home');
     Route::get('/courses', [CourseController::class, 'viewAllCourses'])->name('course.all');
     Route::get('/courses/{course}', [CourseController::class, 'viewDetailCourse'])->name('course.detail');
-    Route::get('/courses', [TutorController::class, 'viewAllCourses'])->name('tutor.all');
-    Route::get('/courses/{tutor}', [TutorController::class, 'viewDetailCourse'])->name('tutor.detail');
+    Route::get('/tutors', [TutorController::class, 'viewAllCourses'])->name('tutor.all');
+    Route::get('/tutors/{tutor}', [TutorController::class, 'viewDetailCourse'])->name('tutor.detail');
 });
 
 
