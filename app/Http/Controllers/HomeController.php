@@ -20,4 +20,9 @@ class HomeController extends Controller
     {
         return Inertia::render('Welcome');
     }
+
+    public function contact()
+    {
+        return Inertia::render('Contact');
+    }
 }

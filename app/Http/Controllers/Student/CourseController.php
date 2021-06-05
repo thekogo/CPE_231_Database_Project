@@ -19,9 +19,11 @@ class CourseController extends Controller
      */
     public function index()
     {
-        $enrollment = Enrollment::where('user_id', Auth::id())->where('payment_status', 'success')->with('course')->get();
+        $enrollments = Enrollment::where('user_id', Auth::id())
+            ->where('payment_status', 'success')
+            ->with('course')->get();
         return Inertia::render('Student/Course/Home', [
-            'enrollment' => $enrollment
+            'enrollments' => $enrollments
         ]);
     }
 
@@ -53,7 +55,12 @@ class CourseController extends Controller
      */
     public function show($id)
     {
-        return Inertia::render('Student/Course/ViewOneCourse');
+        $enrollment = Enrollment::where('user_id', Auth::id())
+            ->where('payment_status', 'success')
+            ->with('course')->with('user')->findOrFail($id);
+        return Inertia::render('Student/Course/Show', [
+            'course' => $enrollment
+        ]);
     }
 
     /**

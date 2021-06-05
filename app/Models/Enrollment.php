@@ -20,6 +20,16 @@ class Enrollment extends Model
         'course_id'
     ];
 
+    public function course()
+    {
+        return $this->belongsTo(Course::class);
+    }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
+
     private $mapMethodToDB = [
         'เงินสด' => 'offline',
         'ช่องทางออนไลน์' => 'online',
@@ -38,11 +48,6 @@ class Enrollment extends Model
     public function getPaymentMethodAttribute($value)
     {
         return $this->mapDBToMethod[$value];
-    }
-
-    public function course()
-    {
-        return $this->belongsTo(Course::class);
     }
 
     private $mapStatusToDB = [

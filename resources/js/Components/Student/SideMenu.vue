@@ -9,8 +9,8 @@
     </jet-nav-link>
     <jet-nav-link
       class="text-xl h-10"
-      :href="route('dashboard')"
-      :active="route().current('dashboard')"
+      :href="route('student.courses.index')"
+      :active="route().current('student.courses.*')"
     >
       คอร์สเรียนทั้งหมด
     </jet-nav-link>

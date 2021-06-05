@@ -26,6 +26,7 @@ Route::get('/', [HomeController::class, 'index'])->name('index');
 
 Route::prefix('home')->group(function () {
     Route::get('/', [HomeController::class, 'home'])->name('home');
+    Route::get('/contact', [HomeController::class, 'contact'])->name('contact');
     Route::get('/courses', [CourseController::class, 'viewAllCourses'])->name('course.all');
     Route::get('/courses/{course}', [CourseController::class, 'viewDetailCourse'])->name('course.detail');
     Route::get('/tutors', [TutorController::class, 'viewAllCourses'])->name('tutor.all');
