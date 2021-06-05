@@ -38,8 +38,8 @@ Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
 })->name('dashboard');
 
 Route::middleware(['auth:sanctum'])->group(function () {
-    Route::middleware(['role:student'])->prefix('students')->group(function () {
-        Route::get('/', [Student\HomeController::class, 'index'])->name('student.home');
+    Route::middleware(['role:student'])->prefix('students')->name('student.')->group(function () {
+        Route::get('/', [Student\HomeController::class, 'index'])->name('home');
         Route::resource('/courses', Student\CourseController::class);
         Route::get('/buycourse/{course}', [Student\CourseController::class, 'buyCourseView'])->name('buycourse');
         Route::post('/buycourse/{course}', [Student\CourseController::class, 'buyCourse'])->name('buycourse.create');

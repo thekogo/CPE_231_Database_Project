@@ -128,7 +128,7 @@ export default {
   methods: {
     submit() {
       this.form.post(
-        this.route("buycourse.create", { course: this.course.id }),
+        this.route("student.buycourse.create", { course: this.course.id }),
         {
           onSuccess: () => {
             Swal.fire({
