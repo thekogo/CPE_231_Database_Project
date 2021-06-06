@@ -24,11 +24,11 @@
                     flex
                     items-center
                     justify-center
-                    bg-yellow-300
+                    bg-green-600
                   "
                   v-if="lesson.is_learned"
                 >
-                  <i class="fas fa-check"></i>
+                  <i class="fas fa-check text-white"></i>
                 </div>
               </h1>
               <div class="flex gap-2">
@@ -37,8 +37,8 @@
                     v-if="!lesson.is_learned"
                     color="warning"
                     @click="finishedLesson"
-                    >เรียนจบแล้ว</jet-button
-                  >
+                    ><i class="fas fa-check"></i
+                  ></jet-button>
                 </div>
                 <div>
                   <jet-button

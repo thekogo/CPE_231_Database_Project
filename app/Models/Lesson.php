@@ -58,7 +58,7 @@ class Lesson extends Model
         return LessonHistory::where('lesson_id', $this->id)->where('enrollment_id', $enrollment->id)->exists();
     }
 
-    public function getNextLessonId()
+    public function getNextLessonIdAttribute()
     {
         return Lesson::where('course_id', $this->course_id)
             ->where('order', '>', $this->order)
