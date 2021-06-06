@@ -39,6 +39,19 @@
               <jet-validation-errors class="mb-4" />
               <form @submit.prevent="submit">
                 <div class="grid grid-cols-5 mb-2">
+                  <label-grid for="id" value="รหัสคอร์ส" />
+                  <jet-input
+                    id="id"
+                    type="text"
+                    class="mt-1 block w-full col-span-3"
+                    required
+                    autofocus
+                    autocomplete="id"
+                    v-model="course.id"
+                    disabled
+                  />
+                </div>
+                <div class="grid grid-cols-5 mb-2">
                   <label-grid for="name" value="ชื่อคอร์ส" />
                   <jet-input
                     id="name"

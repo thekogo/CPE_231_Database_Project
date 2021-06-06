@@ -52,6 +52,7 @@ class CourseController extends Controller
     public function store(Request $request)
     {
         Validator::make($request->all(), [
+            'id' => ['required', 'string', 'unique:courses'],
             'name' => ['required', 'string', 'unique:courses'],
             'description' => ['required', 'string'],
             'price' => ['required', 'integer'],
@@ -128,6 +129,7 @@ class CourseController extends Controller
     public function update(Request $request, $id)
     {
         Validator::make($request->all(), [
+            'id' => ['required', 'string', Rule::unique('courses')->ignore($id)],
             'name' => ['required', 'string', Rule::unique('courses')->ignore($id)],
             'description' => ['required', 'string'],
             'price' => ['required', 'integer'],

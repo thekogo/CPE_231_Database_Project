@@ -11,6 +11,7 @@ class Course extends Model
     use HasFactory;
 
     protected $fillable = [
+        'id',
         'name',
         'course_img',
         'category',
@@ -22,6 +23,8 @@ class Course extends Model
         'hours_left',
         'user_id'
     ];
+
+    protected $keyType = 'string';
 
     public $timestamps = false;
 

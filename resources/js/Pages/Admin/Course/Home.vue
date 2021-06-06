@@ -35,9 +35,9 @@
                   <tr
                     class="text-center"
                     v-for="course in courses"
-                    :key="course.name"
+                    :key="course.id"
                   >
-                    <td>#{{ course.id }}</td>
+                    <td>{{ course.id }}</td>
                     <td>{{ course.name }}</td>
                     <td>{{ course.status }}</td>
                     <td>{{ course.price }} บาท</td>

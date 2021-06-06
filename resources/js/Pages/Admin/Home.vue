@@ -41,7 +41,7 @@
 <script>
 import AppLayout from "@/Layouts/AppLayout";
 import JetNavLink from "@/Jetstream/NavLink";
-import SideMenu from "@/Components/Student/SideMenu.vue";
+import SideMenu from "@/Components/Admin/SideMenu.vue";
 import PaymentRecord from "@/Components/Admin/PaymentRecord.vue";
 
 export default {
