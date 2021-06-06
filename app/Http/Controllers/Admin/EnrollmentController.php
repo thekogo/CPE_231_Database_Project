@@ -19,7 +19,7 @@ class EnrollmentController extends Controller
      */
     public function index()
     {
-        $enrollments = Enrollment::all();
+        $enrollments = Enrollment::with('user')->with('course')->get();
         return Inertia::render('Admin/Enrollment/Home', [
             "enrollments" => $enrollments
         ]);

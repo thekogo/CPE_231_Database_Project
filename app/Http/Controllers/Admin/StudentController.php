@@ -1,24 +1,22 @@
 <?php
 
-namespace App\Http\Controllers\Student;
+namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Course;
-use App\Models\Lesson;
-use App\Models\Question;
+use App\Models\Enrollment;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Validator;
 use Inertia\Inertia;
 
-class LessonController extends Controller
+class StudentController extends Controller
 {
+
     function __construct(Request $request)
     {
         if ($request->route() != null) {
             $course_id = $request->route()->parameter('course');
-            $this->course = Course::with(['enrollments' => function ($query) use ($course_id) {
-                $query->where('user_id', Auth::id())->where('course_id', $course_id);
-            }])->findOrFail($course_id);
+            $this->course = Course::findOrFail($course_id);
         }
     }
     /**
@@ -28,7 +26,11 @@ class LessonController extends Controller
      */
     public function index()
     {
-        return Inertia::render('Student/Lesson/Home');
+        $enrollments = Enrollment::where('course_id', $this->course->id)->with('user')->get();
+        return Inertia::render('Admin/Student/Home', [
+            'course' => $this->course,
+            'enrollments' => $enrollments,
+        ]);
     }
 
     /**
@@ -38,7 +40,7 @@ class LessonController extends Controller
      */
     public function create()
     {
-        //
+        
     }
 
     /**
@@ -49,7 +51,7 @@ class LessonController extends Controller
      */
     public function store(Request $request)
     {
-        //
+       
     }
 
     /**
@@ -60,11 +62,7 @@ class LessonController extends Controller
      */
     public function show($course_id, $id)
     {
-        $lesson = Lesson::with('questions')->with('faqs')->with('questions.answers')->findOrFail($id);
-        return Inertia::render('Student/Lesson/Show', [
-            'lesson' => $lesson,
-            'course' => $this->course,
-        ]);
+        
     }
 
     /**
@@ -73,9 +71,9 @@ class LessonController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit($course_id, $id)
     {
-        //
+        
     }
 
     /**
@@ -85,9 +83,9 @@ class LessonController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, $course_id, $id)
     {
-        //
+        
     }
 
     /**
@@ -96,8 +94,10 @@ class LessonController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy($course_id, $id)
     {
-        //
+        Enrollment::findOrFail($id)->delete();
+
+        return redirect()->back();
     }
 }

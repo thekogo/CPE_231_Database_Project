@@ -3,24 +3,13 @@
 namespace App\Http\Controllers\Student;
 
 use App\Http\Controllers\Controller;
-use App\Models\Course;
-use App\Models\Lesson;
-use App\Models\Question;
+use App\Models\Enrollment;
+use App\Models\LessonHistory;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Inertia\Inertia;
 
-class LessonController extends Controller
+class LessonHistoryController extends Controller
 {
-    function __construct(Request $request)
-    {
-        if ($request->route() != null) {
-            $course_id = $request->route()->parameter('course');
-            $this->course = Course::with(['enrollments' => function ($query) use ($course_id) {
-                $query->where('user_id', Auth::id())->where('course_id', $course_id);
-            }])->findOrFail($course_id);
-        }
-    }
     /**
      * Display a listing of the resource.
      *
@@ -28,7 +17,7 @@ class LessonController extends Controller
      */
     public function index()
     {
-        return Inertia::render('Student/Lesson/Home');
+        //
     }
 
     /**
@@ -47,9 +36,17 @@ class LessonController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request, $course_id, $lesson_id)
     {
-        //
+        $enrollment = Enrollment::where('course_id', $course_id)->where('user_id', Auth::id())->first();
+        if (!LessonHistory::where('enrollment_id', $enrollment->id)->where('lesson_id', $lesson_id)->exists()) {
+            LessonHistory::create([
+                'lesson_id' => $lesson_id,
+                'enrollment_id' => $enrollment->id,
+                'finish_date' => date('Y-m-d')
+            ]);
+        }
+        return redirect()->back();
     }
 
     /**
@@ -58,13 +55,9 @@ class LessonController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($course_id, $id)
+    public function show($id)
     {
-        $lesson = Lesson::with('questions')->with('faqs')->with('questions.answers')->findOrFail($id);
-        return Inertia::render('Student/Lesson/Show', [
-            'lesson' => $lesson,
-            'course' => $this->course,
-        ]);
+        //
     }
 
     /**

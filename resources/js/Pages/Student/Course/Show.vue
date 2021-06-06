@@ -82,8 +82,22 @@
               <div v-for="lesson in course.lessons" :key="lesson.id">
                 <div class="flex justify-between gap-2">
                   <div>
-                    <h1 class="text-2xl">
+                    <h1 class="text-2xl flex gap-2 items-center">
                       #{{ lesson.order }} {{ lesson.name }}
+                      <div
+                        class="
+                          rounded-full
+                          h-7
+                          w-7
+                          flex
+                          items-center
+                          justify-center
+                          bg-yellow-300
+                        "
+                        v-if="lesson.is_learned"
+                      >
+                        <i class="fas fa-check"></i>
+                      </div>
                     </h1>
                     <p>{{ lesson.description }}</p>
                   </div>

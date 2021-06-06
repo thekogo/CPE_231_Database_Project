@@ -14,18 +14,39 @@
           </div>
           <div class="col-span-9">
             <div class="flex justify-between mb-2">
-              <h1 class="text-2xl font-semibold mb-3">
+              <h1 class="text-2xl font-semibold mb-3 flex items-center gap-2">
                 บทเรียน : {{ lesson.name }}
+                <div
+                  class="
+                    rounded-full
+                    h-7
+                    w-7
+                    flex
+                    items-center
+                    justify-center
+                    bg-yellow-300
+                  "
+                  v-if="lesson.is_learned"
+                >
+                  <i class="fas fa-check"></i>
+                </div>
               </h1>
-              <jet-button
-                color="warning"
-                :href="route('student.enrollments.index')"
-                >เรียนจบแล้ว</jet-button
-              >
-              <jet-button
-                :href="route('student.courses.show', { course: course.id })"
-                >กลับไปหน้าคอร์ส</jet-button
-              >
+              <div class="flex gap-2">
+                <div>
+                  <jet-button
+                    v-if="!lesson.is_learned"
+                    color="warning"
+                    @click="finishedLesson"
+                    >เรียนจบแล้ว</jet-button
+                  >
+                </div>
+                <div>
+                  <jet-button
+                    :href="route('student.courses.show', { course: course.id })"
+                    >กลับไปหน้าคอร์ส</jet-button
+                  >
+                </div>
+              </div>
             </div>
             <div class="bg-white shadow-lg rounded-md p-5 flex flex-col gap-4">
               <form @submit.prevent="submit">
@@ -62,6 +83,25 @@
                   />
                 </div>
               </form>
+            </div>
+            <div class="flex justify-between mb-2 mt-3">
+              <h1 class="text-2xl font-semibold mb-3">คำถามที่พบบ่อย</h1>
+            </div>
+            <div class="bg-white shadow-lg rounded-md p-5 flex flex-col gap-4">
+              <div v-for="faq in lesson.faqs" :key="faq.id">
+                <div class="flex justify-between gap-2">
+                  <div class="flex-grow">
+                    <h1 class="text-2xl">#{{ faq.id }}</h1>                    
+                    <p>
+                      <b>{{ faq.question }}</b>
+                    </p>
+                    <hr />
+                    <p> 
+                      {{ faq.answer }}
+                    </p>
+                  </div>                  
+                </div>
+              </div>
             </div>
             <div class="flex justify-between mb-2 mt-3">
               <h1 class="text-2xl font-semibold mb-3">สอบถาม</h1>
@@ -171,6 +211,26 @@ export default {
             }
           );
       }
+    },
+    finishedLesson() {
+      this.form
+        .transform((data) => ({
+          ...data,
+        }))
+        .post(
+          this.route("student.courses.lessons.lesson_histories.store", {
+            course: this.course.id,
+            lesson: this.lesson.id,
+          }),
+          {
+            onSuccess: () => {
+              Swal.fire("บันทึกข้อมูลสำเร็จ", "", "success");
+            },
+            onError: () => {
+              Swal.fire("บันทึกข้อมูลผิดพลาด", "", "error");
+            },
+          }
+        );
     },
   },
 };
