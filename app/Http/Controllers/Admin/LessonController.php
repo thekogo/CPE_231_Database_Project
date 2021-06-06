@@ -79,7 +79,7 @@ class LessonController extends Controller
      */
     public function show($course_id, $id)
     {
-        $lesson = Lesson::findOrFail($id);
+        $lesson = Lesson::with('questions')->with('questions.answers')->findOrFail($id);
         return Inertia::render('Admin/Lesson/Show', [
             "lesson" => $lesson,
             "course" => $this->course,

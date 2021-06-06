@@ -5,13 +5,24 @@ namespace App\Http\Controllers\Student;
 use App\Http\Controllers\Controller;
 use App\Models\Course;
 use App\Models\Enrollment;
+use App\Models\Question;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
-use Inertia\Inertia;
 
-class CourseController extends Controller
+class QuestionController extends Controller
 {
+    function __construct(Request $request)
+    {
+        // dd(Auth::id());
+        // if ($request->route() != null) {
+        //     $course_id = $request->route()->parameter('course');
+        //     $this->course = Course::with(['enrollments' => function ($query) use ($course_id) {
+        //         $query->where('course_id', $course_id)->where('user_id', '=', Auth::id());
+        //     }])->findOrFail($course_id);
+        //     $this->enrollment = $this->course->enrollments->first();
+        // }
+    }
     /**
      * Display a listing of the resource.
      *
@@ -19,12 +30,7 @@ class CourseController extends Controller
      */
     public function index()
     {
-        $enrollments = Enrollment::where('user_id', Auth::id())
-            ->where('payment_status', 'success')
-            ->with('course')->get();
-        return Inertia::render('Student/Course/Home', [
-            'enrollments' => $enrollments
-        ]);
+        //
     }
 
     /**
@@ -34,6 +40,7 @@ class CourseController extends Controller
      */
     public function create()
     {
+        //
     }
 
     /**
@@ -42,9 +49,25 @@ class CourseController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request, $course_id, $lesson_id)
     {
-        //
+        $enrollment = Enrollment::where('course_id', $course_id)->where('user_id', Auth::id())->first();
+
+        Validator::make($request->all(), [
+            'description' => ['required'],
+        ])->validate();
+
+
+        $request->merge([
+            'create_date' => date("Y-m-d"),
+            'lesson_id' => $lesson_id,
+            'enrollment_id' => $enrollment->id,
+        ]);
+
+
+        Question::create($request->all());
+
+        return redirect()->back();
     }
 
     /**
@@ -55,23 +78,7 @@ class CourseController extends Controller
      */
     public function show($id)
     {
-        // $enrollment = Enrollment::where('user_id', Auth::id())
-        //     ->where('payment_status', 'success')
-        //     ->with('course')
-        //     ->with('user')
-        //     ->with('course.user')
-        //     ->with(['course.lessons' => function ($query) {
-        //         $query->orderBy('order');
-        //     }])->findOrFail($id);
-        $course = Course::with(['enrollments' => function ($query) {
-            $query->where('user_id', Auth::id())
-                ->where('payment_status', 'success');
-        }])->with('user')->with(['lessons' => function ($query) {
-            $query->orderBy('order');
-        }])->findOrFail($id);
-        return Inertia::render('Student/Course/Show', [
-            'course' => $course
-        ]);
+        //
     }
 
     /**

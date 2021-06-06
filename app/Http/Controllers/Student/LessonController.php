@@ -4,14 +4,23 @@ namespace App\Http\Controllers\Student;
 
 use App\Http\Controllers\Controller;
 use App\Models\Course;
-use App\Models\Enrollment;
+use App\Models\Lesson;
+use App\Models\Question;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Validator;
 use Inertia\Inertia;
 
-class CourseController extends Controller
+class LessonController extends Controller
 {
+    function __construct(Request $request)
+    {
+        if ($request->route() != null) {
+            $course_id = $request->route()->parameter('course');
+            $this->course = Course::with(['enrollments' => function ($query) use ($course_id) {
+                $query->where('user_id', Auth::id())->where('course_id', $course_id);
+            }])->findOrFail($course_id);
+        }
+    }
     /**
      * Display a listing of the resource.
      *
@@ -19,12 +28,7 @@ class CourseController extends Controller
      */
     public function index()
     {
-        $enrollments = Enrollment::where('user_id', Auth::id())
-            ->where('payment_status', 'success')
-            ->with('course')->get();
-        return Inertia::render('Student/Course/Home', [
-            'enrollments' => $enrollments
-        ]);
+        return Inertia::render('Student/Lesson/Home');
     }
 
     /**
@@ -34,6 +38,7 @@ class CourseController extends Controller
      */
     public function create()
     {
+        //
     }
 
     /**
@@ -53,24 +58,12 @@ class CourseController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($course_id, $id)
     {
-        // $enrollment = Enrollment::where('user_id', Auth::id())
-        //     ->where('payment_status', 'success')
-        //     ->with('course')
-        //     ->with('user')
-        //     ->with('course.user')
-        //     ->with(['course.lessons' => function ($query) {
-        //         $query->orderBy('order');
-        //     }])->findOrFail($id);
-        $course = Course::with(['enrollments' => function ($query) {
-            $query->where('user_id', Auth::id())
-                ->where('payment_status', 'success');
-        }])->with('user')->with(['lessons' => function ($query) {
-            $query->orderBy('order');
-        }])->findOrFail($id);
-        return Inertia::render('Student/Course/Show', [
-            'course' => $course
+        $lesson = Lesson::with('questions')->with('questions.answers')->findOrFail($id);
+        return Inertia::render('Student/Lesson/Show', [
+            'lesson' => $lesson,
+            'course' => $this->course,
         ]);
     }
 

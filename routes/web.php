@@ -41,10 +41,12 @@ Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
 Route::middleware(['auth:sanctum'])->group(function () {
     Route::middleware(['role:student'])->prefix('students')->name('student.')->group(function () {
         Route::get('/', [Student\HomeController::class, 'index'])->name('home');
-        Route::resource('/courses', Student\CourseController::class);
+        Route::resource('courses', Student\CourseController::class);
         Route::get('/buycourse/{course}', [Student\EnrollmentController::class, 'buyCourseView'])->name('buycourse');
         Route::post('/buycourse/{course}', [Student\EnrollmentController::class, 'buyCourse'])->name('buycourse.create');
         Route::resource('enrollments', Student\EnrollmentController::class)->except(['create', 'store']);
+        Route::resource('courses.lessons', Student\LessonController::class);
+        Route::resource('courses.lessons.questions', Student\QuestionController::class);
     });
 });
 
@@ -66,5 +68,6 @@ Route::middleware(['auth:sanctum'])->group(function () {
         Route::resource('enrollments', Admin\EnrollmentController::class);
         Route::resource('courses.lessons', Admin\LessonController::class);
         Route::resource('courses.lessons.faqs', Admin\FAQController::class);
+        Route::resource('courses.lessons.questions.answers', Admin\AnswerController::class);
     });
 });

@@ -2,7 +2,7 @@
   <app-layout>
     <template #header>
       <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-        ประวัติการลงทะเบียน
+        คอร์สของฉัน
       </h2>
     </template>
 
@@ -14,13 +14,17 @@
           </div>
           <div class="col-span-9">
             <div class="flex justify-between mb-2">
-              <h1 class="text-2xl font-semibold mb-3">ประวัติการลงทะเบียน</h1>
+              <h1 class="text-2xl font-semibold mb-3">
+                คอร์ส : {{ course.name }}
+              </h1>
               <jet-button :href="route('student.enrollments.index')"
                 >ประวัติการลงทะเบียนทั้งหมด</jet-button
               >
             </div>
             <div class="bg-white shadow-lg rounded-md p-5 flex flex-col gap-4">
-              <jet-validation-errors class="mb-4" />
+              <div>
+                <img :src="course.course_img" class="mx-auto" />
+              </div>
               <form @submit.prevent="submit">
                 <div class="grid grid-cols-5 mb-2">
                   <label-grid for="name" value="เลขที่คอร์ส" />
@@ -29,22 +33,74 @@
                     type="text"
                     class="mt-1 block w-full col-span-1"
                     autocomplete="name"
-                    :value="enrollment.id"
+                    :value="course.id"
                     disabled
                   />
                 </div>
                 <div class="grid grid-cols-5 mb-2">
-                  <label-grid for="name" value="เลขที่คอร์ส" />
+                  <label-grid for="name" value="ชื่อคอร์ส" />
                   <jet-input
                     id="name"
                     type="text"
                     class="mt-1 block w-full col-span-1"
                     autocomplete="name"
-                    :value="enrollment.name"
+                    :value="course.name"
+                    disabled
+                  />
+                </div>
+                <div class="grid grid-cols-5 mb-2">
+                  <label-grid for="name" value="ชื่อผู้สอน" />
+                  <jet-input
+                    id="name"
+                    type="text"
+                    class="mt-1 block w-full col-span-1"
+                    autocomplete="name"
+                    :value="course.user.fullName"
+                    disabled
+                  />
+                </div>
+                <div class="grid grid-cols-5 mb-2">
+                  <label-grid for="name" value="วันหมดอายุ" />
+                  <jet-input
+                    id="name"
+                    type="date"
+                    class="mt-1 block w-full col-span-1"
+                    autocomplete="name"
+                    :value="course.expire_date"
                     disabled
                   />
                 </div>
               </form>
+            </div>
+            <div class="flex justify-between mb-2 mt-3">
+              <h1 class="text-2xl font-semibold mb-3">บทเรียน</h1>
+              <jet-button :href="route('student.enrollments.index')"
+                >ประวัติการลงทะเบียนทั้งหมด</jet-button
+              >
+            </div>
+            <div class="bg-white shadow-lg rounded-md p-5 flex flex-col gap-4">
+              <div v-for="lesson in course.lessons" :key="lesson.id">
+                <div class="flex justify-between gap-2">
+                  <div>
+                    <h1 class="text-2xl">
+                      #{{ lesson.order }} {{ lesson.name }}
+                    </h1>
+                    <p>{{ lesson.description }}</p>
+                  </div>
+                  <div class="flex items-center">
+                    <jet-button
+                      :href="
+                        route('student.courses.lessons.show', {
+                          course: course.id,
+                          lesson: lesson.id,
+                        })
+                      "
+                      >Go</jet-button
+                    >
+                  </div>
+                </div>
+                <hr />
+              </div>
             </div>
           </div>
         </div>
@@ -76,11 +132,5 @@ export default {
   },
 
   props: ["course"],
-
-  data() {
-    return {
-      options: ["Active", "Draft"],
-    };
-  },
 };
 </script>

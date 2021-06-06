@@ -33,9 +33,7 @@
                   v-for="enrollment in enrollments"
                   :key="enrollment.id"
                   :href="
-                    route('student.courses.show', {
-                      course: enrollment.course.id,
-                    })
+                    route('student.courses.show', { course: enrollment.id })
                   "
                 >
                   <img :src="enrollment.course.course_img" class="" />
