@@ -27,6 +27,11 @@
           :href="route('profile.show')"
           >โปรไฟล์</a
         >
+        <a
+          class="border-b-2 border-transparent hover:border-greenn"
+          :href="route('profile.show')"
+          >คอร์สทั้งหมด</a
+        >
       </div>
     </div>
   </div>

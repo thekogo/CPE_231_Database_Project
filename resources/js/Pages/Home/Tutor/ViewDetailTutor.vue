@@ -21,7 +21,7 @@
             "
           ></div>
           <div class="container mx-auto mt-1">
-            <h1 class="mx-auto text-3xl text-gray-400 text-center mt-5">
+            <h1 class="mx-auto text-3xl text-bluen text-center mt-5">
               Owner of study course
             </h1>
             <h1

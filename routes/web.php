@@ -29,8 +29,8 @@ Route::prefix('home')->group(function () {
     Route::get('/contact', [HomeController::class, 'contact'])->name('contact');
     Route::get('/courses', [CourseController::class, 'viewAllCourses'])->name('course.all');
     Route::get('/courses/{course}', [CourseController::class, 'viewDetailCourse'])->name('course.detail');
-    Route::get('/tutors', [TutorController::class, 'viewAllCourses'])->name('tutor.all');
-    Route::get('/tutors/{tutor}', [TutorController::class, 'viewDetailCourse'])->name('tutor.detail');
+    Route::get('/tutors', [TutorController::class, 'viewAllTutors'])->name('tutor.all');
+    Route::get('/tutors/{tutor}', [TutorController::class, 'viewDetailTutor'])->name('tutor.detail');
 });
 
 
@@ -60,7 +60,6 @@ Route::middleware(['auth:sanctum'])->group(function () {
         Route::resource('courses.lessons.faqs', Tutor\FAQController::class);
         Route::resource('courses.lessons.questions.answers', Tutor\AnswerController::class);
         Route::resource('courses.students', Tutor\StudentController::class);
-        
     });
 });
 
