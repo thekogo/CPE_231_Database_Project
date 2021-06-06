@@ -31,30 +31,85 @@
 
   <div class="container mx-auto grid grid-cols-5 gap-5 py-5">
     <div class="col-span-4">
-      <img src="/images/banner1.png" class="h-80 object-cover w-full" />
+      <img
+        src="/images/banner1.png"
+        class="h-80 object-cover w-full rounded-3xl"
+      />
     </div>
     <div class="col-span-1 grid grid-cols-2 grid-rows-2 gap-2">
       <div
-        class="col-span-1 row-span-1 border border-gray-200 rounded-md bg-grey flex flex-col justify-center items-center gap-4 cursor-pointer hover:bg-pink-200 hover:shadow-xl"
+        class="
+          col-span-1
+          row-span-1
+          border border-gray-200
+          rounded-md
+          bg-grey
+          flex flex-col
+          justify-center
+          items-center
+          gap-4
+          cursor-pointer
+          hover:bg-pink-200
+          hover:shadow-xl
+        "
       >
         <i class="fas fa-cart-plus text-6xl text-pinkn"></i>
         <span>PAYMENT</span>
       </div>
       <a
         :href="route('login')"
-        class="col-span-1 row-span-1 border border-gray-200 rounded-md bg-grey flex flex-col justify-center items-center gap-4 cursor-pointer hover:bg-pink-200 hover:shadow-xl"
+        class="
+          col-span-1
+          row-span-1
+          border border-gray-200
+          rounded-md
+          bg-grey
+          flex flex-col
+          justify-center
+          items-center
+          gap-4
+          cursor-pointer
+          hover:bg-pink-200
+          hover:shadow-xl
+        "
       >
         <i class="fas fa-user text-6xl text-purplen"></i>
         <span>PROFILE</span>
       </a>
       <div
-        class="col-span-1 row-span-1 border border-gray-200 rounded-md bg-grey flex flex-col justify-center items-center gap-4 cursor-pointer hover:bg-pink-200 hover:shadow-xl"
+        class="
+          col-span-1
+          row-span-1
+          border border-gray-200
+          rounded-md
+          bg-grey
+          flex flex-col
+          justify-center
+          items-center
+          gap-4
+          cursor-pointer
+          hover:bg-pink-200
+          hover:shadow-xl
+        "
       >
         <i class="fas fa-chalkboard-teacher text-6xl text-skyn"></i>
         <span>TUTOR</span>
       </div>
       <div
-        class="col-span-1 row-span-1 border border-gray-200 rounded-md bg-grey flex flex-col justify-center items-center gap-4 cursor-pointer hover:bg-pink-200 hover:shadow-xl"
+        class="
+          col-span-1
+          row-span-1
+          border border-gray-200
+          rounded-md
+          bg-grey
+          flex flex-col
+          justify-center
+          items-center
+          gap-4
+          cursor-pointer
+          hover:bg-pink-200
+          hover:shadow-xl
+        "
       >
         <i class="far fa-question-circle text-6xl text-yellow-400"></i>
         <span>CONTACT</span>
@@ -106,7 +161,43 @@
       </div>
     </div>
   </div>
+  <div class="container mx-auto items-center px-60">
+    <img src="/images/faq.png" class="mx-auto" />
+    <br /><br />
+    <h1
+      class="
+        flex
+        justify-between
+        bg-gray-300
+        px-5
+        rounded-2xl
+        mb-5
+        cursor-pointer
+        items-center
+      "
+    >
+      <span class="text-2xl">สนใจสมัครเรียนต้องทำอย่างไร</span>
+      <i class="fas fa-plus ml-"></i>
+    </h1>
+
+    <h1 class="text-2xl bg-gray-300 px-5 rounded-2xl mb-5 cursor-pointer">
+      อยากเรียนคอร์สสดต้องทำอย่างไร
+    </h1>
+    <h1 class="text-2xl bg-gray-300 px-5 rounded-2xl mb-5 cursor-pointer">
+      ช่องทางการชำระเงิน
+    </h1>
+    <h1 class="text-2xl bg-gray-300 px-5 rounded-2xl mb-5 cursor-pointer">
+      Next Level มีกี่สาขา
+    </h1>
+    <h1 class="text-2xl bg-gray-300 px-5 rounded-2xl mb-5 cursor-pointer">
+      สามารถเรียนที่ไหนได้บ้าง
+    </h1>
+
+    <br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
+  </div>
+
   <img src="/images/bottom2.png" class="w-full" />
+
   <copyright />
 </template>
 
@@ -128,7 +219,6 @@ import ButtonPill from "@/Components/Common/ButtonPill.vue";
 import InputPill from "@/Components/Common/InputPill.vue";
 import Copyright from "@/Components/Common/Copyright.vue";
 import Navbar from "@/Components/Common/Navbar.vue";
-
 export default {
   components: { JetButton, ButtonPill, InputPill, Copyright, Navbar },
   props: ["courses"],
