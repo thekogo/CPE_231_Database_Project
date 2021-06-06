@@ -47,6 +47,7 @@ Route::middleware(['auth:sanctum'])->group(function () {
         Route::resource('enrollments', Student\EnrollmentController::class)->except(['create', 'store']);
         Route::resource('courses.lessons', Student\LessonController::class);
         Route::resource('courses.lessons.questions', Student\QuestionController::class);
+        Route::resource('courses.lessons.lesson_histories', Student\LessonHistoryController::class);
     });
 });
 
