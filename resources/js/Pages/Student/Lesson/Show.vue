@@ -2,7 +2,7 @@
   <app-layout>
     <template #header>
       <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-        จัดการบทเรียน
+        คอร์สของฉัน
       </h2>
     </template>
 
@@ -15,78 +15,71 @@
           <div class="col-span-9">
             <div class="flex justify-between mb-2">
               <h1 class="text-2xl font-semibold mb-3">
-                รายละเอียด : {{ lesson.name }}
+                บทเรียน : {{ lesson.name }}
               </h1>
-              <div class="flex gap-2">
-                <jet-button :href="route('admin.courses.index')"
-                  >นักเรียนในคอร์ส</jet-button
-                >
-                <jet-button
-                  :href="
-                    route('admin.courses.lessons.index', { course: course.id })
-                  "
-                  >บทเรียนในคอร์ส</jet-button
-                >
-                <jet-button :href="route('admin.courses.index')"
-                  >รายการคอร์ส</jet-button
-                >
-              </div>
+              <jet-button
+                color="warning"
+                :href="route('student.enrollments.index')"
+                >เรียนจบแล้ว</jet-button
+              >
+              <jet-button
+                :href="route('student.courses.show', { course: course.id })"
+                >กลับไปหน้าคอร์ส</jet-button
+              >
             </div>
             <div class="bg-white shadow-lg rounded-md p-5 flex flex-col gap-4">
               <form @submit.prevent="submit">
                 <div class="grid grid-cols-5 mb-2">
-                  <label-grid for="name" value="ชื่อ" />
+                  <label-grid for="name" value="ลำดับบทเรียน" />
                   <jet-input
                     id="name"
                     type="text"
-                    class="mt-1 block w-full col-span-3"
-                    required
-                    autofocus
+                    class="mt-1 block w-full col-span-1"
                     autocomplete="name"
-                    :value="lesson.name"
+                    :value="lesson.order"
                     disabled
                   />
                 </div>
+                <hr />
+                <iframe
+                  class="mx-auto my-2 h-64 w-96"
+                  src="https://www.youtube.com/embed/IQw-4JABPCM"
+                  title="YouTube video player"
+                  frameborder="0"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                  allowfullscreen
+                ></iframe>
+                <hr />
                 <div class="grid grid-cols-5 mb-2">
-                  <label-grid for="vdo" value="ลิงค์วิดีโอ" />
-                  <jet-input
-                    id="vdo"
+                  <label-grid for="name" value="คำอธิบาย" />
+                  <jet-text-area
+                    id="name"
                     type="text"
                     class="mt-1 block w-full col-span-3"
-                    required
-                    autofocus
-                    autocomplete="vdo"
-                    :value="lesson.vdo"
-                    disabled
-                  />
-                </div>
-                <div class="grid grid-cols-5 mb-2">
-                  <label-grid for="user_id" value="ลำดับ" />
-                  <jet-input
-                    id="user_id"
-                    type="number"
-                    class="mt-1 block w-full col-span-1"
-                    :value="lesson.order"
-                    min="0"
-                    required
-                    disabled
-                  />
-                </div>
-                <div class="grid grid-cols-5 mb-2">
-                  <label-grid for="description" value="รายละเอียด" />
-                  <jet-text-area
-                    class="mt-1 block w-full col-span-3"
+                    autocomplete="name"
                     :value="lesson.description"
-                    required
                     disabled
                   />
                 </div>
               </form>
             </div>
             <div class="flex justify-between mb-2 mt-3">
-              <h1 class="text-2xl font-semibold mb-3">คำถามจากผู้เรียน</h1>
+              <h1 class="text-2xl font-semibold mb-3">สอบถาม</h1>
+              <div>
+                <jet-button @click="openCreate">สอบถามผู้สอน</jet-button>
+              </div>
             </div>
-            <div class="bg-white shadow-lg rounded-md p-5 flex flex-col gap-4">
+            <div
+              class="
+                bg-white
+                shadow-lg
+                rounded-md
+                p-5
+                flex flex-col
+                gap-4
+                divide-y-2 divide-yellow-500
+              "
+            >
               <div v-for="question in lesson.questions" :key="question.id">
                 <div class="flex justify-between gap-2">
                   <div class="flex-grow">
@@ -101,26 +94,7 @@
                       {{ answer.description }}
                     </p>
                   </div>
-                  <div>
-                    <jet-button @click="AnswerQuestion(question.id)"
-                      >ตอบ</jet-button
-                    >
-                  </div>
                 </div>
-                <hr />
-              </div>
-            </div>
-            <div class="flex justify-end">
-              <div class="flex items-center gap-4 mt-2">
-                <jet-button
-                  :href="
-                    route('admin.courses.lessons.faqs.index', {
-                      lesson: lesson.id,
-                      course: course.id,
-                    })
-                  "
-                  >คำถามที่พบบ่อย</jet-button
-                >
               </div>
             </div>
           </div>
@@ -138,7 +112,8 @@ import JetButton from "@/Jetstream/Button.vue";
 import JetInput from "@/Jetstream/Input.vue";
 import JetTextArea from "@/Jetstream/TextArea.vue";
 import LabelGrid from "@/Components/Common/LabelGrid.vue";
-import BoxContent from "@/Components/Common/BoxContent.vue";
+import JetSelect from "@/Jetstream/Select.vue";
+import JetValidationErrors from "@/Jetstream/ValidationErrors";
 import Swal from "sweetalert2";
 
 export default {
@@ -149,10 +124,12 @@ export default {
     JetButton,
     JetInput,
     LabelGrid,
+    JetSelect,
+    JetValidationErrors,
     JetTextArea,
-    BoxContent,
   },
-  props: ["lesson", "course"],
+
+  props: ["lesson", "course", "questions"],
 
   data() {
     return {
@@ -161,7 +138,7 @@ export default {
   },
 
   methods: {
-    async AnswerQuestion(id) {
+    async openCreate() {
       const { value: text } = await Swal.fire({
         input: "textarea",
         inputLabel: "Message",
@@ -180,17 +157,16 @@ export default {
             description: text,
           }))
           .post(
-            this.route("admin.courses.lessons.questions.answers.store", {
+            this.route("student.courses.lessons.questions.store", {
               course: this.course.id,
               lesson: this.lesson.id,
-              question: id,
             }),
             {
               onSuccess: () => {
-                Swal.fire("ตอบคำถามสำเร็จ", "", "success");
+                Swal.fire("ส่งคำถามไปยังติวเตอร์เสร็จสิ้น", "", "success");
               },
               onError: () => {
-                Swal.fire("ตอบคำถามไม่สำเร็จ", "", "error");
+                Swal.fire("ส่งคำถามไปยังติวเตอร์ไม่สำเร็จ", "", "error");
               },
             }
           );

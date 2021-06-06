@@ -40,6 +40,11 @@ class Course extends Model
         return $this->hasMany(CourseCategory::class);
     }
 
+    public function enrollments()
+    {
+        return $this->hasMany(Enrollment::class);
+    }
+
     private $mapTextToInt = [
         "ปิดการมองเห็น" => 0,
         "เผยแพร่" => 1,
