@@ -29,6 +29,11 @@ class Lesson extends Model
         return $this->hasMany(Question::class);
     }
 
+    public function faqs()
+    {
+        return $this->hasMany(FAQ::class);
+    }
+
     public static function reOrder($course_id, $order, $insert = 'insert')
     {
         $lessons = Lesson::where('course_id', $course_id)
