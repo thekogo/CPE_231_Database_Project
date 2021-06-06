@@ -187,10 +187,10 @@ export default {
             }),
             {
               onSuccess: () => {
-                Swal.fire("ตอบคำถามนักเรียนสำเร็จ", "", "success");
+                Swal.fire("ตอบคำถามสำเร็จ", "", "success");
               },
               onError: () => {
-                Swal.fire("ตอบคำถามนักเรียนไม่สำเร็จ", "", "error");
+                Swal.fire("ตอบคำถามไม่สำเร็จ", "", "error");
               },
             }
           );

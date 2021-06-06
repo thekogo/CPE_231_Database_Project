@@ -58,6 +58,8 @@ Route::middleware(['auth:sanctum'])->group(function () {
         Route::resource('courses.lessons', Tutor\LessonController::class);
         Route::resource('courses.lessons.questions', Tutor\QuestionController::class);
         Route::resource('courses.lessons.faqs', Tutor\FAQController::class);
+        Route::resource('courses.lessons.questions.answers', Tutor\AnswerController::class);
+        
     });
 });
 
