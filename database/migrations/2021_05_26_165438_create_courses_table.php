@@ -14,7 +14,7 @@ class CreateCoursesTable extends Migration
     public function up()
     {
         Schema::create('courses', function (Blueprint $table) {
-            $table->id();
+            $table->string('id');
             $table->string('name');
             $table->longText('description');
             $table->string('course_img')->nullable();
@@ -24,6 +24,8 @@ class CreateCoursesTable extends Migration
             $table->date('expire_date');
             $table->unsignedInteger('hours_left');
             $table->foreignId('user_id')->nullable()->constrained()->onUpdate('cascade')->onDelete('set null');
+
+            $table->primary('id');
         });
     }
 
