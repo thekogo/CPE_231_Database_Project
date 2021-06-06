@@ -85,9 +85,6 @@
             </div>
             <div class="flex justify-between mb-2 mt-3">
               <h1 class="text-2xl font-semibold mb-3">คำถามจากผู้เรียน</h1>
-              <div>
-                <jet-button @click="openCreate">สอบถามผู้สอน</jet-button>
-              </div>
             </div>
             <div class="bg-white shadow-lg rounded-md p-5 flex flex-col gap-4">
               <div v-for="question in lesson.questions" :key="question.id">
@@ -111,6 +108,8 @@
                   </div>
                 </div>
                 <hr />
+              </div>
+            </div>
             <div class="flex justify-end">
               <div class="flex items-center gap-4 mt-2">
                 <jet-button
