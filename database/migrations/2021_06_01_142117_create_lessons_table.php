@@ -19,7 +19,8 @@ class CreateLessonsTable extends Migration
             $table->integer('order');
             $table->string('vdo')->nullable();
             $table->string('description')->nullable();
-            $table->foreignId('course_id')->constrained()->onDelete('cascade');
+            $table->string('course_id');
+            $table->foreign('course_id')->references('id')->on('courses')->onDelete('cascade');
         });
     }
 

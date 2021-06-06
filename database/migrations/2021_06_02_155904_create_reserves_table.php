@@ -15,7 +15,7 @@ class CreateReservesTable extends Migration
     {
         Schema::create('reserves', function (Blueprint $table) {
             $table->id();
-            $table->date('start_time');
+            $table->datetime('start_time');
             $table->integer('hours_reserved');
             $table->string('position');
             $table->tinyInteger('status');
