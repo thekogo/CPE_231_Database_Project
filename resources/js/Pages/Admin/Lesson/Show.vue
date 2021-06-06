@@ -92,7 +92,7 @@
                       course: course.id,
                     })
                   "
-                  >สร้างคำถามที่พบบ่อย</jet-button
+                  >คำถามที่พบบ่อย</jet-button
                 >
               </div>
             </div>      
