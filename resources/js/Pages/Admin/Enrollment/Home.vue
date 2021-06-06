@@ -41,8 +41,8 @@
                     :key="enrollment.id"
                   >
                     <td>#{{ enrollment.id }}</td>
-                    <td>{{ enrollment.user_id }}</td>
-                    <td>{{ enrollment.course_id }}</td>
+                    <td>{{ enrollment.user.fullName }}</td>
+                    <td>{{ enrollment.course.name }}</td>
                     <td>{{ enrollment.payment_method }}</td>
                     <td>{{ enrollment.payment_date }}</td>
                     <td>{{ enrollment.payment_status }}</td>
