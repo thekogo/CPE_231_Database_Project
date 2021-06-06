@@ -8,22 +8,33 @@
       </h1>
       <div class="container mx-auto mt-10">
         <div class="grid grid-cols-4 gap-y-14">
-          <div class="col-span-1 items-center">
-            <div
-              class="
-                bg-red-300
-                h-48
-                w-48
-                rounded-full
-                mx-auto
-                hover:bg-pink-300
-                cursor-pointer
-                shadow-xl
-              "
-            ></div>
-            <h1 class="mx-auto text-3xl text-gray-600 text-center">Beymah</h1>
-            <h1 class="mx-auto text-3xl text-gray-600 text-center">Beymah</h1>
-          </div>
+          <a
+            :href="route('tutor.detail', { tutor: tutor.id })"
+            v-for="tutor in tutors"
+            :key="tutor.id"
+          >
+            <div class="col-span-1 items-center">
+              <img
+                class="
+                  bg-red-300
+                  h-48
+                  w-48
+                  rounded-full
+                  mx-auto
+                  hover:bg-pink-300
+                  cursor-pointer
+                  shadow-xl
+                "
+                :src="tutor.profileImgUrl"
+              />
+              <h1 class="mx-auto text-3xl text-gray-600 text-center">
+                {{ tutor.fullName }}
+              </h1>
+              <h1 class="mx-auto text-3xl text-gray-600 text-center">
+                P'{{ tutor.nickName }}
+              </h1>
+            </div>
+          </a>
         </div>
       </div>
     </div>
@@ -44,5 +55,7 @@ export default {
     Navbar,
     Copyright,
   },
+
+  props: ["tutors"],
 };
 </script>

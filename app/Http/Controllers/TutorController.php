@@ -2,18 +2,25 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 
 class TutorController extends Controller
 {
-    public function viewAllCourses()
+    public function viewAllTutors()
     {
-        return Inertia::render('Home/Tutor/viewAllTutors');
+        $tutors = User::where('role', 'tutor')->get();
+        return Inertia::render('Home/Tutor/viewAllTutors', [
+            'tutors' => $tutors
+        ]);
     }
 
-    public function viewDetailCourse($course_id)
+    public function viewDetailTutor($tutor_id)
     {
-        return Inertia::render('Home/Tutor/ViewDetailTutor');
+        $tutor = User::where('role', 'tutor')->findOrFail($tutor_id);
+        return Inertia::render('Home/Tutor/ViewDetailTutor', [
+            'tutor' => $tutor
+        ]);
     }
 }
