@@ -23,7 +23,7 @@
                 >เรียนจบแล้ว</jet-button
               >
               <jet-button
-                :href="route('student.course.show', { course: course.id })"
+                :href="route('student.courses.show', { course: course.id })"
                 >กลับไปหน้าคอร์ส</jet-button
               >
             </div>
