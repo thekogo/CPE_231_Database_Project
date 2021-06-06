@@ -18,7 +18,10 @@
                 รายละเอียดของ {{ course.name }}
               </h1>
               <div class="flex gap-2">
-                <jet-button :href="route('admin.courses.index')"
+                <jet-button
+                  :href="
+                    route('admin.courses.students.index', { course: course.id })
+                  "
                   >นักเรียนในคอร์ส</jet-button
                 >
                 <jet-button
