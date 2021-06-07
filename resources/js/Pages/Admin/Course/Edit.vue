@@ -16,7 +16,7 @@
             <div class="flex justify-between mb-2">
               <h1 class="text-2xl font-semibold mb-3">แก้ไขคอร์สเรียน</h1>
               <div class="flex gap-2">
-                <jet-button :href="route('admin.courses.index')"
+                <jet-button :href="route('admin.courses.students.index', { course: course.id })"
                   >นักเรียนในคอร์ส</jet-button
                 >
                 <jet-button
@@ -238,7 +238,7 @@ export default {
               timerProgressBar: true,
               showCancelButton: true,
               confirmButtonColor: "#3085d6",
-              confirmButtonText: "กลับไปหน้าจัดการทั้งหมด",
+              confirmButtonText: "กลับหน้าหลัก",
               cancelButtonColor: "#d33",
               cancelButtonText: "ปิด",
             }).then((result) => {

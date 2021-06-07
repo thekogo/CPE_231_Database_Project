@@ -35,6 +35,9 @@
                 </div>
                 <div class="grid grid-cols-5 mb-2">
                   <label-grid for="name" value="หลังฐานการโอนเงิน" />
+                  <span v-if="enrollment.receipt_img == '/storage/'"
+                    >ชำระเงินสด</span
+                  >
                   <!-- <img
                     id="name"
                     type="text"
@@ -45,7 +48,11 @@
                   /> -->
                 </div>
                 <hr />
-                <img class="mx-auto my-2" :src="enrollment.receipt_img" />
+                <img
+                  class="mx-auto my-2"
+                  :src="enrollment.receipt_img"
+                  v-if="enrollment.receipt_img != '/storage/'"
+                />
                 <hr />
 
                 <div class="grid grid-cols-5 mb-2">
@@ -102,7 +109,7 @@
 <script>
 import AppLayout from "@/Layouts/AppLayout";
 import JetNavLink from "@/Jetstream/NavLink";
-import SideMenu from "@/Components/Admin/SideMenu.vue";
+import SideMenu from "@/Components/Student/SideMenu.vue";
 import JetButton from "@/Jetstream/Button.vue";
 import JetInput from "@/Jetstream/Input.vue";
 import LabelGrid from "@/Components/Common/LabelGrid.vue";

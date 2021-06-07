@@ -43,7 +43,7 @@
                 <div>
                   <jet-button
                     :href="route('student.courses.show', { course: course.id })"
-                    >กลับไปหน้าคอร์ส</jet-button
+                    >กลับหน้าคอร์ส</jet-button
                   >
                 </div>
               </div>
@@ -64,7 +64,7 @@
                 <hr />
                 <iframe
                   class="mx-auto my-2 h-64 w-96"
-                  src="https://www.youtube.com/embed/IQw-4JABPCM"
+                  :src="vdoEmbed"
                   title="YouTube video player"
                   frameborder="0"
                   allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
@@ -91,15 +91,15 @@
               <div v-for="faq in lesson.faqs" :key="faq.id">
                 <div class="flex justify-between gap-2">
                   <div class="flex-grow">
-                    <h1 class="text-2xl">#{{ faq.id }}</h1>                    
+                    <h1 class="text-2xl">#{{ faq.id }}</h1>
                     <p>
                       <b>{{ faq.question }}</b>
                     </p>
                     <hr />
-                    <p> 
+                    <p>
                       {{ faq.answer }}
                     </p>
-                  </div>                  
+                  </div>
                 </div>
               </div>
             </div>
@@ -231,6 +231,11 @@ export default {
             },
           }
         );
+    },
+  },
+  computed: {
+    vdoEmbed() {
+      return this.lesson.vdo.replace("watch?v=", "embed/");
     },
   },
 };

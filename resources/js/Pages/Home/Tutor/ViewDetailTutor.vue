@@ -34,7 +34,7 @@
               "
             >
               <a
-                class="col-span-1"
+                class="col-span-1 transform hover:scale-105 duration-200"
                 v-for="course in tutor.courses"
                 :key="course.id"
                 :href="route('course.detail', { course: course.id })"

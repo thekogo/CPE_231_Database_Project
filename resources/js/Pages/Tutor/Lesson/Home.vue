@@ -20,7 +20,7 @@
               <div class="flex gap-2">
                 <jet-button
                   :href="route('tutor.courses.show', { course: course.id })"
-                  >กลับไปหน้าคอร์ส</jet-button
+                  >กลับหน้าคอร์ส</jet-button
                 >
                 <jet-button
                   :href="

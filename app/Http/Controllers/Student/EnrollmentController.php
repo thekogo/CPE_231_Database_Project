@@ -110,8 +110,10 @@ class EnrollmentController extends Controller
         if (Enrollment::where('course_id', $course_id)->where('user_id', Auth::id())->exists())
             return redirect(route('student.enrollments.index'));
         $course = Course::with('user')->findOrFail($course_id);
+        $enrollmentsCount = Enrollment::where('payment_status', 'success')->where('course_id', $course_id)->count();
         return inertia::render('Student/BuyCourse', [
-            "course" => $course
+            "course" => $course,
+            'enrollment_count' => $enrollmentsCount
         ]);
     }
 

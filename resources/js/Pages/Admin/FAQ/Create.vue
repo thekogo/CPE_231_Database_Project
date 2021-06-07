@@ -113,7 +113,7 @@ export default {
               timerProgressBar: true,
               showCancelButton: true,
               confirmButtonColor: "#3085d6",
-              confirmButtonText: "กลับไปหน้าหลัก",
+              confirmButtonText: "กลับหน้าหลัก",
               cancelButtonColor: "#d33",
               cancelButtonText: "ปิด",
             }).then((result) => {

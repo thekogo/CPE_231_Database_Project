@@ -1,5 +1,10 @@
 <template>
   <navbar />
+  <br />
+  <br />
+  <br />
+  <br />
+
   <div class="grid grid-cols-2 bg-blue-400">
     <div class="col-span-1 flex flex-col justify-center align-middle">
       <div class="w-9/12 ml-auto">
@@ -38,14 +43,6 @@
           </div>
         </div>
       </Slide>
-      <!-- <Slide>
-        <div class="carousel__item">
-          <img
-            src="/images/banner1.png"
-            class="h-80 object-cover w-full rounded-3xl"
-          />
-        </div>
-      </Slide> -->
 
       <template #addons>
         <navigation />
@@ -138,19 +135,47 @@
 
   <div class="container mx-auto">
     <div class="flex justify-end">
-      <span class="ml-auto text-xl cursor-pointer">ดูเพิ่มเติม >></span>
+      <a class="ml-auto text-xl cursor-pointer" :href="route('course.all')"
+        >ดูเพิ่มเติม >></a
+      >
     </div>
     <div class="grid grid-cols-5 gap-2 h-40 mx-auto">
-      <a
-        class="block col-span-1 row-span-1 cursor-pointer"
-        v-for="course in courses"
-        :key="course.id"
-        :href="route('course.detail', { course: course.id })"
-      >
-        <img :src="course.course_img" alt="" class="h-40 mx-auto" />
-        <h3 class="mx-auto text-center">{{ course.name }}</h3>
-        <h4 class="mx-auto text-center">{{ course.user.fullName }}</h4>
-      </a>
+      <carousel :items-to-show="4" class="col-span-4">
+        <Slide v-for="course in courses" :key="course.id">
+          <div class="carousel__item">
+            <a
+              class="
+                block
+                col-span-1
+                row-span-1
+                cursor-pointer
+                transform
+                hover:scale-105
+                duration-200
+                border border-gray-200
+                shadow-md
+                rounded-md
+                p-2
+                py-5
+              "
+              :href="route('course.detail', { course: course.id })"
+            >
+              <img
+                :src="course.course_img"
+                alt=""
+                class="h-40 mx-auto rounded-2xl"
+              />
+              <h3 class="mx-auto text-center">{{ course.name }}</h3>
+              <h4 class="mx-auto text-center">{{ course.user.fullName }}</h4>
+            </a>
+          </div>
+        </Slide>
+
+        <template #addons>
+          <navigation />
+          <pagination />
+        </template>
+      </carousel>
     </div>
   </div>
   <div class="grid grid-cols-2 mt-4">
@@ -165,7 +190,10 @@
       >
       </lottie-player>
     </div>
-    <div class="col-span-1 flex flex-col justify-center align-middle">
+    <div
+      class="col-span-1 flex flex-col justify-center align-middle"
+      :id="container"
+    >
       <div class="w-9/12">
         <img src="/images/whatis.png" draggable="false" class="mb-2" />
         <img src="/images/nextlevel.png" />
@@ -184,32 +212,6 @@
   </div>
   <br />
   <br />
-  <br />
-  <div class="container mx-auto items-center px-60">
-    <img src="/images/faq.png" class="mx-auto" />
-    <br /><br />
-
-    <faq
-      header="สนใจสมัครเรียนต้องทำอย่างไร"
-      description="สามารถสมัครผ่านทางเว็บไซต์ หรือ สาขาใกล้บ้านได้เลยค่ะ"
-    />
-    <faq
-      header="อยากเรียนคอร์สสดต้องทำอย่างไร"
-      description="หลังจากซื้อคอร์สสามารถจองเวลาเรียนที่สาขาใกล้บ้านได้ค่ะ"
-    />
-    <faq
-      header="ช่องทางการชำระเงิน"
-      description="สามารถโอนผ่านช่องทางธนาคาร หรือเงินสดได้ที่สถาบัน"
-    />
-    <faq
-      header="Next Level มีกี่สาขา"
-      description="ในขณะนี้มีสาขาทั้งหมดเพียงสาขาเดียว กำลังเร่งดำเนินการเพิ่มสาขาเพื่อให้สามารถเข้าถึงได้ง่าย"
-    />
-    <faq
-      header="สามารถเรียนที่ไหนได้บ้าง"
-      description="สามารถเรียนผ่านช่องทางออนไลน์ หรือจองเวลามาเรียนที่สถาบันได้"
-    />
-  </div>
 
   <img src="/images/bottom2.png" class="w-full" />
 
