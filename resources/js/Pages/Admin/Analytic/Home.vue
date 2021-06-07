@@ -154,22 +154,24 @@
                 </table>
               </div>
               <div>
-                <h1 class="text-2xl">คะแนนความพึงพอใจในวิชาต่าง ๆ</h1>
+                <h1 class="text-2xl">
+                  5 อันดับสูงสุดที่มีการลงทะเบียนคิดเป็นร้อยละ
+                </h1>
                 <table class="table-fixed w-full">
                   <thead>
                     <tr>
                       <th>รายวิชา</th>
-                      <th>rating เฉลี่ย</th>
+                      <th>ร้อยละ</th>
                     </tr>
                   </thead>
                   <tbody>
                     <tr
                       class="text-center"
-                      v-for="totalReview in totalReviews"
-                      :key="totalReview.id"
+                      v-for="top5Enrollment in top5Enrollments"
+                      :key="top5Enrollment.course_id"
                     >
-                      <td>{{ totalReview.id }}</td>
-                      <td>{{ totalReview.avg_rating }}</td>
+                      <td>{{ top5Enrollment.course_id }}</td>
+                      <td>{{ top5Enrollment.total }}</td>
                     </tr>
                   </tbody>
                 </table>
