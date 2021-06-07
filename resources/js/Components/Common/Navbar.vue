@@ -18,11 +18,15 @@
           :href="route('home')"
           >หน้าแรก</a
         >
-        <span class="border-b-2 border-transparent hover:border-greenn"
-          >ช่องทางการติดต่อ</span
+        <a
+          :href="route('contact')"
+          class="border-b-2 border-transparent hover:border-greenn"
+          >ช่องทางการติดต่อ</a
         >
-        <span class="border-b-2 border-transparent hover:border-greenn"
-          >ถาม-ตอบ ปัญหา</span
+        <a
+          class="border-b-2 border-transparent hover:border-greenn"
+          :href="route('faq')"
+          >ถาม-ตอบ ปัญหา</a
         >
         <a
           class="border-b-2 border-transparent hover:border-greenn"
@@ -31,7 +35,7 @@
         >
         <a
           class="border-b-2 border-transparent hover:border-greenn"
-          :href="route('profile.show')"
+          :href="route('course.all')"
           >คอร์สทั้งหมด</a
         >
       </div>
@@ -46,6 +50,13 @@ export default {
   components: {
     ButtonPill,
     InputPill,
+  },
+
+  methods: {
+    jumpTo() {
+      var container = this.$el.querySelector("#container");
+      container.scrollTop = container.scrollHeight;
+    },
   },
 };
 </script>

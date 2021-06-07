@@ -12,8 +12,10 @@ class CourseController extends Controller
 {
     public function viewAllCourses()
     {
-
-        return Inertia::render('Home/Course/viewAllCourses');
+        $courses = Course::where('status', 1)->get();
+        return Inertia::render('Home/Course/viewAllCourses', [
+            'courses' => $courses
+        ]);
     }
 
     public function viewDetailCourse($course_id)
