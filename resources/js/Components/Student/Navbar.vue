@@ -6,7 +6,7 @@
         <div class="flex">
           <!-- Logo -->
           <div class="flex-shrink-0 flex items-center">
-            <inertia-link :href="route('dashboard')">
+            <inertia-link :href="route('login')">
               <jet-application-mark class="block h-9 w-auto" />
             </inertia-link>
           </div>
@@ -20,8 +20,8 @@
               หน้าแรก
             </jet-nav-link>
             <jet-nav-link
-              :href="route('dashboard')"
-              :active="route().current('dashboard')"
+              :href="route('login')"
+              :active="route().current('login')"
             >
               คอร์สเรียนทั้งหมด
             </jet-nav-link>
@@ -32,26 +32,26 @@
         <div class="hidden sm:flex sm:items-center sm:ml-6">
           <div class="hidden space-x-4 sm:-my-px sm:ml-10 sm:flex h-full">
             <jet-nav-link
-              :href="route('dashboard')"
-              :active="route().current('dashboard')"
+              :href="route('login')"
+              :active="route().current('login')"
             >
               จองเวลาเรียน
             </jet-nav-link>
             <jet-nav-link
-              :href="route('dashboard')"
-              :active="route().current('dashboard')"
+              :href="route('login')"
+              :active="route().current('login')"
             >
               ถาม-ตอบปัญหาการเรียน
             </jet-nav-link>
             <jet-nav-link
-              :href="route('dashboard')"
-              :active="route().current('dashboard')"
+              :href="route('login')"
+              :active="route().current('login')"
             >
               เกี่ยวกับเรา
             </jet-nav-link>
             <jet-nav-link
-              :href="route('dashboard')"
-              :active="route().current('dashboard')"
+              :href="route('login')"
+              :active="route().current('login')"
             >
               แจ้งชำระเงิน
             </jet-nav-link>
@@ -62,7 +62,15 @@
               <template #trigger>
                 <button
                   v-if="$page.props.jetstream.managesProfilePhotos"
-                  class="flex text-sm border-2 border-transparent rounded-full focus:outline-none focus:border-gray-300 transition"
+                  class="
+                    flex
+                    text-sm
+                    border-2 border-transparent
+                    rounded-full
+                    focus:outline-none
+                    focus:border-gray-300
+                    transition
+                  "
                 >
                   <img
                     class="h-8 w-8 rounded-full object-cover"
@@ -74,7 +82,22 @@
                 <span v-else class="inline-flex rounded-md">
                   <button
                     type="button"
-                    class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 bg-white hover:text-gray-700 focus:outline-none transition"
+                    class="
+                      inline-flex
+                      items-center
+                      px-3
+                      py-2
+                      border border-transparent
+                      text-sm
+                      leading-4
+                      font-medium
+                      rounded-md
+                      text-gray-500
+                      bg-white
+                      hover:text-gray-700
+                      focus:outline-none
+                      transition
+                    "
                   >
                     {{ $page.props.user.fullName }}
 
@@ -133,7 +156,20 @@
         <div class="-mr-2 flex items-center sm:hidden">
           <button
             @click="showingNavigationDropdown = !showingNavigationDropdown"
-            class="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 focus:text-gray-500 transition"
+            class="
+              inline-flex
+              items-center
+              justify-center
+              p-2
+              rounded-md
+              text-gray-400
+              hover:text-gray-500
+              hover:bg-gray-100
+              focus:outline-none
+              focus:bg-gray-100
+              focus:text-gray-500
+              transition
+            "
           >
             <svg
               class="h-6 w-6"
@@ -177,10 +213,10 @@
     >
       <div class="pt-2 pb-3 space-y-1">
         <jet-responsive-nav-link
-          :href="route('dashboard')"
-          :active="route().current('dashboard')"
+          :href="route('login')"
+          :active="route().current('login')"
         >
-          Dashboard
+          login
         </jet-responsive-nav-link>
       </div>
 

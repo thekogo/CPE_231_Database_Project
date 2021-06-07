@@ -88,10 +88,9 @@
               <div v-for="question in lesson.questions" :key="question.id">
                 <div class="flex justify-between gap-2">
                   <div class="flex-grow">
-                    <h1 class="text-2xl">#{{ question.id }}</h1>
-                    <p>
-                      {{ question.description }}
-                    </p>
+                    <h1 class="text-2xl">
+                      #{{ question.id }} | {{ question.description }}
+                    </h1>
                     <hr />
                     <b>คำตอบ</b>
                     <p v-if="question.answers.length == 0">ยังไม่มีคำตอบ</p>

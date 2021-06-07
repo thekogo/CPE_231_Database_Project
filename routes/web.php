@@ -6,6 +6,7 @@ use App\Http\Controllers\Admin;
 use App\Http\Controllers\CourseController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\TutorController;
+use App\Http\Controllers\UserController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -34,9 +35,8 @@ Route::prefix('home')->group(function () {
 });
 
 
-Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
-    return Inertia::render('Dashboard');
-})->name('dashboard');
+Route::middleware(['auth:sanctum', 'verified'])->put('/updateEducation', [UserController::class, 'updateEducation'])->name('user-profile-education.update');
+Route::middleware(['auth:sanctum', 'verified'])->put('/createEducation', [UserController::class, 'createEducation'])->name('user-profile-education.create');
 
 Route::middleware(['auth:sanctum'])->group(function () {
     Route::middleware(['role:student'])->prefix('students')->name('student.')->group(function () {
@@ -48,6 +48,8 @@ Route::middleware(['auth:sanctum'])->group(function () {
         Route::resource('courses.lessons', Student\LessonController::class);
         Route::resource('courses.lessons.questions', Student\QuestionController::class);
         Route::resource('courses.lessons.lesson_histories', Student\LessonHistoryController::class);
+        Route::resource('reserves', Student\ReserveController::class);
+        Route::resource('courses.reviews', Student\ReviewController::class);
     });
 });
 
@@ -65,7 +67,7 @@ Route::middleware(['auth:sanctum'])->group(function () {
 
 Route::middleware(['auth:sanctum'])->group(function () {
     Route::middleware(['role:admin'])->prefix('admins')->name('admin.')->group(function () {
-        Route::get('/', [Admin\HomeController::class, 'index'])->name('home');
+        Route::get('/', [Admin\AnalyticController::class, 'index'])->name('home');
         Route::resource('categories', Admin\CategoryController::class);
         Route::resource('courses', Admin\CourseController::class);
         Route::resource('enrollments', Admin\EnrollmentController::class);
@@ -73,5 +75,7 @@ Route::middleware(['auth:sanctum'])->group(function () {
         Route::resource('courses.students', Admin\StudentController::class);
         Route::resource('courses.lessons.faqs', Admin\FAQController::class);
         Route::resource('courses.lessons.questions.answers', Admin\AnswerController::class);
+        Route::resource('reserves', Admin\ReserveController::class);
+        Route::get('/analytics', [Admin\AnalyticController::class, 'index']);
     });
 });

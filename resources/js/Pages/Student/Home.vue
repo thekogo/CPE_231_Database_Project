@@ -19,12 +19,28 @@
             <div class="bg-white shadow-lg rounded-md">
               <div class="grid grid-cols-3 p-5 gap-20">
                 <div class="col-span-1">
-                  <div class="bg-red-900 h-60 rounded-lg"></div>
+                  <img
+                    class="bg-red-900 h-60 rounded-lg"
+                    :src="last_lesson.lesson.course.course_img"
+                  />
                 </div>
                 <div class="col-span-2">
-                  <h1 class="text-xl">ชื่อคอร์ส</h1>
-                  <p class="mb-5">รายละเอียดคอร์ส</p>
-                  <jet-button>continues</jet-button>
+                  <h1 class="text-xl">
+                    ชื่อคอร์ส : {{ last_lesson.lesson.course.name }}
+                  </h1>
+                  <p class="mb-5">
+                    รายละเอียดคอร์ส :
+                    {{ last_lesson.lesson.course.description }}
+                  </p>
+                  <jet-button
+                    :href="
+                      route('student.courses.lessons.show', {
+                        course: last_lesson.lesson.course.id,
+                        lesson: last_lesson.lesson.id,
+                      })
+                    "
+                    >continues</jet-button
+                  >
                 </div>
               </div>
             </div>
@@ -33,9 +49,20 @@
             </h1>
             <div class="bg-white shadow-lg rounded-md">
               <div class="grid grid-cols-3 p-5 gap-12">
-                <course-col1 title="test" />
-                <course-col1 title="test" />
-                <course-col1 title="test" />
+                <a
+                  :href="
+                    route('student.courses.show', {
+                      course: enrollment.course.id,
+                    })
+                  "
+                  v-for="enrollment in enrollments"
+                  :key="enrollment.course.id"
+                >
+                  <course-col1
+                    :src="enrollment.course.course_img"
+                    :title="enrollment.course.name"
+                  />
+                </a>
               </div>
             </div>
           </div>
@@ -65,5 +92,7 @@ export default {
     Copyright,
     CourseCol1,
   },
+
+  props: ["last_lesson", "enrollments"],
 };
 </script>

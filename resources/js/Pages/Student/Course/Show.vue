@@ -14,12 +14,34 @@
           </div>
           <div class="col-span-9">
             <div class="flex justify-between mb-2">
-              <h1 class="text-2xl font-semibold mb-3">
+              <h1 class="text-2xl font-semibold mb-3 flex gap-2 items-center">
                 คอร์ส : {{ course.name }}
+                <jet-button v-show="!is_reviewed" @click="reviewCourse"
+                  >Review</jet-button
+                >
+                <div
+                  class="
+                    rounded-full
+                    h-7
+                    w-7
+                    flex
+                    items-center
+                    justify-center
+                    bg-yellow-300
+                  "
+                  v-show="is_reviewed"
+                >
+                  <i class="fas fa-check"></i>
+                </div>
               </h1>
-              <jet-button :href="route('student.enrollments.index')"
-                >ประวัติการลงทะเบียนทั้งหมด</jet-button
-              >
+              <div class="flex gap-2">
+                <jet-button :href="route('student.reserves.index')"
+                  >จองเวลาเรียน</jet-button
+                >
+                <jet-button :href="route('student.enrollments.index')"
+                  >ประวัติการลงทะเบียนทั้งหมด</jet-button
+                >
+              </div>
             </div>
             <div class="bg-white shadow-lg rounded-md p-5 flex flex-col gap-4">
               <div>
@@ -132,6 +154,7 @@ import JetInput from "@/Jetstream/Input.vue";
 import LabelGrid from "@/Components/Common/LabelGrid.vue";
 import JetSelect from "@/Jetstream/Select.vue";
 import JetValidationErrors from "@/Jetstream/ValidationErrors";
+import Swal from "sweetalert2";
 
 export default {
   components: {
@@ -145,6 +168,58 @@ export default {
     JetValidationErrors,
   },
 
-  props: ["course"],
+  props: ["course", "is_reviewed"],
+
+  data() {
+    return {
+      form: this.$inertia.form({
+        course_id: this.course.id,
+      }),
+    };
+  },
+
+  methods: {
+    async reviewCourse() {
+      const { value: formValues } = await Swal.fire({
+        title: "Multiple inputs",
+        html:
+          "ข้อความรีวิว" +
+          '<textarea id="swal-input1" class="swal2-input"></textarea><br />' +
+          'คะแนน <input id="swal-input2" class="swal2-input" type="number" value="3" min="0" max="5">',
+        focusConfirm: false,
+        preConfirm: () => {
+          return [
+            document.getElementById("swal-input1").value,
+            document.getElementById("swal-input2").value,
+          ];
+        },
+      });
+
+      if (formValues) {
+        const descriptionData = formValues[0];
+        const scoreData = formValues[1];
+        console.log(formValues);
+        this.form
+          .transform((data) => ({
+            ...data,
+            description: descriptionData,
+            rating: scoreData,
+          }))
+          .post(
+            this.route("student.courses.reviews.store", {
+              course: this.course.id,
+            }),
+            {
+              onSuccess: () => {
+                Swal.fire("บันทึกสำเร็จ", "", "success");
+              },
+              onError: () => {
+                Swal.fire("บันทึกไม่สำเร็จ", "", "error");
+              },
+            }
+          );
+      }
+    },
+  },
 };
 </script>

@@ -16,25 +16,12 @@
     </jet-nav-link>
     <jet-nav-link
       class="text-xl h-10"
-      :href="route('dashboard')"
-      :active="route().current('dashboard')"
+      :href="route('student.reserves.index')"
+      :active="route().current('student.reserves.index')"
     >
       จองเวลาเรียน
     </jet-nav-link>
-    <jet-nav-link
-      class="text-xl h-10"
-      :href="route('dashboard')"
-      :active="route().current('dashboard')"
-    >
-      ถาม-ตอบปัญหาการเรียน
-    </jet-nav-link>
-    <jet-nav-link
-      class="text-xl h-10"
-      :href="route('dashboard')"
-      :active="route().current('dashboard')"
-    >
-      เกี่ยวกับเรา
-    </jet-nav-link>
+
     <jet-nav-link
       class="text-xl h-10"
       :href="route('student.enrollments.index')"

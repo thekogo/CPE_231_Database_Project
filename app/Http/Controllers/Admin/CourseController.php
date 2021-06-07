@@ -77,6 +77,7 @@ class CourseController extends Controller
         $input["course_img"] = $path;
 
         $course = Course::create($input);
+        $course->id = $request->id;
 
         Course::updateCourseCategories($request["selected_categories"], $course);
 

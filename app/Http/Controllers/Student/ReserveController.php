@@ -5,13 +5,12 @@ namespace App\Http\Controllers\Student;
 use App\Http\Controllers\Controller;
 use App\Models\Course;
 use App\Models\Enrollment;
-use App\Models\Review;
+use App\Models\Reserve;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Validator;
 use Inertia\Inertia;
 
-class CourseController extends Controller
+class ReserveController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -20,11 +19,10 @@ class CourseController extends Controller
      */
     public function index()
     {
-        $enrollments = Enrollment::where('user_id', Auth::id())
-            ->where('payment_status', 'success')
-            ->with('course')->get();
-        return Inertia::render('Student/Course/Home', [
-            'enrollments' => $enrollments
+        $enrollments = Enrollment::where('user_id', Auth::id())->pluck('id')->toArray();
+        $reserves = Reserve::whereIn('enrollment_id', $enrollments)->with('enrollment.course')->get();
+        return Inertia::render('Student/Reserve/Home', [
+            'reserves' => $reserves
         ]);
     }
 
@@ -35,6 +33,11 @@ class CourseController extends Controller
      */
     public function create()
     {
+        $enrollments = Enrollment::where('user_id', Auth::id())->with('course')->get();
+        // dd($enrollments);
+        return Inertia::render('Student/Reserve/Create', [
+            'enrollments' => $enrollments
+        ]);
     }
 
     /**
@@ -45,7 +48,14 @@ class CourseController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $enrollment = Enrollment::where('user_id', Auth::id())->where('course_id', $request->course_id)->first();
+        $request->merge([
+            'status' => 0,
+            'enrollment_id' => $enrollment->id
+        ]);
+        Reserve::create($request->all());
+
+        return redirect()->back();
     }
 
     /**
@@ -56,26 +66,7 @@ class CourseController extends Controller
      */
     public function show($id)
     {
-        // $enrollment = Enrollment::where('user_id', Auth::id())
-        //     ->where('payment_status', 'success')
-        //     ->with('course')
-        //     ->with('user')
-        //     ->with('course.user')
-        //     ->with(['course.lessons' => function ($query) {
-        //         $query->orderBy('order');
-        //     }])->findOrFail($id);
-        $course = Course::with(['enrollments' => function ($query) {
-            $query->where('user_id', Auth::id())
-                ->where('payment_status', 'success');
-        }])->with('user')->with(['lessons' => function ($query) {
-            $query->orderBy('order');
-        }])->findOrFail($id);
-        $enrollment = Enrollment::where('user_id', Auth::id())->where('course_id', $course->id)->first();
-        $is_reviewed = Review::where('enrollment_id', $enrollment->id)->exists();
-        return Inertia::render('Student/Course/Show', [
-            'course' => $course,
-            'is_reviewed' => $is_reviewed
-        ]);
+        //
     }
 
     /**
@@ -109,6 +100,8 @@ class CourseController extends Controller
      */
     public function destroy($id)
     {
-        //
+        Reserve::findOrFail($id)->delete();
+
+        return redirect()->back();
     }
 }

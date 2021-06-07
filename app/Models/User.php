@@ -107,4 +107,9 @@ class User extends Authenticatable
     {
         return $this->hasMany(Course::class);
     }
+
+    public function educations()
+    {
+        return $this->hasMany(Education::class);
+    }
 }

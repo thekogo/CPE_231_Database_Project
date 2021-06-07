@@ -16,7 +16,12 @@
             <div class="flex justify-between mb-2">
               <h1 class="text-2xl font-semibold mb-3">รายละเอียด</h1>
               <div class="flex gap-2">
-                <jet-button :href="route('tutor.courses.index')"
+                <jet-button
+                  :href="
+                    route('tutor.courses.students.index', {
+                      course: course.id,
+                    })
+                  "
                   >นักเรียนในคอร์ส</jet-button
                 >
                 <jet-button

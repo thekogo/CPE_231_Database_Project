@@ -13,14 +13,16 @@
         <div class="w-9/12 ml-auto">
           <img src="/images/lightup.png" draggable="false" class="mb-8" />
           <transition name="fade" mode="out-in">
-            <img
-              :src="loginBtnPath"
-              alt=""
-              class="cursor-pointer mx-auto w-24"
-              @mouseover="loginBtn = true"
-              draggable="false"
-              @mouseleave="loginBtn = false"
-            />
+            <a :href="route('home')">
+              <img
+                :src="loginBtnPath"
+                alt=""
+                class="cursor-pointer mx-auto w-24"
+                @mouseover="loginBtn = true"
+                draggable="false"
+                @mouseleave="loginBtn = false"
+              />
+            </a>
           </transition>
         </div>
       </div>

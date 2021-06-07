@@ -166,7 +166,6 @@ export default {
                 this.$inertia.get(route("admin.enrollment.index"));
               }
             });
-            this.form.reset();
           },
         }
       );

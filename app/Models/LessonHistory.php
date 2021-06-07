@@ -8,6 +8,8 @@ use Illuminate\Database\Eloquent\Model;
 class LessonHistory extends Model
 {
 
+    use HasFactory;
+
     protected $fillable = [
         'lesson_id',
         'enrollment_id',
@@ -16,5 +18,8 @@ class LessonHistory extends Model
 
     public $timestamps = false;
 
-    use HasFactory;
+    public function lesson()
+    {
+        return $this->belongsTo(Lesson::class);
+    }
 }

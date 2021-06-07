@@ -7,7 +7,9 @@
           <span class="inline-flex items-center">FAQ</span>
           <span class="inline-flex items-center">ติดต่อเรา</span>
           <input-pill />
-          <button-pill>ลงทะเบียน</button-pill>
+          <a :href="route('register')">
+            <button-pill>ลงทะเบียน</button-pill>
+          </a>
         </div>
       </div>
       <div class="flex justify-center gap-16 mt-4 pb-4">

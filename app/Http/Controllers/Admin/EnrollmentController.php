@@ -50,14 +50,17 @@ class EnrollmentController extends Controller
     {
         Validator::make($request->all(), [
             'user_id' => ['required', 'integer'],
-            'course_id' => ['required', 'integer'],
+            'course_id' => ['required'],
             'payment_method' => ['required', 'string'],
             'payment_date' => ['required', 'date'],
             'payment_status' => ['required', 'string'],
         ])->validate();
-        Enrollment::create(array_merge($request->all(), [
-            'enroll_date' => date("Y-m-d")
-        ]));
+        if ($request->payment_status == 'ชำระเงินเรียบร้อย') {
+            $request->merge([
+                'enroll_date' => date("Y-m-d")
+            ]);
+        }
+        Enrollment::create($request->all());
 
         return redirect()->back();
     }
@@ -109,11 +112,21 @@ class EnrollmentController extends Controller
     {
         Validator::make($request->all(), [
             'user_id' => ['required', 'integer'],
-            'course_id' => ['required', 'integer'],
+            'course_id' => ['required'],
             'payment_method' => ['required', 'string'],
             'payment_date' => ['required', 'date'],
             'payment_status' => ['required', 'string'],
         ])->validate();
+
+        if ($request->payment_status == 'ชำระเงินเรียบร้อย') {
+            $request->merge([
+                'enroll_date' => date("Y-m-d")
+            ]);
+        } else {
+            $request->merge([
+                'enroll_date' => null
+            ]);
+        }
 
         $enrollment = Enrollment::findOrFail($id);
         $enrollment->update($request->all());
