@@ -22,30 +22,105 @@
             <div class="bg-white shadow-lg rounded-md p-5 flex flex-col gap-4">
               <jet-validation-errors class="mb-4" />
               <form @submit.prevent="submit">
-                <div class="grid grid-cols-5 mb-2">
-                  <label-grid for="name" value="Category Name" />
-                  <jet-input
-                    id="name"
+                <div class="grid grid-cols-5 mb-2 gap-4">
+                  <div class="col-span-2">
+                    <jet-label for="firstName" value="First Name" />
+                    <jet-input
+                      id="firstName"
+                      type="text"
+                      class="mt-1 block w-full"
+                      v-model="form.firstName"
+                      required
+                      autofocus
+                      autocomplete="firstName"
+                    />
+                  </div>
+
+                  <div class="col-span-2">
+                    <jet-label for="lastName" value="Last Name" />
+                    <jet-input
+                      id="lastName"
+                      type="text"
+                      class="mt-1 block w-full"
+                      v-model="form.lastName"
+                      required
+                      autofocus
+                      autocomplete="lastName"
+                    />
+                  </div>
+                </div>
+
+                <div>
+                  <jet-label for="address" value="Address" />
+                  <jet-text-area
+                    id="address"
                     type="text"
-                    class="mt-1 block w-full col-span-3"
+                    class="mt-1 block w-full"
+                    v-model="form.address"
                     required
                     autofocus
-                    autocomplete="name"
-                    v-model="form.name"
+                    autocomplete="address"
                   />
                 </div>
-                <div class="grid grid-cols-5 mb-2">
-                  <label-grid for="status" value="Category Display" />
-                  <jet-select
-                    :options="options"
-                    v-model="form.status"
+
+                <div class="grid grid-cols-2 gap-5">
+                  <div>
+                    <jet-label for="birthday" value="Birth Day" />
+                    <jet-input
+                      id="birthday"
+                      type="date"
+                      class="mt-1 block w-full"
+                      v-model="form.birthday"
+                      required
+                      autofocus
+                      autocomplete="birthday"
+                    />
+                  </div>
+
+                  <div>
+                    <jet-label for="phoneNumber" value="Phone Number" />
+                    <jet-input
+                      id="phoneNumber"
+                      type="text"
+                      class="mt-1 block w-full"
+                      v-model="form.phoneNumber"
+                      required
+                      autofocus
+                      autocomplete="phoneNumber"
+                    />
+                  </div>
+                </div>
+
+                <div class="mt-4">
+                  <jet-label for="facebook" value="Facebook" />
+                  <jet-input
+                    id="facebook"
+                    type="text"
+                    class="mt-1 block w-full"
+                    v-model="form.facebook"
                     required
-                  >
-                    <option v-for="option in options" :key="option">
-                      {{ option }}
+                  />
+                </div>
+
+                <div class="mt-4">
+                  <jet-label for="email" value="Email" />
+                  <jet-input
+                    id="email"
+                    type="email"
+                    class="mt-1 block w-full"
+                    v-model="form.email"
+                    required
+                  />
+                </div>
+                <div class="mt-4">
+                  <jet-label for="email" value="Role" />
+                  <jet-select v-model="form.role" required id="role">
+                    <option v-for="role in roles" :key="role">
+                      {{ role }}
                     </option>
                   </jet-select>
                 </div>
+                <br />
                 <div class="flex justify-end">
                   <jet-button>บันทึก</jet-button>
                 </div>
@@ -67,6 +142,11 @@ import JetInput from "@/Jetstream/Input.vue";
 import LabelGrid from "@/Components/Common/LabelGrid.vue";
 import JetSelect from "@/Jetstream/Select.vue";
 import JetValidationErrors from "@/Jetstream/ValidationErrors";
+import JetAuthenticationCard from "@/Jetstream/AuthenticationCard";
+import JetAuthenticationCardLogo from "@/Jetstream/AuthenticationCardLogo";
+import JetTextArea from "@/Jetstream/TextArea";
+import JetCheckbox from "@/Jetstream/Checkbox";
+import JetLabel from "@/Jetstream/Label";
 import Swal from "sweetalert2";
 
 export default {
@@ -79,47 +159,48 @@ export default {
     LabelGrid,
     JetSelect,
     JetValidationErrors,
+    JetAuthenticationCard,
+    JetAuthenticationCardLogo,
+    JetTextArea,
+    JetCheckbox,
+    JetLabel,
   },
 
-  props: ["category"],
+  props: ["user"],
 
   data() {
     return {
       options: ["Active", "Draft"],
       form: this.$inertia.form({
-        name: this.category.name,
-        status: this.category.status,
+        ...this.user,
       }),
+      roles: ["admin", "tutor", "student"],
     };
   },
 
   methods: {
     submit() {
       // console.log(this.form);
-      this.form.put(
-        this.route("admin.categories.update", { category: this.category.id }),
-        {
-          onSuccess: () => {
-            Swal.fire({
-              title: "Suscess",
-              html: `แก้ ${this.form.name} เรียบร้อย`,
-              icon: "success",
-              timer: 3000,
-              timerProgressBar: true,
-              showCancelButton: true,
-              confirmButtonColor: "#3085d6",
-              confirmButtonText: "กลับไปหน้าจัดการทั้งหมด",
-              cancelButtonColor: "#d33",
-              cancelButtonText: "ปิด",
-            }).then((result) => {
-              if (result.isConfirmed) {
-                this.$inertia.get(route("admin.categories.index"));
-              }
-            });
-            this.form.reset();
-          },
-        }
-      );
+      this.form.put(this.route("admin.users.update", { user: this.user.id }), {
+        onSuccess: () => {
+          Swal.fire({
+            title: "Suscess",
+            html: `แก้ไขข้อมูลเรียบร้อย`,
+            icon: "success",
+            timer: 3000,
+            timerProgressBar: true,
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            confirmButtonText: "กลับไปหน้าจัดการทั้งหมด",
+            cancelButtonColor: "#d33",
+            cancelButtonText: "ปิด",
+          }).then((result) => {
+            if (result.isConfirmed) {
+              this.$inertia.get(route("admin.categories.index"));
+            }
+          });
+        },
+      });
     },
   },
 };

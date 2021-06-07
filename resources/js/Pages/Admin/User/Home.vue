@@ -14,7 +14,7 @@
           </div>
           <div class="col-span-9">
             <div class="flex justify-between mb-2">
-              <h1 class="text-2xl font-semibold mb-3">รายชื่อผู้ใช้งาน</h1>              
+              <h1 class="text-2xl font-semibold mb-3">รายชื่อผู้ใช้งาน</h1>
             </div>
             <div class="bg-white shadow-lg rounded-md p-5 flex flex-col gap-4">
               <table class="table-auto">
@@ -22,6 +22,7 @@
                   <tr>
                     <th>รหัส</th>
                     <th>ชื่อ</th>
+                    <th>Action</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -32,24 +33,20 @@
                   >
                     <td>#{{ user.id }}</td>
                     <td>{{ user.fullName }}</td>
-                    <!-- <td class="flex gap-2 justify-center">
+                    <td class="flex gap-2 justify-center">
                       <jet-button
-                        :href="
-                          route('admin.users.show', { id: user.id })
-                        "
+                        :href="route('admin.users.show', { id: user.id })"
                         ><i class="far fa-eye"></i
                       ></jet-button>
                       <jet-button
                         color="warning"
-                        :href="
-                          route('admin.users.edit', { id: user.id })
-                        "
+                        :href="route('admin.users.edit', { id: user.id })"
                         ><i class="far fa-edit"></i
                       ></jet-button>
                       <jet-button color="danger" @click="openDelete(user)"
                         ><i class="far fa-trash-alt"></i
                       ></jet-button>
-                    </td> -->
+                    </td>
                   </tr>
                 </tbody>
               </table>
@@ -91,8 +88,8 @@ export default {
         preConfirm: () => {
           return this.$inertia.delete(
             route(
-              "admin.categories.destroy",
-              { category: id },
+              "admin.users.destroy",
+              { user: id },
               {
                 onSuccess: () => {
                   return;
@@ -109,7 +106,7 @@ export default {
         if (result.isConfirmed) {
           Swal.fire({
             title: "Suscess",
-            html: `ลบ ${name} เรียบร้อย`,
+            html: `ลบผู้ใช้เรียบร้อย`,
             icon: "success",
             timer: 2000,
             timerProgressBar: true,

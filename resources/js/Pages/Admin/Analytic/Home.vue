@@ -29,11 +29,11 @@
             >
               <div>
                 <h1 class="text-2xl">จำนวนคำถามของแต่ละรายวิชา</h1>
-                <table class="table-auto w-full">
+                <table class="table-fixed w-full">
                   <thead>
                     <tr>
-                      <th>Course ID</th>
-                      <th>Count</th>
+                      <th>รายวิชา</th>
+                      <th>ครั้ง</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -50,11 +50,11 @@
               </div>
               <div>
                 <h1 class="text-2xl">จำนวนนักเรียนที่ลงทะเบียนในปีนี้</h1>
-                <table class="table-auto w-full">
+                <table class="table-fixed w-full">
                   <thead>
                     <tr>
-                      <th>Course ID</th>
-                      <th>Count</th>
+                      <th>รายวิชา</th>
+                      <th>ครั้ง</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -71,7 +71,7 @@
               </div>
               <div>
                 <h1 class="text-2xl">การจองที่นั่งในแต่ละปี</h1>
-                <table class="table-auto w-full">
+                <table class="table-fixed w-full">
                   <thead>
                     <tr>
                       <th>ปี</th>
@@ -92,7 +92,7 @@
               </div>
               <div>
                 <h1 class="text-2xl">รายได้จากรายวิชาต่าง ๆ</h1>
-                <table class="table-auto w-full">
+                <table class="table-fixed w-full">
                   <thead>
                     <tr>
                       <th>รายวิชา</th>
@@ -113,11 +113,11 @@
               </div>
               <div>
                 <h1 class="text-2xl">จำนวนการขอคืนเงินจากรายวิชาต่าง ๆ</h1>
-                <table class="table-auto w-full">
+                <table class="table-fixed w-full">
                   <thead>
                     <tr>
                       <th>รายวิชา</th>
-                      <th>รายได้</th>
+                      <th>ครั้ง</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -134,7 +134,28 @@
               </div>
               <div>
                 <h1 class="text-2xl">คะแนนความพึงพอใจในวิชาต่าง ๆ</h1>
-                <table class="table-auto w-full">
+                <table class="table-fixed w-full">
+                  <thead>
+                    <tr>
+                      <th>รายวิชา</th>
+                      <th>rating เฉลี่ย</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr
+                      class="text-center"
+                      v-for="totalReview in totalReviews"
+                      :key="totalReview.id"
+                    >
+                      <td>{{ totalReview.id }}</td>
+                      <td>{{ totalReview.avg_rating }}</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+              <div>
+                <h1 class="text-2xl">คะแนนความพึงพอใจในวิชาต่าง ๆ</h1>
+                <table class="table-fixed w-full">
                   <thead>
                     <tr>
                       <th>รายวิชา</th>
@@ -182,10 +203,11 @@ export default {
     "totalCoursePays",
     "totalRefunds",
     "totalReviews",
+    "top5Enrollments",
   ],
 
   mounted() {
-    console.log(this.totalReviews);
+    console.log(this.top5Enrollments);
   },
 };
 </script>

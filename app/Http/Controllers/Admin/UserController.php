@@ -51,7 +51,11 @@ class UserController extends Controller
      */
     public function show($id)
     {
-        //
+        $user = User::findOrFail($id);
+
+        return Inertia::render('Admin/User/Show', [
+            'user' => $user
+        ]);
     }
 
     /**
@@ -62,7 +66,10 @@ class UserController extends Controller
      */
     public function edit($id)
     {
-        //
+        $user = User::findOrFail($id);
+        return Inertia::render('Admin/User/Edit', [
+            "user" => $user
+        ]);
     }
 
     /**
@@ -74,7 +81,11 @@ class UserController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $user = User::findOrFail($id);
+
+        $user->update($request->all());
+
+        return redirect()->back();
     }
 
     /**
@@ -85,6 +96,8 @@ class UserController extends Controller
      */
     public function destroy($id)
     {
-        //
+        User::findOrFail($id)->delete();
+
+        return redirect()->back();
     }
 }
