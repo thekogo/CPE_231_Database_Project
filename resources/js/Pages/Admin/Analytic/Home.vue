@@ -17,8 +17,143 @@
               <h1 class="text-2xl font-semibold mb-3">สรุปภาพรวม</h1>
             </div>
             <div
-              class="bg-white shadow-lg rounded-md p-5 flex flex-col gap-4"
-            ></div>
+              class="
+                bg-white
+                shadow-lg
+                rounded-md
+                p-5
+                flex flex-col
+                gap-4
+                divide-y-2 divide-gray-300
+              "
+            >
+              <div>
+                <h1 class="text-2xl">จำนวนคำถามของแต่ละรายวิชา</h1>
+                <table class="table-auto w-full">
+                  <thead>
+                    <tr>
+                      <th>Course ID</th>
+                      <th>Count</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr
+                      class="text-center"
+                      v-for="questionCourse in questionCourses"
+                      :key="questionCourse.id"
+                    >
+                      <td>{{ questionCourse.id }}</td>
+                      <td>{{ questionCourse.count_id }}</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+              <div>
+                <h1 class="text-2xl">จำนวนนักเรียนที่ลงทะเบียนในปีนี้</h1>
+                <table class="table-auto w-full">
+                  <thead>
+                    <tr>
+                      <th>Course ID</th>
+                      <th>Count</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr
+                      class="text-center"
+                      v-for="enrollmentCourseCurrentYear in enrollmentCourseCurrentYears"
+                      :key="enrollmentCourseCurrentYear.course_id"
+                    >
+                      <td>{{ enrollmentCourseCurrentYear.course_id }}</td>
+                      <td>{{ enrollmentCourseCurrentYear.total }}</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+              <div>
+                <h1 class="text-2xl">การจองที่นั่งในแต่ละปี</h1>
+                <table class="table-auto w-full">
+                  <thead>
+                    <tr>
+                      <th>ปี</th>
+                      <th>การจอง</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr
+                      class="text-center"
+                      v-for="reserveGroupByYear in reserveGroupByYears"
+                      :key="reserveGroupByYear.year"
+                    >
+                      <td>{{ reserveGroupByYear.year }}</td>
+                      <td>{{ reserveGroupByYear.total_reserves }}</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+              <div>
+                <h1 class="text-2xl">รายได้จากรายวิชาต่าง ๆ</h1>
+                <table class="table-auto w-full">
+                  <thead>
+                    <tr>
+                      <th>รายวิชา</th>
+                      <th>รายได้</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr
+                      class="text-center"
+                      v-for="totalCoursePay in totalCoursePays"
+                      :key="totalCoursePay.id"
+                    >
+                      <td>{{ totalCoursePay.id }}</td>
+                      <td>{{ totalCoursePay.total }}</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+              <div>
+                <h1 class="text-2xl">จำนวนการขอคืนเงินจากรายวิชาต่าง ๆ</h1>
+                <table class="table-auto w-full">
+                  <thead>
+                    <tr>
+                      <th>รายวิชา</th>
+                      <th>รายได้</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr
+                      class="text-center"
+                      v-for="totalRefund in totalRefunds"
+                      :key="totalRefund.id"
+                    >
+                      <td>{{ totalRefund.id }}</td>
+                      <td>{{ totalRefund.total }}</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+              <div>
+                <h1 class="text-2xl">คะแนนความพึงพอใจในวิชาต่าง ๆ</h1>
+                <table class="table-auto w-full">
+                  <thead>
+                    <tr>
+                      <th>รายวิชา</th>
+                      <th>rating เฉลี่ย</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr
+                      class="text-center"
+                      v-for="totalReview in totalReviews"
+                      :key="totalReview.id"
+                    >
+                      <td>{{ totalReview.id }}</td>
+                      <td>{{ totalReview.avg_rating }}</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -40,52 +175,17 @@ export default {
     SideMenu,
     JetButton,
   },
-  props: ["questionCourse"],
+  props: [
+    "questionCourses",
+    "enrollmentCourseCurrentYears",
+    "reserveGroupByYears",
+    "totalCoursePays",
+    "totalRefunds",
+    "totalReviews",
+  ],
 
   mounted() {
-    console.log(this.questionCourse);
-  },
-
-  methods: {
-    openDelete({ id, name }) {
-      Swal.fire({
-        title: "Are you sure?",
-        text: "You won't be able to revert this!",
-        icon: "warning",
-        showCancelButton: true,
-        confirmButtonColor: "#3085d6",
-        cancelButtonColor: "#d33",
-        confirmButtonText: "Yes, delete it!",
-        showLoaderOnConfirm: true,
-        preConfirm: () => {
-          return this.$inertia.delete(
-            route(
-              "admin.categories.destroy",
-              { category: id },
-              {
-                onSuccess: () => {
-                  return;
-                },
-                onError: () => {
-                  Swal.showValidationMessage(`Request failed: ${error}`);
-                },
-              }
-            )
-          );
-        },
-        allowOutsideClick: () => !Swal.isLoading(),
-      }).then((result) => {
-        if (result.isConfirmed) {
-          Swal.fire({
-            title: "Suscess",
-            html: `ลบ ${name} เรียบร้อย`,
-            icon: "success",
-            timer: 2000,
-            timerProgressBar: true,
-          });
-        }
-      });
-    },
+    console.log(this.totalReviews);
   },
 };
 </script>
