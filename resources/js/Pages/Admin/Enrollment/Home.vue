@@ -25,7 +25,7 @@
               <table class="table-auto">
                 <thead>
                   <tr>
-                    <th>ID</th>
+                    <th>รหัส</th>
                     <th>ชื่อ-นามสกุล</th>
                     <th>คอร์ส</th>
                     <th>ช่องทางการชำระเงิน</th>

@@ -156,8 +156,23 @@
                     required
                     disabled
                   />
-                </div>
+                </div>                
               </form>
+            </div>
+            <div class="flex justify-between mb-2 mt-3">
+              <h1 class="text-2xl font-semibold mb-3">รีวิว</h1>
+            </div>
+            <div class="bg-white shadow-lg rounded-md p-5 flex flex-col gap-4">
+              <div v-for="review in reviews" :key="review.id">
+                <div class="flex justify-between gap-2">
+                  <div class="flex-grow">
+                    <h1 class="text-2xl">
+                      <b class="text-3xl">{{ review.rating }}</b> | {{ review.description }}
+                    </h1>
+                    <hr />
+                  </div>                  
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -194,7 +209,7 @@ export default {
     JetSecondaryButton,
     Multiselect,
   },
-  props: ["tutors", "course", "categories"],
+  props: ["reviews", "course", "categories"],
   data() {
     return {
       options: ["เผยแพร่", "ปิดการมองเห็น"],

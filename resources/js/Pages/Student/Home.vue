@@ -17,7 +17,7 @@
               <h1 class="text-2xl font-semibold mb-3">คอร์สที่เรียนล่าสุด</h1>
             </div>
             <div class="bg-white shadow-lg rounded-md">
-              <div class="grid grid-cols-3 p-5 gap-20">
+              <div class="grid grid-cols-3 p-5 gap-20" v-if='last_lesson'>
                 <div class="col-span-1">
                   <img
                     class="bg-red-900 h-60 rounded-lg"
