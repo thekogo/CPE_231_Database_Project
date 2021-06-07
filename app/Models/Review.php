@@ -18,4 +18,9 @@ class Review extends Model
     ];
 
     public $timestamps = false;
+
+    public function enrollments()
+    {
+        return $this->hasMany(Enrollment::class);
+    }
 }

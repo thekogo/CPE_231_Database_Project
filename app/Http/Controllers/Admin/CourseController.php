@@ -92,17 +92,17 @@ class CourseController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function show($id)
-    {
+    {        
         $course = Course::with('user')
             ->with('course_categories.category')
             ->findOrFail($id);
         $categories = Category::all();
-        $course_id = $course->id;
-        $reviews = Review::with('enrollments')->join('enrollments', 'enrollments.id', '=', 'reviews.enrollment_id')
-            ->where('enrollments.course_id', $course_id)->get();
+        $reviews = Review::join('enrollments', 'enrollments.id', '=', 'reviews.enrollment_id')
+        ->where('enrollments.course_id', $id)->get();
         return Inertia::render('Admin/Course/Show', [
             "course" => $course,
-            "categories" => $categories
+            "categories" => $categories,
+            "reviews" => $reviews,
         ]);
     }
 

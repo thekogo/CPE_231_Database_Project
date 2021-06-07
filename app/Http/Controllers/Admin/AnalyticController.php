@@ -42,7 +42,7 @@ class AnalyticController extends Controller
 
         // dd($reserveGroupByYears);
 
-        //4
+        // //4
 
         // 5
         $totalCoursePays = DB::select(DB::raw("select SUM(courses.price) as total, courses.id
@@ -58,7 +58,7 @@ class AnalyticController extends Controller
         join courses on enrollments.course_id = courses.id and enrollments.payment_status = 'refund'
         group by enrollments.course_id"));
 
-        // 7
+        // // 7
 
         // 8
         $totalReviews = DB::select(DB::raw("select courses.id, AVG(reviews.rating) as avg_rating

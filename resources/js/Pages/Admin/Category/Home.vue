@@ -23,11 +23,11 @@
               <table class="table-auto">
                 <thead>
                   <tr>
-                    <th>Category ID</th>
-                    <th>Category Name</th>
-                    <th>Category Status</th>
-                    <th>Course Count</th>
-                    <th>Action</th>
+                    <th>รหัส</th>
+                    <th>ชื่อ</th>
+                    <th>สถานะ</th>
+                    <th>จำนวนคอร์สในหมวดหมู่</th>
+                    <th>จัดการ</th>
                   </tr>
                 </thead>
                 <tbody>
