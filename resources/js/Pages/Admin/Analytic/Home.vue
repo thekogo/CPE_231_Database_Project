@@ -167,7 +167,7 @@
                   <tbody>
                     <tr
                       class="text-center"
-                      v-for="top5Enrollment in top5Enrollments"
+                      v-for="top5Enrollment in top5EnrollmentPersents"
                       :key="top5Enrollment.course_id"
                     >
                       <td>{{ top5Enrollment.course_id }}</td>
@@ -259,10 +259,11 @@ export default {
     "totalReviews",
     "top5Enrollments",
     "top5studentLearneds",
+    "top5EnrollmentPersents",
   ],
 
   mounted() {
-    console.log(this.top5Enrollments);
+    console.log(this.top5EnrollmentPersents);
   },
 };
 </script>
