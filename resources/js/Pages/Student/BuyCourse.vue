@@ -8,7 +8,8 @@
           <h2
             class="col-start-3 text-2xl text-gray-600 flex gap-4 items-center"
           >
-            <i class="fas fa-cart-plus cursor-pointer text-md"></i> ขายได้ 125
+            <i class="fas fa-cart-plus cursor-pointer text-md"></i> ขายได้
+            {{ enrollment_count }}
             ครั้ง
           </h2>
         </div>
@@ -36,13 +37,25 @@
             <div class="grid grid-cols-12 gap-1">
               <h1 class="text-2xl text-gray-600 col-span-3 py-2">รายละเอียด</h1>
               <p
-                class="col-span-9 text-2xl text-gray-600 bg-gray-200 rounded-md p-2"
+                class="
+                  col-span-9
+                  text-2xl text-gray-600
+                  bg-gray-200
+                  rounded-md
+                  p-2
+                "
               >
                 {{ course.description }}
               </p>
               <h1 class="text-2xl text-gray-600 col-span-3 py-2">ราคา</h1>
               <p
-                class="col-span-9 text-2xl text-gray-600 bg-gray-200 rounded-md p-2"
+                class="
+                  col-span-9
+                  text-2xl text-gray-600
+                  bg-gray-200
+                  rounded-md
+                  p-2
+                "
               >
                 {{ course.price }}
                 บาท
@@ -51,20 +64,38 @@
                 ชั่วโมงในการจอง
               </h1>
               <p
-                class="col-span-9 text-2xl text-gray-600 bg-gray-200 rounded-md p-2"
+                class="
+                  col-span-9
+                  text-2xl text-gray-600
+                  bg-gray-200
+                  rounded-md
+                  p-2
+                "
               >
                 {{ course.hours_left }}
                 ชั่วโมง
               </p>
               <h1 class="text-2xl text-gray-600 col-span-3 py-2">ผู้สอน</h1>
               <p
-                class="col-span-9 text-2xl text-gray-600 bg-gray-200 rounded-md p-2"
+                class="
+                  col-span-9
+                  text-2xl text-gray-600
+                  bg-gray-200
+                  rounded-md
+                  p-2
+                "
               >
                 {{ course.user.fullName }}
               </p>
               <h1 class="text-2xl text-gray-600 col-span-3 py-2">แนบสลิป</h1>
               <p
-                class="col-span-9 text-2xl text-gray-600 bg-gray-200 rounded-md p-2"
+                class="
+                  col-span-9
+                  text-2xl text-gray-600
+                  bg-gray-200
+                  rounded-md
+                  p-2
+                "
               >
                 <jet-validation-errors class="mb-4" />
                 <jet-secondary-button @click="selectReceipt"
@@ -106,7 +137,7 @@ import JetSecondaryButton from "@/Jetstream/SecondaryButton.vue";
 import JetValidationErrors from "@/Jetstream/ValidationErrors";
 import Swal from "sweetalert2";
 export default {
-  props: ["course"],
+  props: ["course", "enrollment_count"],
   components: {
     Navbar,
     ButtonPill,
