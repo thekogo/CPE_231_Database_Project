@@ -50,7 +50,7 @@ class ReserveController extends Controller
     {
         $enrollment = Enrollment::where('user_id', Auth::id())->where('course_id', $request->course_id)->first();
         $request->merge([
-            'status' => 0,
+            'status' => "รอการอนุมัติ",
             'enrollment_id' => $enrollment->id
         ]);
         Reserve::create($request->all());
