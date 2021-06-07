@@ -15,7 +15,10 @@
         </div>
       </div>
       <div class="container mx-auto grid grid-cols-3 mt-8 gap-20">
-        <div class="col-span-1 pl-12">
+        <a
+          class="col-span-1 pl-12"
+          :href="route('tutor.detail', { tutor: course.user.id })"
+        >
           <img
             :src="course.course_img"
             alt=""
@@ -29,7 +32,7 @@
           <span class="text-2xl block text-center text-purplen"
             >ผู้สอน {{ course.user.fullName }}</span
           >
-        </div>
+        </a>
         <div class="col-span-2">
           <h1 class="text-5xl text-bluen">{{ course.name }}</h1>
           <br />

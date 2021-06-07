@@ -18,7 +18,7 @@ class TutorController extends Controller
 
     public function viewDetailTutor($tutor_id)
     {
-        $tutor = User::where('role', 'tutor')->findOrFail($tutor_id);
+        $tutor = User::where('role', 'tutor')->with('courses')->findOrFail($tutor_id);
         return Inertia::render('Home/Tutor/ViewDetailTutor', [
             'tutor' => $tutor
         ]);
