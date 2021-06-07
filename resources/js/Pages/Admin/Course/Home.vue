@@ -2,7 +2,7 @@
   <app-layout>
     <template #header>
       <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-        จัดการหมวดหมู่
+        จัดการคอร์สเรียน
       </h2>
     </template>
 
@@ -45,16 +45,16 @@
                     <td class="flex gap-2 justify-center">
                       <jet-button
                         :href="route('admin.courses.show', { id: course.id })"
-                        ><i class="far fa-eye"></i></jet-button
-                      >
+                        ><i class="far fa-eye"></i
+                      ></jet-button>
                       <jet-button
                         color="warning"
                         :href="route('admin.courses.edit', { id: course.id })"
-                        ><i class="far fa-edit"></i></jet-button
-                      >
+                        ><i class="far fa-edit"></i
+                      ></jet-button>
                       <jet-button color="danger" @click="openDelete(course)"
-                        ><i class="far fa-trash-alt"></i></jet-button
-                      >
+                        ><i class="far fa-trash-alt"></i
+                      ></jet-button>
                     </td>
                   </tr>
                 </tbody>

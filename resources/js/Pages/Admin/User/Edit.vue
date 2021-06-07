@@ -2,7 +2,7 @@
   <app-layout>
     <template #header>
       <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-        จัดการหมวดหมู่
+        จัดการผู้ใช้งาน
       </h2>
     </template>
 
@@ -15,8 +15,8 @@
           <div class="col-span-9">
             <div class="flex justify-between mb-2">
               <h1 class="text-2xl font-semibold mb-3">สร้างหมวดหมู่</h1>
-              <jet-button :href="route('admin.categories.index')"
-                >รายการหมวดหมู่</jet-button
+              <jet-button :href="route('admin.users.index')"
+                >กลับไปหน้าจัดการ</jet-button
               >
             </div>
             <div class="bg-white shadow-lg rounded-md p-5 flex flex-col gap-4">
