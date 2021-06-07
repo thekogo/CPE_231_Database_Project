@@ -78,6 +78,7 @@ Route::middleware(['auth:sanctum'])->group(function () {
         Route::resource('courses.lessons.faqs', Admin\FAQController::class);
         Route::resource('courses.lessons.questions.answers', Admin\AnswerController::class);
         Route::resource('reserves', Admin\ReserveController::class);
+        Route::resource('users', Admin\UserController::class);
         Route::get('/analytics', [Admin\AnalyticController::class, 'index']);
     });
 });

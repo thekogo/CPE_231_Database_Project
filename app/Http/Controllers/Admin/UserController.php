@@ -3,9 +3,11 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\User;
 use Illuminate\Http\Request;
+use Inertia\Inertia;
 
-class UserContrller extends Controller
+class UserController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,7 +16,10 @@ class UserContrller extends Controller
      */
     public function index()
     {
-        //
+        $users = User::all();
+        return Inertia::render('Admin/User/Home', [
+            "users" => $users
+        ]);
     }
 
     /**

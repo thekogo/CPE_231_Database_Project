@@ -2,12 +2,18 @@
   <div class="bg-white shadow-xl sm:rounded-lg p-5 flex flex-col gap-2 text-lg">
     <jet-nav-link
       class="text-xl h-10"
-      :href="route('student.home')"
-      :active="route().current('student.home')"
+      :href="route('admin.home')"
+      :active="route().current('admin.home')"
     >
       หน้าแรก
     </jet-nav-link>
     <jet-nav-link
+      class="text-xl h-10"
+      :href="route('admin.users.index')"
+      :active="route().current('admin.users.*')"
+    >
+      จัดการผู้ใช้
+    </jet-nav-link><jet-nav-link
       class="text-xl h-10"
       :href="route('admin.courses.index')"
       :active="route().current('admin.courses.*')"
