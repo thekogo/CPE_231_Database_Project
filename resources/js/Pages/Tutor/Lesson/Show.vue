@@ -54,7 +54,7 @@
                     required
                     autofocus
                     autocomplete="vdo"
-                    :value="lesson.vdo"
+                    :value="vdoEmbed"
                     disabled
                   />
                 </div>
@@ -206,6 +206,11 @@ export default {
             }
           );
       }
+    },
+  },
+  computed: {
+    vdoEmbed() {
+      return this.lesson.vdo.replace("watch?v=", "embed/");
     },
   },
 };
