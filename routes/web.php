@@ -61,7 +61,6 @@ Route::middleware(['auth:sanctum'])->group(function () {
         Route::get('/', [Tutor\CourseController::class, 'index'])->name('home');
         Route::resource('courses', Tutor\CourseController::class);
         Route::resource('courses.lessons', Tutor\LessonController::class);
-        Route::resource('courses.lessons.questions', Tutor\QuestionController::class);
         Route::resource('courses.lessons.faqs', Tutor\FAQController::class);
         Route::resource('courses.lessons.questions.answers', Tutor\AnswerController::class);
         Route::resource('courses.students', Tutor\StudentController::class);

@@ -76,6 +76,9 @@ class CourseController extends Controller
         $input["course_img"] = $path;
 
         $course = Course::create($input);
+
+        $course->id = $request->id;
+
         Course::updateCourseCategories($request["selected_categories"], $course);
 
         return redirect()->back();
@@ -125,7 +128,6 @@ class CourseController extends Controller
     public function update(Request $request, $id)
     {
 
-        dd($request->all());
         Validator::make($request->all(), [
             'id' => ['required', 'string', Rule::unique('courses')->ignore($id)],
             'name' => ['required', 'string', Rule::unique('courses')->ignore($id)],

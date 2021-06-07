@@ -108,7 +108,7 @@ class FAQController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, $course_id, $lesson_id, $id)
     {
         Validator::make($request->all(), [
             'question' => ['required', 'string'],
@@ -127,7 +127,7 @@ class FAQController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy($course_id, $lesson_id, $id)
     {
         FAQ::findOrFail($id)->delete();
 

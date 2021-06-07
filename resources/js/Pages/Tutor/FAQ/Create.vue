@@ -99,9 +99,9 @@ export default {
   methods: {
     submit() {
       this.form.post(
-        this.route("tutor.courses.lessons.faqs.store", {
-          lesson: this.lesson.id,
+        this.route("tutor.courses.lessons.faqs.store", {         
           course: this.course.id,
+          lesson: this.lesson.id,
         }),
         {
           onSuccess: () => {

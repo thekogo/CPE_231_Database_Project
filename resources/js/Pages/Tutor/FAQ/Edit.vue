@@ -14,7 +14,9 @@
           </div>
           <div class="col-span-9">
             <div class="flex justify-between mb-2">
-              <h1 class="text-2xl font-semibold mb-3">แก้ไข FAQ #{{ faq.id }}</h1>
+              <h1 class="text-2xl font-semibold mb-3">
+                แก้ไข FAQ #{{ faq.id }}
+              </h1>
               <jet-button
                 :href="
                   route('tutor.courses.lessons.faqs.index', {
@@ -123,8 +125,8 @@ export default {
               if (result.isConfirmed) {
                 this.$inertia.get(
                   route("tutor.courses.lessons.faqs.index", {
-                    lesson: this.lesson.id,
                     course: this.course.id,
+                    lesson: this.lesson.id,
                   })
                 );
               }

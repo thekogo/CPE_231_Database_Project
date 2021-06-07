@@ -86,13 +86,14 @@ export default {
   methods: {
     openDelete({ id, name }) {
       Swal.fire({
-        title: "Are you sure?",
-        text: "You won't be able to revert this!",
+        title: "ยืนยันการลบ",
+        text: "ไม่สามารถย้อนกลับได้!",
         icon: "warning",
         showCancelButton: true,
         confirmButtonColor: "#3085d6",
         cancelButtonColor: "#d33",
-        confirmButtonText: "Yes, delete it!",
+        confirmButtonText: "ยืนยัน",
+        cancelButtonText: "ยกเลิก",
         showLoaderOnConfirm: true,
         preConfirm: () => {
           return this.$inertia.delete(

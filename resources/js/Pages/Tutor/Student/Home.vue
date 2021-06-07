@@ -16,7 +16,11 @@
             <div class="flex justify-between mb-2">
               <h1 class="text-2xl font-semibold mb-3">
                 นักเรียนทั้งหมดใน {{ course.name }}
-              </h1>              
+              </h1>  
+              <jet-button
+                  :href="route('tutor.courses.show', { course: course.id })"
+                  >กลับหน้าคอร์ส</jet-button
+                >            
             </div>
             <div class="bg-white shadow-lg rounded-md p-5 flex flex-col gap-4">
               <table class="table-auto">

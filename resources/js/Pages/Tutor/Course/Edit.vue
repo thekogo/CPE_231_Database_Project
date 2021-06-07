@@ -32,6 +32,7 @@
                     autofocus
                     autocomplete="id"
                     v-model="form.id"
+                    disabled
                   />
                 </div>
                 <div class="grid grid-cols-5 mb-2">
@@ -212,7 +213,7 @@ export default {
           onSuccess: () => {
             Swal.fire({
               title: "Suscess",
-              html: `แก้ ${this.course.name} เรียบร้อย`,
+              html: `แก้ไข <b>${this.course.id} | ${this.course.name}</b> เรียบร้อย`,
               icon: "success",
               timer: 3000,
               timerProgressBar: true,
@@ -223,7 +224,7 @@ export default {
               cancelButtonText: "ปิด",
             }).then((result) => {
               if (result.isConfirmed) {
-                this.$inertia.get(route("tutor.course.index"));
+                this.$inertia.get(route("tutor.courses.index"));
               }
             });
           },

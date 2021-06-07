@@ -39,16 +39,12 @@
                   </tr>
                 </thead>
                 <tbody>
-                  <tr
-                    class="text-center"
-                    v-for="faq in faqs"
-                    :key="faq.id"
-                  >
+                  <tr class="text-center" v-for="faq in faqs" :key="faq.id">
                     <td>#{{ faq.id }}</td>
                     <td>{{ faq.question }}</td>
                     <td>{{ faq.answer }}</td>
                     <td>{{ faq.create_date }}</td>
-                    <td class="flex gap-2 justify-center">                      
+                    <td class="flex gap-2 justify-center">
                       <jet-button
                         color="warning"
                         :href="
@@ -58,11 +54,11 @@
                             faq: faq.id,
                           })
                         "
-                        ><i class="far fa-edit"></i></jet-button
-                      >
-                      <jet-button color="danger" @click="openDelete(faqs)"
-                        ><i class="far fa-trash-alt"></i></jet-button
-                      >
+                        ><i class="far fa-edit"></i
+                      ></jet-button>
+                      <jet-button color="danger" @click="openDelete(faq)"
+                        ><i class="far fa-trash-alt"></i
+                      ></jet-button>
                     </td>
                   </tr>
                 </tbody>
@@ -95,13 +91,14 @@ export default {
     openDelete({ id, name }) {
       console.log(id);
       Swal.fire({
-        title: "Are you sure?",
-        text: "You won't be able to revert this! " + id,
+        title: "ยืนยันการลบ",
+        text: "ไม่สามารถย้อนกลับได้!",
         icon: "warning",
         showCancelButton: true,
         confirmButtonColor: "#3085d6",
         cancelButtonColor: "#d33",
-        confirmButtonText: "Yes, delete it!",
+        confirmButtonText: "ยืนยัน",
+        cancelButtonText: "ยกเลิก",
         showLoaderOnConfirm: true,
         preConfirm: () => {
           return this.$inertia.delete(

@@ -138,7 +138,7 @@ export default {
           onSuccess: () => {
             Swal.fire({
               title: "Suscess",
-              html: `แก้ <b>${this.lesson.name}</b> เรียบร้อย`,
+              html: `แก้ไข <b>#${this.lesson.id} | ${this.lesson.name}</b> เรียบร้อย`,
               icon: "success",
               timer: 3000,
               timerProgressBar: true,
