@@ -2,7 +2,7 @@
   <app-layout>
     <template #header>
       <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-        จัดการหมวดหมู่
+        สรุปภาพรวม
       </h2>
     </template>
 
@@ -176,6 +176,58 @@
                   </tbody>
                 </table>
               </div>
+              <div>
+                <h1 class="text-2xl">
+                  5 อันดับนักเรียน เรียนจบบทเรียนมากที่สุด
+                </h1>
+                <table class="table-fixed w-full">
+                  <thead>
+                    <tr>
+                      <th>ชื่อ</th>
+                      <th>เรียนจบแล้ว (บทเรียน)</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr
+                      class="text-center"
+                      v-for="top5studentLearned in top5studentLearneds"
+                      :key="top5studentLearned.course_id"
+                    >
+                      <td>
+                        {{ top5studentLearned.firstName }}
+                        {{ top5studentLearned.lastName }}
+                      </td>
+                      <td>{{ top5studentLearned.total_learned }}</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+              <div>
+                <h1 class="text-2xl">
+                  5 อันดับนักเรียน ลงทะเบียนเรียนมากที่สุด
+                </h1>
+                <table class="table-fixed w-full">
+                  <thead>
+                    <tr>
+                      <th>ชื่อ</th>
+                      <th>ลงทะเบียนเรียนทั้งสิ้น (คอร์ส)</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr
+                      class="text-center"
+                      v-for="top5Enrollment in top5Enrollments"
+                      :key="top5Enrollment.course_id"
+                    >
+                      <td>
+                        {{ top5Enrollment.firstName }}
+                        {{ top5Enrollment.lastName }}
+                      </td>
+                      <td>{{ top5Enrollment.count }}</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
             </div>
           </div>
         </div>
@@ -206,6 +258,7 @@ export default {
     "totalRefunds",
     "totalReviews",
     "top5Enrollments",
+    "top5studentLearneds",
   ],
 
   mounted() {

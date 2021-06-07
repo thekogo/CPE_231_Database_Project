@@ -76,6 +76,27 @@ class AnalyticController extends Controller
         order by total DESC
         LIMIT 5"));
 
+        // 10
+        $top5studentLearneds = DB::select(DB::raw(
+            "select u.firstName, u.lastName, count(l.id) AS 'total_learned' FROM users u, enrollments e, lesson_histories l
+            where e.user_id = u.id
+            group by u.firstName, u.lastName
+            order by count(l.id) DESC
+            limit 5
+            "
+        ));
+
+        $top5Enrollments = DB::select(DB::raw(
+            "select u.id, u.firstName, u.lastName, count(e.course_id) as 'count' from users u, enrollments e
+            where u.id = e.user_id
+            group by u.id, u.firstName, u.lastName
+            order by count(e.course_id)
+            limit 5
+            "
+        ));
+
+        // dd($top5Enrollments);
+
         // dd($enrollmentCourseCurrentYear);
         return Inertia::render('Admin/Analytic/Home', [
             'questionCourses' => $questionCourses,
@@ -84,7 +105,8 @@ class AnalyticController extends Controller
             'totalCoursePays' => $totalCoursePays,
             'totalRefunds' => $totalRefunds,
             'totalReviews' => $totalReviews,
-            'top5Enrollments' => $top5Enrollments
+            'top5studentLearneds' => $top5studentLearneds,
+            'top5Enrollments' => $top5Enrollments,
         ]);
     }
 }

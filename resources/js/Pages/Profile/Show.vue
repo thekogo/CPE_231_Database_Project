@@ -12,9 +12,9 @@
           <jet-section-border />
         </div>
 
-        <update-education-form :user="$page.props.user" class="mt-10 sm:mt-0" />
+        <!-- <update-education-form :user="$page.props.user" class="mt-10 sm:mt-0" /> -->
 
-        <jet-section-border />
+        <!-- <jet-section-border /> -->
 
         <div v-if="$page.props.jetstream.canUpdatePassword">
           <update-password-form class="mt-10 sm:mt-0" />
