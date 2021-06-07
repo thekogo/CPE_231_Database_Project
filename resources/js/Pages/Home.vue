@@ -30,12 +30,28 @@
   </div>
 
   <div class="container mx-auto grid grid-cols-5 gap-5 py-5">
-    <div class="col-span-4">
-      <img
-        src="/images/banner1.png"
-        class="h-80 object-cover w-full rounded-3xl"
-      />
-    </div>
+    <carousel :items-to-show="1" class="col-span-4">
+      <Slide v-for="slide in imgBanners" :key="slide">
+        <div class="carousel__item">
+          <div>
+            <img :src="slide" class="h-80 object-cover w-full rounded-3xl" />
+          </div>
+        </div>
+      </Slide>
+      <!-- <Slide>
+        <div class="carousel__item">
+          <img
+            src="/images/banner1.png"
+            class="h-80 object-cover w-full rounded-3xl"
+          />
+        </div>
+      </Slide> -->
+
+      <template #addons>
+        <navigation />
+        <pagination />
+      </template>
+    </carousel>
     <div class="col-span-1 grid grid-cols-2 grid-rows-2 gap-2">
       <div
         class="
@@ -116,21 +132,25 @@
       </div>
     </div>
   </div>
-  <div class="container grid grid-cols-5 gap-2 h-40 mx-auto">
-    <a
-      class="block col-span-1 row-span-1 cursor-pointer"
-      v-for="course in courses"
-      :key="course.id"
-      :href="route('course.detail', { course: course.id })"
-    >
-      <img :src="course.course_img" alt="" class="h-40" />
-      <h3>{{ course.name }}</h3>
-      <h4>{{ course.user.fullName }}</h4>
-    </a>
-    <div class="col-span-1 row-span-1 bg-red-300"></div>
-    <div class="col-span-1 row-span-1 bg-red-300"></div>
-    <div class="col-span-1 row-span-1 bg-red-300"></div>
-    <div class="col-span-1 row-span-1 bg-red-300"></div>
+  <br />
+  <br />
+
+  <div class="container mx-auto">
+    <div class="flex justify-end">
+      <span class="ml-auto text-xl cursor-pointer">ดูเพิ่มเติม >></span>
+    </div>
+    <div class="grid grid-cols-5 gap-2 h-40 mx-auto">
+      <a
+        class="block col-span-1 row-span-1 cursor-pointer"
+        v-for="course in courses"
+        :key="course.id"
+        :href="route('course.detail', { course: course.id })"
+      >
+        <img :src="course.course_img" alt="" class="h-40 mx-auto" />
+        <h3 class="mx-auto text-center">{{ course.name }}</h3>
+        <h4 class="mx-auto text-center">{{ course.user.fullName }}</h4>
+      </a>
+    </div>
   </div>
   <div class="grid grid-cols-2 mt-4">
     <div class="col-span-1">
@@ -161,6 +181,9 @@
       </div>
     </div>
   </div>
+  <br />
+  <br />
+  <br />
   <div class="container mx-auto items-center px-60">
     <img src="/images/faq.png" class="mx-auto" />
     <br /><br />
@@ -209,6 +232,11 @@
 .fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
   opacity: 0;
 }
+
+.carousel__item,
+carousel__slide {
+  widows: 100%;
+}
 </style>
 
 
@@ -219,8 +247,31 @@ import ButtonPill from "@/Components/Common/ButtonPill.vue";
 import InputPill from "@/Components/Common/InputPill.vue";
 import Copyright from "@/Components/Common/Copyright.vue";
 import Navbar from "@/Components/Common/Navbar.vue";
+import "vue3-carousel/dist/carousel.css";
+import { Carousel, Slide, Pagination, Navigation } from "vue3-carousel";
+
 export default {
-  components: { JetButton, ButtonPill, InputPill, Copyright, Navbar },
+  components: {
+    JetButton,
+    ButtonPill,
+    InputPill,
+    Copyright,
+    Navbar,
+    Carousel,
+    Slide,
+    Pagination,
+    Navigation,
+  },
   props: ["courses"],
+
+  data() {
+    return {
+      imgBanners: [
+        "/images/banner1.png",
+        "/images/banner2.png",
+        "/images/banner3.png",
+      ],
+    };
+  },
 };
 </script>
