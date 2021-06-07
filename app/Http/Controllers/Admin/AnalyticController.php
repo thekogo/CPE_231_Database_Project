@@ -70,7 +70,8 @@ class AnalyticController extends Controller
 
 
         // 9
-        $top5Enrollments = DB::select(DB::raw("select count(enrollments.course_id)/count(enrollments.id) * 100 as total, enrollments.course_id
+        $top5EnrollmentPersents = DB::select(DB::raw("
+        select count(enrollments.course_id)/(select count(*) from enrollments) * 100 as total, enrollments.course_id
         from `enrollments`
         group by enrollments.course_id
         order by total DESC
@@ -90,7 +91,7 @@ class AnalyticController extends Controller
             "select u.id, u.firstName, u.lastName, count(e.course_id) as 'count' from users u, enrollments e
             where u.id = e.user_id
             group by u.id, u.firstName, u.lastName
-            order by count(e.course_id)
+            order by count(e.course_id) DESC
             limit 5
             "
         ));
@@ -107,6 +108,7 @@ class AnalyticController extends Controller
             'totalReviews' => $totalReviews,
             'top5studentLearneds' => $top5studentLearneds,
             'top5Enrollments' => $top5Enrollments,
+            'top5EnrollmentPersents' => $top5EnrollmentPersents,
         ]);
     }
 }
