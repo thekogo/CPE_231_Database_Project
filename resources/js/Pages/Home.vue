@@ -188,36 +188,27 @@
   <div class="container mx-auto items-center px-60">
     <img src="/images/faq.png" class="mx-auto" />
     <br /><br />
-    <h1
-      class="
-        flex
-        justify-between
-        bg-gray-300
-        px-5
-        rounded-2xl
-        mb-5
-        cursor-pointer
-        items-center
-      "
-    >
-      <span class="text-2xl">สนใจสมัครเรียนต้องทำอย่างไร</span>
-      <i class="fas fa-plus ml-"></i>
-    </h1>
 
-    <h1 class="text-2xl bg-gray-300 px-5 rounded-2xl mb-5 cursor-pointer">
-      อยากเรียนคอร์สสดต้องทำอย่างไร
-    </h1>
-    <h1 class="text-2xl bg-gray-300 px-5 rounded-2xl mb-5 cursor-pointer">
-      ช่องทางการชำระเงิน
-    </h1>
-    <h1 class="text-2xl bg-gray-300 px-5 rounded-2xl mb-5 cursor-pointer">
-      Next Level มีกี่สาขา
-    </h1>
-    <h1 class="text-2xl bg-gray-300 px-5 rounded-2xl mb-5 cursor-pointer">
-      สามารถเรียนที่ไหนได้บ้าง
-    </h1>
-
-    <br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
+    <faq
+      header="สนใจสมัครเรียนต้องทำอย่างไร"
+      description="สามารถสมัครผ่านทางเว็บไซต์ หรือ สาขาใกล้บ้านได้เลยค่ะ"
+    />
+    <faq
+      header="อยากเรียนคอร์สสดต้องทำอย่างไร"
+      description="หลังจากซื้อคอร์สสามารถจองเวลาเรียนที่สาขาใกล้บ้านได้ค่ะ"
+    />
+    <faq
+      header="ช่องทางการชำระเงิน"
+      description="สามารถโอนผ่านช่องทางธนาคาร หรือเงินสดได้ที่สถาบัน"
+    />
+    <faq
+      header="Next Level มีกี่สาขา"
+      description="ในขณะนี้มีสาขาทั้งหมดเพียงสาขาเดียว กำลังเร่งดำเนินการเพิ่มสาขาเพื่อให้สามารถเข้าถึงได้ง่าย"
+    />
+    <faq
+      header="สามารถเรียนที่ไหนได้บ้าง"
+      description="สามารถเรียนผ่านช่องทางออนไลน์ หรือจองเวลามาเรียนที่สถาบันได้"
+    />
   </div>
 
   <img src="/images/bottom2.png" class="w-full" />
@@ -250,6 +241,7 @@ import Copyright from "@/Components/Common/Copyright.vue";
 import Navbar from "@/Components/Common/Navbar.vue";
 import "vue3-carousel/dist/carousel.css";
 import { Carousel, Slide, Pagination, Navigation } from "vue3-carousel";
+import Faq from "@/Components/Common/FAQ.vue";
 
 export default {
   components: {
@@ -262,6 +254,7 @@ export default {
     Slide,
     Pagination,
     Navigation,
+    Faq,
   },
   props: ["courses"],
 

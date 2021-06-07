@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Category;
 use App\Models\Course;
 use App\Models\CourseCategory;
+use App\Models\Review;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -96,6 +97,9 @@ class CourseController extends Controller
             ->with('course_categories.category')
             ->findOrFail($id);
         $categories = Category::all();
+        $course_id = $course->id;
+        $reviews = Review::with('enrollments')->join('enrollments', 'enrollments.id', '=', 'reviews.enrollment_id')
+            ->where('enrollments.course_id', $course_id)->get();
         return Inertia::render('Admin/Course/Show', [
             "course" => $course,
             "categories" => $categories

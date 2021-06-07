@@ -14,10 +14,7 @@
           </div>
           <div class="col-span-9">
             <div class="flex justify-between mb-2">
-              <h1 class="text-2xl font-semibold mb-3">รายการหมวดหมู่</h1>
-              <jet-button :href="route('admin.categories.create')"
-                >สร้างหมวดหมู่</jet-button
-              >
+              <h1 class="text-2xl font-semibold mb-3">สรุปภาพรวม</h1>
             </div>
             <div
               class="bg-white shadow-lg rounded-md p-5 flex flex-col gap-4"
@@ -43,7 +40,11 @@ export default {
     SideMenu,
     JetButton,
   },
-  props: ["categories"],
+  props: ["questionCourse"],
+
+  mounted() {
+    console.log(this.questionCourse);
+  },
 
   methods: {
     openDelete({ id, name }) {

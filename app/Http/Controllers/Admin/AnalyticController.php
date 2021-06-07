@@ -14,7 +14,7 @@ class AnalyticController extends Controller
     {
         // 1
         $questionCourse = DB::select(
-            DB::raw("select c.id, count(c.id) from questions q
+            DB::raw("select c.id, count(c.id) AS count_id from questions q
             JOIN enrollments e ON q.enrollment_id = e.id
             JOIN courses c ON e.course_id = c.id
             GROUP BY c.id
@@ -76,6 +76,8 @@ class AnalyticController extends Controller
         LIMIT 5"));
 
         // dd($enrollmentCourseCurrentYear);
-        return Inertia::render('Admin/Analytic/Home');
+        return Inertia::render('Admin/Analytic/Home', [
+            'questionCourse' => $questionCourse
+        ]);
     }
 }
