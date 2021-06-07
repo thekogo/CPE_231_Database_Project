@@ -92,7 +92,7 @@
         <i class="fas fa-user text-6xl text-purplen"></i>
         <span>PROFILE</span>
       </a>
-      <div
+      <a
         class="
           col-span-1
           row-span-1
@@ -107,10 +107,11 @@
           hover:bg-pink-200
           hover:shadow-xl
         "
+        :href="route('tutor.all')"
       >
         <i class="fas fa-chalkboard-teacher text-6xl text-skyn"></i>
         <span>TUTOR</span>
-      </div>
+      </a>
       <div
         class="
           col-span-1

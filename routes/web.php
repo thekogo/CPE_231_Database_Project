@@ -25,6 +25,8 @@ use Laravel\Jetstream\Rules\Role;
 
 Route::get('/', [HomeController::class, 'index'])->name('index');
 
+// Route::get('/login')->name('dashboard');
+
 Route::prefix('home')->group(function () {
     Route::get('/', [HomeController::class, 'home'])->name('home');
     Route::get('/contact', [HomeController::class, 'contact'])->name('contact');

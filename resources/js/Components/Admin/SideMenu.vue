@@ -28,27 +28,6 @@
     >
       จัดการการลงทะเบียนเรียน
     </jet-nav-link>
-    <jet-nav-link
-      class="text-xl h-10"
-      :href="route('dashboard')"
-      :active="route().current('dashboard')"
-    >
-      ถาม-ตอบปัญหาการเรียน
-    </jet-nav-link>
-    <jet-nav-link
-      class="text-xl h-10"
-      :href="route('dashboard')"
-      :active="route().current('dashboard')"
-    >
-      เกี่ยวกับเรา
-    </jet-nav-link>
-    <jet-nav-link
-      class="text-xl h-10"
-      :href="route('dashboard')"
-      :active="route().current('dashboard')"
-    >
-      แจ้งชำระเงิน
-    </jet-nav-link>
   </div>
 </template>
 
