@@ -91,12 +91,9 @@
               <div v-for="faq in lesson.faqs" :key="faq.id">
                 <div class="flex justify-between gap-2">
                   <div class="flex-grow">
-                    <h1 class="text-2xl">#{{ faq.id }}</h1>
-                    <p>
-                      <b>{{ faq.question }}</b>
-                    </p>
+                    <h1 class="text-2xl font-semibold">#{{ faq.id }} | {{ faq.question }}</h1>
                     <hr />
-                    <p>
+                    <p class="text-xl">
                       {{ faq.answer }}
                     </p>
                   </div>

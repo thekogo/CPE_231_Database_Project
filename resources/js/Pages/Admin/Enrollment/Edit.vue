@@ -26,7 +26,7 @@
               <form @submit.prevent="submit">
                 <div class="grid grid-cols-5 mb-2">
                   <label-grid for="user_id" value="ผู้เรียน" />
-                  <jet-select v-model="form.user_id" required id="user_id">
+                  <jet-select v-model="form.user_id" required id="user_id" disabled>
                     <option
                       v-for="student in students"
                       :key="student.id"
@@ -38,7 +38,7 @@
                 </div>
                 <div class="grid grid-cols-5 mb-2">
                   <label-grid for="course_id" value="คอร์สเรียน" />
-                  <jet-select v-model="form.course_id" required id="course_id">
+                  <jet-select v-model="form.course_id" required id="course_id" disabled>
                     <option
                       v-for="course in courses"
                       :key="course.id"
@@ -54,6 +54,7 @@
                     id="payment_method"
                     v-model="form.payment_method"
                     required
+                    disabled
                   >
                     <option
                       v-for="option in method_options"
@@ -72,6 +73,7 @@
                     class="mt-1 block w-full"
                     v-model="form.payment_date"
                     required
+                    disabled
                   />
                 </div>
                 <div class="grid grid-cols-5 mb-2">

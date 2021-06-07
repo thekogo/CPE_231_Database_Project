@@ -82,19 +82,46 @@
               </form>
             </div>
             <div class="flex justify-between mb-2 mt-3">
+              <h1 class="text-2xl font-semibold mb-3">คำถามที่พบบ่อย</h1>
+              <div class="flex items-center gap-4 mt-2">
+                <jet-button
+                  :href="
+                    route('tutor.courses.lessons.faqs.index', {
+                      lesson: lesson.id,
+                      course: course.id,
+                    })
+                  "
+                  >เพิ่ม FAQ</jet-button
+                >
+              </div>
+            </div>
+            <div class="bg-white shadow-lg rounded-md p-5 flex flex-col gap-4">
+              <div v-for="faq in lesson.faqs" :key="faq.id">
+                <div class="flex justify-between gap-2">
+                  <div class="flex-grow">
+                    <h1 class="text-2xl font-medium">{{ faq.question }}</h1>
+                    <hr />
+                    <p class="text-xl">
+                      {{ faq.answer }}
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="flex justify-between mb-2 mt-3">
               <h1 class="text-2xl font-semibold mb-3">คำถามจากผู้เรียน</h1>
             </div>
             <div class="bg-white shadow-lg rounded-md p-5 flex flex-col gap-4">
               <div v-for="question in lesson.questions" :key="question.id">
                 <div class="flex justify-between gap-2">
                   <div class="flex-grow">
-                    <h1 class="text-2xl">
+                    <h1 class="text-2xl font-medium">
                       #{{ question.id }} | {{ question.description }}
                     </h1>
                     <hr />
-                    <b>คำตอบ</b>
-                    <p v-if="question.answers.length == 0">ยังไม่มีคำตอบ</p>
-                    <p v-for="answer in question.answers" :key="answer.id">
+                    <b class="text-xl">คำตอบ</b>
+                    <p class="text-xl" v-if="question.answers.length == 0">ยังไม่มีคำตอบ</p>
+                    <p class="text-xl" v-for="answer in question.answers" :key="answer.id">
                       {{ answer.description }}
                     </p>
                   </div>
