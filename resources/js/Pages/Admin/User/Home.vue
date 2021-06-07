@@ -31,7 +31,7 @@
                     :key="user.name"
                   >
                     <td>#{{ user.id }}</td>
-                    <td>{{ user.fullName }}</td>
+                    <td class="text-left" >{{ user.fullName }}</td>
                     <!-- <td class="flex gap-2 justify-center">
                       <jet-button
                         :href="

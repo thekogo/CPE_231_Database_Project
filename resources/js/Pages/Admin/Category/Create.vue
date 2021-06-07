@@ -2,7 +2,7 @@
   <app-layout>
     <template #header>
       <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-        จัดการหมวดหมู่asd
+        จัดการหมวดหมู่
       </h2>
     </template>
 
@@ -99,7 +99,7 @@ export default {
             timerProgressBar: true,
             showCancelButton: true,
             confirmButtonColor: "#3085d6",
-            confirmButtonText: "กลับไปหน้าจัดการทั้งหมด",
+            confirmButtonText: "กลับหน้าหลัก",
             cancelButtonColor: "#d33",
             cancelButtonText: "ปิด",
           }).then((result) => {

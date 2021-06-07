@@ -18,7 +18,9 @@
                 รายละเอียดบทเรียน : {{ lesson.name }}
               </h1>
               <div class="flex gap-2">
-                <jet-button :href="route('tutor.courses.index')"
+                <jet-button :href="route('tutor.courses.students.index', {
+                      course: course.id,
+                    })"
                   >นักเรียนในคอร์ส</jet-button
                 >
                 <jet-button
@@ -100,32 +102,7 @@
                 >
               </div>
             </div>
-            <box-content class="flex flex-col gap-4">
-              <div class="flex justify-between gap-2">
-                <p>
-                  Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-                  Nihil quaerat sunt asperiores reiciendis perspiciatis?
-                  Doloremque illum necessitatibus, molestiae, nobis corporis et
-                  omnis nam expedita consequatur esse voluptatum reprehenderit
-                  laboriosam enim?
-                </p>
-                <jet-button>test</jet-button>
-              </div>
-              <hr />
-              <div class="flex justify-between gap-2">
-                <p>
-                  Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-                  Nihil quaerat sunt asperiores reiciendis perspiciatis?
-                  Doloremque illum necessitatibus, molestiae, nobis corporis et
-                  omnis nam expedita consequatur esse voluptatum reprehenderit
-                  laboriosam enim? Lorem ipsum dolor sit amet, consectetur
-                  adipisicing elit. Nihil quaerat sunt asperiores reiciendis
-                  perspiciatis? Doloremque illum necessitatibus, molestiae,
-                  nobis corporis et omnis nam expedita consequatur esse
-                  voluptatum reprehenderit laboriosam enim?
-                </p>
-                <jet-button>test</jet-button>
-              </div>
+            <box-content class="flex flex-col gap-4">              
             </box-content>
           </div>
         </div>

@@ -43,7 +43,7 @@
                 <div>
                   <jet-button
                     :href="route('student.courses.show', { course: course.id })"
-                    >กลับไปหน้าคอร์ส</jet-button
+                    >กลับหน้าคอร์ส</jet-button
                   >
                 </div>
               </div>

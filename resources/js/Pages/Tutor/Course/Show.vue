@@ -172,34 +172,7 @@
             </div>
             <h1 class="text-2xl font-semibold mb-3 mt-2">
               คำถามที่ยังไม่ได้ตอบ
-            </h1>
-            <div class="bg-white shadow-lg rounded-md p-5 flex flex-col gap-4">
-              <div class="flex justify-between gap-2">
-                <p>
-                  Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-                  Nihil quaerat sunt asperiores reiciendis perspiciatis?
-                  Doloremque illum necessitatibus, molestiae, nobis corporis et
-                  omnis nam expedita consequatur esse voluptatum reprehenderit
-                  laboriosam enim?
-                </p>
-                <jet-button>test</jet-button>
-              </div>
-              <hr />
-              <div class="flex justify-between gap-2">
-                <p>
-                  Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-                  Nihil quaerat sunt asperiores reiciendis perspiciatis?
-                  Doloremque illum necessitatibus, molestiae, nobis corporis et
-                  omnis nam expedita consequatur esse voluptatum reprehenderit
-                  laboriosam enim? Lorem ipsum dolor sit amet, consectetur
-                  adipisicing elit. Nihil quaerat sunt asperiores reiciendis
-                  perspiciatis? Doloremque illum necessitatibus, molestiae,
-                  nobis corporis et omnis nam expedita consequatur esse
-                  voluptatum reprehenderit laboriosam enim?
-                </p>
-                <jet-button>test</jet-button>
-              </div>
-            </div>
+            </h1>            
           </div>
         </div>
       </div>

@@ -17798,7 +17798,7 @@ __webpack_require__.r(__webpack_exports__);
             timerProgressBar: true,
             showCancelButton: true,
             confirmButtonColor: "#3085d6",
-            confirmButtonText: "กลับไปหน้าจัดการทั้งหมด",
+            confirmButtonText: "กลับหน้าหลัก",
             cancelButtonColor: "#d33",
             cancelButtonText: "ปิด"
           }).then(function (result) {
@@ -17884,7 +17884,7 @@ __webpack_require__.r(__webpack_exports__);
             timerProgressBar: true,
             showCancelButton: true,
             confirmButtonColor: "#3085d6",
-            confirmButtonText: "กลับไปหน้าจัดการทั้งหมด",
+            confirmButtonText: "กลับหน้าหลัก",
             cancelButtonColor: "#d33",
             cancelButtonText: "ปิด"
           }).then(function (result) {
@@ -18105,7 +18105,7 @@ __webpack_require__.r(__webpack_exports__);
             timerProgressBar: true,
             showCancelButton: true,
             confirmButtonColor: "#3085d6",
-            confirmButtonText: "กลับไปหน้าจัดการทั้งหมด",
+            confirmButtonText: "กลับหน้าหลัก",
             cancelButtonColor: "#d33",
             cancelButtonText: "ปิด"
           }).then(function (result) {
@@ -18285,7 +18285,7 @@ __webpack_require__.r(__webpack_exports__);
             timerProgressBar: true,
             showCancelButton: true,
             confirmButtonColor: "#3085d6",
-            confirmButtonText: "กลับไปหน้าจัดการทั้งหมด",
+            confirmButtonText: "กลับหน้าหลัก",
             cancelButtonColor: "#d33",
             cancelButtonText: "ปิด"
           }).then(function (result) {
@@ -18371,7 +18371,7 @@ __webpack_require__.r(__webpack_exports__);
             timerProgressBar: true,
             showCancelButton: true,
             confirmButtonColor: "#3085d6",
-            confirmButtonText: "กลับไปหน้าจัดการทั้งหมด",
+            confirmButtonText: "กลับหน้าหลัก",
             cancelButtonColor: "#d33",
             cancelButtonText: "ปิด"
           }).then(function (result) {
